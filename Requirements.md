@@ -1,5 +1,24 @@
 # Requirements
 
+## Base Requirements
+- The ability to create an account/login or continue as guest
+- Contact form to report incidents, etc.
+- Notification system
+- Ice cream has a variety of flavors (at minimum 4)
+- Different drone sizes (small, medium, large)
+- Drone capacity (small = 1, medium = 4, large = 8)
+- User account
+    - The ability to order ice cream
+    - "Track the order"
+    - "Pay for the order"
+- Flyer account
+    - Register as a flyer
+    - Compensation based on distance, time, etc.
+    - Check compensation
+- Admin account
+    - Check inventory
+    - Manage inventory
+
 ## User Stories
 
 ### User
@@ -26,7 +45,6 @@
   
 
 ## Use Cases
-
-### Tester (Potentially nice to have, not necessary)
+![Use Cases](md_images/use_cases.png)
 
 ## Prototypes
