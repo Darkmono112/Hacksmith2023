@@ -45,6 +45,6 @@
   
 
 ## Use Cases
-![Use Cases](md_images/use_cases.png)
+![Use Cases](md_images/Use_Cases.png)
 
 ## Prototypes
