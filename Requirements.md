@@ -30,10 +30,14 @@
   - DOD: A countdown will appear showing how long until the order is expected (static) and a 'map' showing how far the drone has to go.
 - As a user, I would like to have more than one flavor of ice cream per cone.
   - DOD: On the order screen, the user has the option to add another scoop of a different flavor. It can be the same flavor as the first scoop or no second scoop at all
+- As a user, I would like to earn points to incentivize me to order more
+  - DOD: Users earn one point fer every dollar spent and are able to see their points when they log in.
 
 ### "Flyers" 
 - As a flyer, I would like to be compensated by flight time or distance
   - DOD: Flyers are 'compensated' by distance. Distance can probably be randomized. Earnings are shown on a tab on Flyer accounts.
+- As a flyer, I would like to be able to remove my drone from the service
+  - DOD: On the Flyer view, Flyers are able to remove a drone after it has been added.
 
 ### Developer/Admin
 - As an admin, I would like the ability to check inventory so I can know when I need to order more stuff
