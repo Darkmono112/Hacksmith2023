@@ -1,6 +1,7 @@
 # Requirements
 
 ## Base Requirements
+
 - The ability to create an account/login or continue as guest
 - Contact form to report incidents, etc.
 - Notification system
@@ -21,6 +22,8 @@
 
 ## User Stories
 
+=======
+## User Stories
 ### User
 - As a user, I want a variety of options for my icecream for when I feel like mint chocolate chip instead of fudge brownie 
   - DOD (Definition of Done): Each admin is required to add at least 4 ice cream flavors when they register.
@@ -50,5 +53,4 @@
 
 ## Use Cases
 ![Use Cases](md_images/Use_Cases.png)
-
 ## Prototypes
