@@ -39,17 +39,22 @@
 ### "Flyers" 
 - As a flyer, I would like to be compensated by flight time or distance
   - DOD: Flyers are 'compensated' by distance. Distance can probably be randomized. Earnings are shown on a tab on Flyer accounts.
+- As a flyer, I would like to be able to add a new drone to the service
+  - DOD: On the Flyer view, Flyers are able to add a drone and specify the size
+
 - As a flyer, I would like to be able to remove my drone from the service
   - DOD: On the Flyer view, Flyers are able to remove a drone after it has been added.
 
 ### Developer/Admin
 - As an admin, I would like the ability to check inventory so I can know when I need to order more stuff
   - DOD: Inventory is incremented on each order. There is a some notification when certain items need to be reordered.
+- As an admin I would like to see the revenue breakdown (Totals for types of ice-cream sold)
+- As an admin I would like to see the order history and information for every order and client
 - As a developer, I need flyers to classify their drones as 'small', 'medium', or 'large' so we can assign a capacity to each drone
   - DOD: small have a capacity of 1, medium have a capacity of 4, and large have a capacity of 8.
 - As a developer, I need to have an inventory of drones that are available for use so when an order comes in the app will know what size of drone to send, or how many to send
   - DOD: When an order comes in, drone(s) are selected automatically from the drone inventory. If no drones are available, it will wait until one is available.
-  
+
 
 ## Use Cases
 ![Use Cases](md_images/Use_Cases.png)
