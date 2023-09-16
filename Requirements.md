@@ -30,6 +30,7 @@
 - Different account types for "customers" and "flyers"
 - Account holder and Guest checkout modes
 - The ability to add/remove drones in a "flyer" account
+
 - A specific list of compatible drone types
 - Manager database that tracks inventory of flavors based on previous orders
 - Max distance for an order based on drone battery, e.g. someone cannot order a cone in Wyoming from a location in California
@@ -49,8 +50,6 @@
 **Won't Have (this time):**
 - The ability to tip a "flyer"
 - Automatic detection of the closest branch, seeing that there is only one branch
-
-
 ## User Stories
 
 =======
