@@ -25,7 +25,12 @@
 **Must-Haves:**
 - A location API that tracks each drone and sends email updates on order progress
 - A secure payment system
-@@ -32,16 +33,19 @@ MoSCoW Requirements
+- A separation of classes for drone size (small, medium, and large) capable of carrying different order sizes
+- A UI that allows users to pick between a minimum of 4 flavors, but uses the same size cone for every order
+- Different account types for "customers" and "flyers"
+- Account holder and Guest checkout modes
+- The ability to add/remove drones in a "flyer" account
+
 - A specific list of compatible drone types
 - Manager database that tracks inventory of flavors based on previous orders
 - Max distance for an order based on drone battery, e.g. someone cannot order a cone in Wyoming from a location in California
@@ -45,7 +50,6 @@
 **Won't Have (this time):**
 - The ability to tip a "flyer"
 - Automatic detection of the closest branch, seeing that there is only one branch
-
 ## User Stories
 
 =======
