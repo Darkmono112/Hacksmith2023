@@ -3,7 +3,7 @@
 ## Base Requirements
 
 - The ability to create an account/login or continue as guest
-- Contact form to report incidents, etc.
+- Contact forum to report incidents, etc.
 - Notification system
 - Ice cream has a variety of flavors (at minimum 4)
 - Different drone sizes (small, medium, large)
@@ -23,23 +23,24 @@
 ## MoSCoW Requirements
 
 **Must-Haves:**
-- A location API that tracks each drone and sends email updates on order progress
+- A location API that tracks each drone and sends email updates on order progress 
 - A secure payment system
-- A separation of classes for drone size (small, medium, and large) capable of carrying different order sizes
-- A UI that allows users to pick between a minimum of 4 flavors, but uses the same size cone for every order
+- A separation of classes for drone size (small, medium, and large) capable of carrying different order sizes 
+- A UI which allows users to pick between a minimum of 4 flavors
+- Use the same size cone for every order
 - Different account types for "customers" and "flyers"
 - Account holder and Guest checkout modes
 - The ability to add/remove drones in a "flyer" account
 
-- A specific list of compatible drone types
-- Manager database that tracks inventory of flavors based on previous orders
-- Max distance for an order based on drone battery, e.g. someone cannot order a cone in Wyoming from a location in California
+- Manager database tracks inventory of based on orders
+- Customer support forum for users to specify an issue that gets stored in the database
 
 **Should-Haves:**
-- Customer support form for users to specify an issue that gets stored in the database
+- Max distance for an order based on drone battery
 - Set base delivery time that changes based on distance from Drone Cone location
 - Point system for ordering from an account, rather than a guest checkout
 - The ability to assign multiple drones to a large order
+- A specific list of compatible drone types 
 
 **Could-Haves:**
 - Marketing emails and deals for Account holders
@@ -51,15 +52,12 @@
 - The ability to tip a "flyer"
 - Automatic detection of the closest branch, seeing that there is only one branch
 ## User Stories
-
-=======
-## User Stories
 ### User
-- As a user, I want a variety of options for my icecream for when I feel like mint chocolate chip instead of fudge brownie 
+- As a user, I want a variety of options for my ice cream. Such as mint chocolate chip or fudge brownie 
   - DOD (Definition of Done): Each admin is required to add at least 4 ice cream flavors when they register.
 - As a user, I would like to see my order history and have the ability to quickly reorder an order from my history
   - DOD: Last 5? orders are saved in a list and can be selected. This will place the order without having to change any of the options.
-- As a user, I would like to see how long until the drone will be delivering my icecream
+- As a user, I would like to see how long until the drone will be delivering my ice cream
   - DOD: A countdown will appear showing how long until the order is expected (static) and a 'map' showing how far the drone has to go.
 - As a user, I would like to have more than one flavor of ice cream per cone.
   - DOD: On the order screen, the user has the option to add another scoop of a different flavor. It can be the same flavor as the first scoop or no second scoop at all
@@ -88,4 +86,3 @@
 
 ## Use Cases
 ![Use Cases](md_images/Use_Cases.png)
-## Prototypes
