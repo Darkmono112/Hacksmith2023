@@ -19,6 +19,13 @@
 -- At a basic level, what will the user interface look like?
 ## Programming Language/Framework
 -- What programming language should we use? What libraries should we use? 
+**Server Side:**
+--Django
+**UI Side:**
+--Vue
+--Javascript
+--HTML
+--CSS
 ## Data Architecture
 -- What architecture should we use? 
 - Monolithic,
@@ -28,7 +35,23 @@
 - Data-Centric,
 - Event-Driven,
 - Rule-Based,
-- Distributed 
+- Distributed
+## Database Tables:
+
+**User Table**
+- Email
+- Password
+- User role (Consumer, Flyer, Admin)
+
+**Order History Table**
+- Keeps track of orders and users via foreign keys
+- Track 5 previous orders
+
+**Drone Table**
+- Email
+- 
+**Admin Table:**
+- Inventory with 'type' column
 
 [Definitions Here](https://gitlab.cs.usu.edu/erik.falor/fa23-cs3450-lecturenotes/-/tree/master/Module2/Lec09-Mon_Sep_18?ref_type=heads)
 ## 3rd Party Interfaces
