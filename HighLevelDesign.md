@@ -17,6 +17,26 @@
 -- What is the target platform? Mobile phone, desktop, web?
 ## User Interface
 -- At a basic level, what will the user interface look like?
+
+### Screens
+- Home screen 
+- Login/sign-up page it 
+    - account details 
+        - Passwords, points, history 
+- Apply Tab ( Flyer applications at minimum) ( Can be the flyer tab)  ( for now mark off a checkbox to immediately become a flyer)
+- Form for complaints and questions 
+- Order screen with options 
+    - payment ( Instant, no qualifying)
+- Manager 
+    - Inventory with editable values 
+    - History???
+- Flyer 
+    - Drone management ( Managers have access ) create new drone 
+    - Order cue 
+#### optional 
+- About 
+-   Track your order 
+
 ## Programming Language/Framework
 -- What programming language should we use? What libraries should we use? 
 **Server Side:**
@@ -74,7 +94,7 @@
 - Amount 
 - units ( stored as servings) 
 - cost per unit (maybe )
-- 
+
 
 
 
