@@ -47,16 +47,7 @@
 #### 3rd Party Interfaces
 - Google Maps API
 ## Data Architecture
--- What architecture should we use? 
-- Monolithic,
-- Client/Server,
-- Component-Based,
-- Service-Oriented, 
-- Data-Centric,
-- Event-Driven,
-- Rule-Based,
-- Distributed
-- 
+- Monolithic. Django can be considered a monolithic architecture as all the components are integrated including the use of the dbsqlite database.
 ## Database Tables:
 **User Table**
 - Email
