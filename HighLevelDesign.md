@@ -1,22 +1,15 @@
 # High Level Design
 
 ## Security Requirements
--- Note that not all these subgroups necessarily need to be addressed... also delete the question when addressing each subroup...
-### Operating System
-- How could a bad actor access interact with the operating system?
+- The majority of security concerns will be handled by the Django Framework, but we as developers will always be looking for more ways to increase security of thr application. 
 ### Application
-- How could a bad actor access interact with the application?
-### Network
-- How could a bad actor access interact with the network?
+- Since this is going to be application that is stored on the web, anyone can use it. With this in mind, we need to make sure that users are not able to interact with data that is not theirs and that they are not able to commit any acts that could harm the application as a whole. We will do this by scoping data and views to the correct user and user types, as well as sanitizing any data that users input before running any code based off of it. 
 ### Data
-- How could a bad actor access interact with our data?
-### Physical
-- How could a bad actor access interact with the physical server?
+- Like with any application, the data this program will store it it's database is very important and needs to be protected. As developers, we must take steps to ensure that our users data and our data is safe. We will do this by correctly storing sensitive information within our database, as well as correctly storing keys and tokens that our application will use to interact with other services. We will do this by utilizing Djangos built in Hashing features and environment variable storage systems. 
 
 ## Target Platform
--- What is the target platform? Mobile phone, desktop, web?
+- The target platform for this application with be the web via mobile phones, tablets, or desktops.
 ## User Interface
--- At a basic level, what will the user interface look like?
 
 ### Screens
 - Home screen 
@@ -44,14 +37,15 @@
 -   Track your order 
 
 ## Programming Language/Framework
--- What programming language should we use? What libraries should we use? 
-**Server Side:**
---Django
-**UI Side:**
---Vue
---Javascript
---HTML
---CSS
+#### Server Side:
+- Django
+#### UI Side:
+- Vue
+- Javascript
+- HTML
+- CSS
+#### 3rd Party Interfaces
+- Google Maps API
 ## Data Architecture
 -- What architecture should we use? 
 - Monolithic,
@@ -62,10 +56,8 @@
 - Event-Driven,
 - Rule-Based,
 - Distributed
+- 
 ## Database Tables:
-
-
-
 **User Table**
 - Email
 - ID 
