@@ -27,9 +27,13 @@
 - Form for complaints and questions 
 - Order screen with options 
     - payment ( Instant, no qualifying)
+#### Checkout Screen
+![Checkout Screen](md_images/checkout_screen.png)
 - Manager 
     - Inventory with editable values 
     - History???
+#### Inventory Screen
+![Inventory Screen](md_images/inventory_screen.jpg)
 - Flyer 
     - Drone management ( Managers have access ) create new drone 
     - Order cue 
