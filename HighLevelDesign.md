@@ -27,6 +27,8 @@
 - Form for complaints and questions 
 - Order screen with options 
     - payment ( Instant, no qualifying)
+#### Overall Flowchart
+![Overall Flowchart](md_images/Figma_Diagram.png)
 #### Checkout Screen
 ![Checkout Screen](md_images/checkout_screen.png)
 - Manager 
