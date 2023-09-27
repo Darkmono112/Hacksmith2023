@@ -26,7 +26,6 @@
 -   Track your order 
 
 ### Models 
-- TODO: psudocode
 **User Table**
 - Email
 - ID 
