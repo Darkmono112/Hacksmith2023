@@ -27,6 +27,40 @@
 
 ### Models 
 - TODO: psudocode
+**User Table**
+- Email
+- ID 
+- Password
+- User role (Consumer, Flyer, Admin)
+
+**Price Table**
+- Item  ( IE 1 scoop 2 scoop )
+- Price 
+
+**Order History Table**
+( Max history size in testing)
+- Keeps track of orders and users via foreign keys
+- (Track 5 previous orders)
+- Order number 
+- User ID 
+- Sale price 
+- Drone ID
+
+**Drone Table**
+- Email or User ID 
+- size 
+- Drone ID
+- Active status ( Like are you on vacation?)
+- On order / in use or free 
+- Orders carried / flight time  ( Compensation for our app )
+- Max Battery / max mileage ( Ask about how we measure battery life )
+
+**Inventory Table:**
+- Inventory with 'type' column
+- Item name 
+- Amount 
+- units ( stored as servings) 
+- cost per unit (maybe )
 
 ### Templates 
 - TODO psudocode (( the data and returns speciffically))
