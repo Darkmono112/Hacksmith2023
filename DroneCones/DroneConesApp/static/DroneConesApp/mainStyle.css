@@ -1,7 +1,7 @@
 body {
     display: flex;
     background-color: #F0DFAD;
-    background-image: url("DroneConesApp/twocones.jpg");
+    background-image: url("DroneConesApp/static/DroneConesApp/twocones.jpg");
     background-position: center;
     background-size: 1500px;
     align-items: center;
