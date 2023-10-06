@@ -1,0 +1,46 @@
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p>Sign Up Page</p>
+    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+            <div>
+                <div>
+                    {{ field.label_tag }}
+                    {% if field.field.required %}<span style="color: red">*</span>{% endif %}
+
+                </div>
+                <div>
+                    {{ field }}
+                    {% for error in field.errors %}
+                    <div style="color: red">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- {% if field == password %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %} -->
+            </div>
+        {% endfor %}
+        <button type="submit">Sign Up</button>
+        <div>
+            <a href="{% url 'login' %}">Log in</a>
+        </div>
+    </form>
+    
+</body>
+</html>
+{% endblock %}
+
+<!-- Afterwards, make sure to extend base.html -->
