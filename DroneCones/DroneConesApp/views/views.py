@@ -54,4 +54,8 @@ def login_page(request):
     context={}
     return render(request, "DroneConesApp/login.html", context)
 
+
+def logout_page(request):
+    logout(request)
+    return redirect('login')
 # Create your views here.
