@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <title>{% block title %}{{ section.title}}{% endblock %} </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="shortcut icon" type="image/png" href="{% static 'DroneConesApp/images/icon.png' %}"/>
+    <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}">
+</head>
+<body style="background-image: {% static 'DroneConesApp/images/twocones.jpg' %}; background-position: center; background-size: 1500px">
+    <script src="{% static 'DroneConesApp/final.js'%}" defer></script>
+<div class="full-container">
+    <nav class="navigation">
+        <div style="display: flex">
+            <img src="{% static 'DroneConesApp/images/icon.png' %}" height="50px" width="50px" >
+            <h1>DroneCones</h1>
+        </div>
+        <div class="link_container"><a href="#">Home</a></div>
+        <div class="link_container"><a href="#">Order Now</a></div>
+        <div class="link_container"><a href="#">Promotions</a></div>
+        <div class="link_container"><a href="#">Login</a></div>
+    </nav>
+    <div class="material-icons" id="menuButton">menu</div>
+    <div class="navdrawer" id="navdrawer">
+        <a><span class="material-icons">home</span>Home</a>
+        <a><span class="material-icons">person</span>Account</a>
+        <a><span class="material-icons">settings</span>Settings</a>
+        <a><span class="material-icons">logout</span>Logout</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>
