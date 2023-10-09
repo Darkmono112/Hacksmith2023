@@ -4,7 +4,7 @@
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 {% load static %}
-<body style="background-image: {% static 'DroneConesApp/twocones.jpg' %}; background-position: center; background-size: 1500px">
+<body>
     <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}">
     <script src="{% static 'DroneConesApp/final.js' %}" defer></script>
 <div class="full-container">
@@ -13,7 +13,7 @@
         <div class="link_container"><a href="">Home</a></div>
         <div class="link_container"><a href="">Order Now</a></div>
         <div class="link_container"><a href="">Promotions</a></div>
-        <div class="link_container"><a href="">Login</a></div>
+        <div class="link_container"><a href="">Login/Signup</a></div>
     </nav>
     <div class="material-icons" id="menuButton">menu</div>
     <div class="navdrawer" id="navdrawer">
@@ -22,9 +22,21 @@
         <a><span class="material-icons">settings</span>Settings</a>
         <a><span class="material-icons">logout</span>Logout</a>
     </div>
+    <div class="slideshow-container">
+        <div class="slide">
+            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
+        </div>
+        <div class="slide">
+            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
+        </div>
+        <div class="slide">
+            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
+        </div>
+        <!-- Add more images as needed -->
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
 
-    <h2>Navigation Drawer:</h2>
-    <p>Click the 'Menu' button in the top left to view.</p>
     <h2>Buttons:</h2>
     <h3>Example:</h3>
     <p>See a standard button below. The FAB (Frequent Action Button, set to take you to the FAQ page) is located in the bottom right.</p>

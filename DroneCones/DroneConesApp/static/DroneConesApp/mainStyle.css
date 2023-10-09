@@ -1,9 +1,6 @@
 body {
     display: flex;
     background-color: #0000;
-    background-image: url("DroneConesApp/static/DroneConesApp/twocones.jpg");
-    background-position: center;
-    background-size: 1500px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -15,7 +12,7 @@ html {
 }
 
 p {
-    color: white;
+    color: black;
 }
 
 
@@ -39,7 +36,7 @@ p {
 
 h2 {
     align-self: flex-start;
-    background-color: white;
+    background-color: black;
     color: black;
     text-decoration: underline;
     padding: 5px;
@@ -67,6 +64,7 @@ pre {
     gap: 10px;
     display: flex;
 <<<<<<< HEAD
+<<<<<<< HEAD
     height: auto;
     justify-content: space-between;
 }
@@ -75,6 +73,9 @@ pre {
     display: flex;
 =======
     background-color: lavender;
+=======
+    background-color: mediumpurple;
+>>>>>>> 44dd902 (Changed navbar links, background, added slideshow)
     justify-content: space-evenly;
 >>>>>>> f5ee68c (created landing-page branch with some initial changes)
     align-items: center;
@@ -90,46 +91,55 @@ pre {
     margin-right: 50px;
     position: relative;
     color: black;
+    z-index: 1;
 }
 .link_container::after {
     content: '';
     position: absolute;
-    width: 100%;
+    z-index: 1;
+    width: 115%;
     transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: purple;
-    transform-origin: bottom right;
+    height: 40px;
+    bottom: -10px;
+    left: -7%;
+    background-color: black;
+    transform-origin: bottom center;
     transition: transform 0.3s ease-out;
+    border-radius: 10px;
 }
 
 .link_container:hover::after {
     transform: scaleX(1);
-    transform-origin: bottom left;
+    transform-origin: bottom center;
+    z-index: 0;
 }
 
 a:link {
+    position: relative;
     text-decoration: none;
     color: black;
+    z-index: 2;
 }
 
 
 a:visited {
     text-decoration: none;
     color: black;
+    z-index: 2;
 }
 
 
 a:hover {
     text-decoration: none;
-    color: purple;
+    color: white;
     transition: color 0.3s ;
+    z-index: 2;
 }
 
 a:active {
     text-decoration: none;
-    color: purple;
+    color: white;
+    z-index: 2;
 }
 
 .navdrawer {
@@ -228,28 +238,64 @@ a:active {
     display: none;
 }
 
-.Back, .forward {
-    cursor: pointer;
+/*.Back, .forward {*/
+/*    cursor: pointer;*/
+/*    position: absolute;*/
+/*    top: 48%;*/
+/*    width: auto;*/
+/*    margin-top: -23px;*/
+/*    padding: 17px;*/
+/*    color: grey;*/
+/*    font-weight: bold;*/
+/*    font-size: 19px;*/
+/*    transition: 0.4s ease;*/
+/*    border-radius: 0 5px 5px 0;*/
+/*}*/
+
+/*.forward {*/
+/*    right: 0;*/
+/*    border-radius: 4px 0 0 4px;*/
+/*}*/
+
+/*.Back:hover, .forward:hover {*/
+/*    background-color: rgba(0,0,0,0.8);*/
+/*}*/
+
+.slideshow-container {
+    display: flex;
+    overflow: hidden;
+}
+
+.slide {
+    flex: 0 0 100%;
+    transition: transform 0.3s ease;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+button.prev,
+button.next {
     position: absolute;
-    top: 48%;
-    width: auto;
-    margin-top: -23px;
-    padding: 17px;
-    color: grey;
-    font-weight: bold;
-    font-size: 19px;
-    transition: 0.4s ease;
-    border-radius: 0 5px 5px 0;
+    top: 25%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
 }
 
-.forward {
+button.prev {
+    left: 0;
+}
+
+button.next {
     right: 0;
-    border-radius: 4px 0 0 4px;
 }
 
-.Back:hover, .forward:hover {
-    background-color: rgba(0,0,0,0.8);
-}
 
 .Info {
     color: #e3e3e3;
@@ -267,10 +313,6 @@ a:active {
     padding: 10px 14px;
     position: absolute;
     top: 0;
-}
-
-img {
-
 }
 
 .fade {
