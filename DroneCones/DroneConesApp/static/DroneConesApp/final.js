@@ -26,6 +26,35 @@ FAB.addEventListener('mouseleave', () => {
     FAB.classList.remove('clicked')
 })
 
-let vine = document.getElementById('vine')
-let flower = document.getElementById('sunflower')
+const slides = document.querySelectorAll('.slide');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let currentSlide = 0;
+
+function showSlide(n) {
+    slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${100 * (index - n)}%)`;
+    });
+}
+
+function prevSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+    }
+}
+
+function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+    }
+}
+
+prevBtn.addEventListener('click', prevSlide);
+nextBtn.addEventListener('click', nextSlide);
+
+// Initial display
+showSlide(currentSlide);
+
 
