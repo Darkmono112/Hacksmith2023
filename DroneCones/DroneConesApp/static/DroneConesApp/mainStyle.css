@@ -1,6 +1,6 @@
 body {
     display: flex;
-    background-color: #F0DFAD;
+    background-color: #0000;
     background-image: url("DroneConesApp/static/DroneConesApp/twocones.jpg");
     background-position: center;
     background-size: 1500px;
@@ -65,7 +65,7 @@ pre {
     padding: 10px;
     gap: 10px;
     display: flex;
-    background-color: #AA4465;
+    background-color: lavender;
     justify-content: space-evenly;
     align-items: center;
     font-family: sans-serif;
@@ -88,7 +88,7 @@ pre {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: white;
+    background-color: purple;
     transform-origin: bottom right;
     transition: transform 0.3s ease-out;
 }
@@ -112,13 +112,13 @@ a:visited {
 
 a:hover {
     text-decoration: none;
-    color: white;
+    color: purple;
     transition: color 0.3s ;
 }
 
 a:active {
     text-decoration: none;
-    color: white;
+    color: purple;
 }
 
 .navdrawer {
@@ -210,12 +210,6 @@ a:active {
 
 * {box-sizing:border-box}
 
-.slideshow-container {
-    width: 500px;
-    height: 500px;
-    position: relative;
-    margin: auto;
-}
 
 .Containers {
     display: none;
@@ -266,21 +260,6 @@ img {
 
 }
 
-.dots {
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
-    margin: 0 3px;
-    background-color: #312F2F;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.5s ease;
-}
-
-.enable, .dots:hover {
-    background-color: #717161;
-}
-
 .fade {
     animation-name: fade;
     animation-duration: 1.4s;
@@ -298,118 +277,9 @@ body {
     justify-content: center;
 }
 
-.spinner-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    width: 100vw;
-    height: 200px;
-}
-
-.inner_circle {
-    display: flex;
-    background-color: orangered;
-    border-radius: 100%;
-    width: 10px;
-    height: 10px;
-    margin: 0;
-    animation: sub_animate linear 3s infinite;
-}
-@keyframes sub_animate {
-    0% {
-        margin: 0;
-    }
-    50% {
-        margin: 4px;
-    }
-}
-@keyframes loading1 {
-    0% {
-        padding: 0;
-        transform: rotateZ(0deg);
-    }
-    50% {
-        padding: 3px;
-        width: 60px;
-        height: 60px;
-        transform: rotateZ(180deg);
-    }
-    100% {
-        padding: 0;
-        width: 35px;
-        height: 35px;
-        transform: rotateZ(360deg);
-    }
-}
-#spinner1 {
-    display: flex;
-    margin: 30px;
-    align-items: center;
-    justify-content: space-around;
-    flex-direction: row;
-    width: 35px;
-    height: 35px;
-    flex-wrap: wrap;
-    animation: loading1 linear 3s infinite;
-}
-
-.textSpinner {
-    display: flex;
-    background-color: steelblue;
-    color: white;
-    height: 20px;
-    padding: 5px;
-    width: 100px;
-    border-radius: 5px;
-    justify-content: center;
-    align-items: center;
-    animation: raise 3s infinite;
-
-}
-
 @keyframes raise {
     0% {box-shadow: none;}
     50% {box-shadow: 0 10px 10px rgb(100, 100, 100);
         color: rgb(200, 200, 200)}
     100% { box-shadow: none; }
-}
-#spinner2 {
-    width: 25px;
-    height: 10px;
-}
-
-#spinner3 {
-    width: 30px;
-    height: 30px;
-}
-
-#sunflower {
-    width: 100px;
-    height: 100px;
-    animation: spin 3s infinite;
-}
-
-#vine {
-    width: 1px;
-    height: 1px;
-    rotate: -45deg;
-    position: relative;
-    left: 30px;
-    bottom: 45px;
-}
-
-@keyframes spin {
-    from {
-        transform: rotateZ(0deg);
-    }
-    to {
-        transform: rotateZ(360deg);
-    }
-}
-
-.all-spinners {
-    display: flex;
-    flex-direction: row;
-
 }

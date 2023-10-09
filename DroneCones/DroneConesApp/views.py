@@ -7,7 +7,7 @@ from .forms import CreateUserForm
 
 
 def home(request):
-    return render(request, "DroneConesApp/base.html", {})
+    return render(request, "DroneConesApp/landing.html", {})
 
 
 def order(request):
