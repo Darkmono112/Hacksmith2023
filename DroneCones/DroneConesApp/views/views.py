@@ -3,7 +3,7 @@ from django.http import HttpResponse
 
 
 def home(request):
-    return render(request, "DroneConesApp/base.html", {})
+    return render(request, "DroneConesApp/misc/base.html", {})
 
 
 def order(request):
