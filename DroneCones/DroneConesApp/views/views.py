@@ -7,7 +7,11 @@ from .forms import CreateUserForm
 
 
 def home(request):
+<<<<<<< HEAD:DroneCones/DroneConesApp/views/views.py
     return render(request, "DroneConesApp/misc/base.html", {})
+=======
+    return render(request, "DroneConesApp/landing.html", {})
+>>>>>>> f5ee68c (created landing-page branch with some initial changes):DroneCones/DroneConesApp/views.py
 
 
 def order(request):
