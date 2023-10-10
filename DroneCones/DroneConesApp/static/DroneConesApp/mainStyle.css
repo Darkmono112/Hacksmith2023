@@ -57,7 +57,8 @@ pre {
     align-self: flex-start;
 }
 
-.navigation {
+.nav-container{
+    background-color: #AA4465;
     position: fixed;
     top: 0;
     left: 0;
@@ -65,8 +66,12 @@ pre {
     padding: 10px;
     gap: 10px;
     display: flex;
-    background-color: #AA4465;
-    justify-content: space-evenly;
+    height: auto;
+    justify-content: space-between;
+}
+
+.navigation {
+    display: flex;
     align-items: center;
     font-family: sans-serif;
     margin: 0;
@@ -77,6 +82,7 @@ pre {
 }
 .link_container {
     display: inline-block;
+    margin-right: 50px;
     position: relative;
     color: black;
 }
@@ -151,6 +157,7 @@ a:active {
 
 #menuButton {
     position: fixed;
+    display: block;
     top: 35px;
     left: 30px;
     font-size: xx-large;
@@ -159,6 +166,7 @@ a:active {
 }
 .button-container {
     display: flex;
+    flex-direction: row;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
