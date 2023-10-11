@@ -1,55 +1,19 @@
+{% extends 'DroneConesApp/misc/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-</head>
-{% load static %}
-<body>
     <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}">
     <script src="{% static 'DroneConesApp/final.js' %}" defer></script>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+{% block content %}
+<body>
 <div class="full-container">
-    <nav class="navigation">
-        <h1>DroneCones</h1>
-        <div class="link_container"><a href="">Home</a></div>
-        <div class="link_container"><a href="">Order Now</a></div>
-        <div class="link_container"><a href="">Promotions</a></div>
-        <div class="link_container"><a href="">Login/Signup</a></div>
-    </nav>
-    <div class="material-icons" id="menuButton">menu</div>
-    <div class="navdrawer" id="navdrawer">
-        <a><span class="material-icons">home</span>Home</a>
-        <a><span class="material-icons">person</span>Account</a>
-        <a><span class="material-icons">settings</span>Settings</a>
-        <a><span class="material-icons">logout</span>Logout</a>
-    </div>
-    <div class="slideshow-container">
-        <div class="slide">
-            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
-        </div>
-        <div class="slide">
-            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
-        </div>
-        <div class="slide">
-            <img src={% static 'DroneConesApp/images/skycone.jpg' %} >
-        </div>
-        <!-- Add more images as needed -->
-    </div>
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-
-    <h2>Buttons:</h2>
-    <h3>Example:</h3>
-    <p>See a standard button below. The FAB (Frequent Action Button, set to take you to the FAQ page) is located in the bottom right.</p>
-        <div class="button-container">
-            <button class="icon-button" id="button">
-                <span class="material-icons">person</span>
-            </button>
-            <div class="FAB" id="FAB">
-                <span class="material-icons">help</span>
-            </div>
-        </div>
-    </div>
+    <h2>DroneCones: Our Story</h2>
+<div class="container"><h2>Checkout Our New Flavor: Mint Chocolate Chip</h2><button>Order Now!</button></div>
+<div class="container"><p>About</p></div>
 </div>
-
 </body>
+{% endblock %}
 </html>
