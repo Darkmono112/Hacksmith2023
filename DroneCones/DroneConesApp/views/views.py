@@ -17,8 +17,9 @@ def FAQ(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-
+# @login_required(login_url='DroneCones:login') # Example prevent unauth access to a location 
 def flyerportal(request):
     return HttpResponse("This will be the Flyers page.")
+
 
 # Create your views here.
