@@ -32,12 +32,33 @@
                     <small style="color: grey">{{ field.help_text }}</small>
                 {% endif %} -->
             </div>
+<<<<<<< HEAD
         {% endfor %}
         <button type="submit">Sign Up</button>
         <div>
             <a href="{% url 'login' %}">Log in</a>
         </div>
     </form>
+=======
+            {% endfor %}
+            <button type="submit" class="button-primary" id="form-button">Sign Up</button>
+            <div class="secondary-text">
+                Already have an account? <a href="{% url 'home' %}" class="a-tag">Log in</a>
+            </div>
+        </form>
+    
+    </div>
+    <script>
+        const form = document.getElementById("user-auth-form")
+        const formButton = document.getElementById("form-button")
+
+        document.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                formButton.click();
+            }
+        });
+    </script>
+>>>>>>> 97d0768 (changed redirect)
     
 </body>
 </html>
