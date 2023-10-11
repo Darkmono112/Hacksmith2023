@@ -12,9 +12,16 @@ class CreateUserForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
-        self.fields['username'].required = False  # Make 'username' field not required
         self.fields['email'].required = True  # Make 'email' field required
+        self.fields['phone'].widget.attrs['placeholder'] = 'Phone Number'
+        
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-input'
+            required = "*" if visible.field.required else ""
+            # Phone number is weird, so it is a special case
+            visible.field.widget.attrs['placeholder'] = f"{visible.field.label if visible.field.label else self.fields['phone'].widget.attrs['placeholder']}" + required
+            
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone', 'password1', 'password2']
+        fields = ['username', 'email', 'password1', 'password2']
