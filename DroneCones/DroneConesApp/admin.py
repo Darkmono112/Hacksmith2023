@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Question
+from .models import *
 
-admin.site.register(Question)
-# Register your models here.
+admin.site.register(Order)
+admin.site.register(Order_Item)
+admin.site.register(Ice_Cream)
+admin.site.register(Cone)
+admin.site.register(Topping)
+admin.site.register(Drone)
