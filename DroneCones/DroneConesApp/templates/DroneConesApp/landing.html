@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,4 +53,24 @@
 </div>
 
 </body>
+=======
+{% extends 'DroneConesApp/misc/base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}">
+    <script src="{% static 'DroneConesApp/final.js' %}" defer></script>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+{% block content %}
+<body>
+<div class="full-container">
+    <h2>DroneCones: Our Story</h2>
+<div class="container"><h2>Checkout Our New Flavor: Mint Chocolate Chip</h2><button>Order Now!</button></div>
+<div class="container"><p>About</p></div>
+</div>
+</body>
+{% endblock %}
+>>>>>>> e3d60e8d9cdcf7059a9b82ceb667f5ed290d5e0c
 </html>

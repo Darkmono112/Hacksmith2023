@@ -3,15 +3,19 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
-from .forms import CreateUserForm
+from ..forms.forms import CreateUserForm
+from django.contrib.auth.models import Group
+
+def home(request):
+    return render(request, "DroneConesApp/landing.html", {})
+
+
+
 
 
 def home(request):
-<<<<<<< HEAD:DroneCones/DroneConesApp/views/views.py
-    return render(request, "DroneConesApp/misc/base.html", {})
-=======
     return render(request, "DroneConesApp/landing.html", {})
->>>>>>> f5ee68c (created landing-page branch with some initial changes):DroneCones/DroneConesApp/views.py
+
 
 
 def order(request):
@@ -36,8 +40,10 @@ def signup(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()
+            assign_group(user, "Customer")
+            login(request, user)
+            return redirect('home')
 
     context={'form': form}
     return render(request, "DroneConesApp/signup.html", context)
@@ -62,4 +68,11 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return redirect('login')
-# Create your views here.
+
+#Assign user to group
+def assign_group(user, group):
+    try:
+        user.groups.add(Group.objects.get(name=group))
+    except:
+        pass
+
