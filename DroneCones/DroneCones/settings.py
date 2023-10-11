@@ -100,6 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#LOGIN_URL = 'DroneConesApp:login'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

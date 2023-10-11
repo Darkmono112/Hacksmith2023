@@ -1,0 +1,31 @@
+.account-container{
+    height: fit-content;
+    padding: 1em;
+    background-color: #f3f3f3
+}
+
+.profile-container{
+    display: inline-block;
+    text-align: -webkit-center;
+    width: 15%;
+    height: 100%;
+}
+
+.buttons-container{
+    display: inline-block;
+    text-align: -webkit-center;
+    width: 69%;
+    height: 100%;
+}
+
+.button{
+    padding: .25em;
+    cursor:pointer;
+    font-size: 18px;
+    border: 2px solid #000;
+    border-radius: 12px;
+    display: block;
+    margin-bottom: 20px;
+    width: 60%;
+    background-color: #B48BD9
+}

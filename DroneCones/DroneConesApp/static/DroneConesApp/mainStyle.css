@@ -109,6 +109,11 @@ pre {
     transition: transform 0.3s ease-out;
 }
 
+#main-content-container{
+    min-height: 500px;
+    width: 95%;
+}
+
 .link_container:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
