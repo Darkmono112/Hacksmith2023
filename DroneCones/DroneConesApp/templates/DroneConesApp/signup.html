@@ -1,31 +1,9 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> e3d60e8d9cdcf7059a9b82ceb667f5ed290d5e0c
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <p>Sign Up Page</p>
-    </div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% for field in form %}
-            <div>
-                <div>
-                    {{ field.label_tag }}
-                    {% if field.field.required %}<span style="color: red">*</span>{% endif %}
-
-                </div>
-                <div>
-=======
     <title>Signup Page</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'DroneConesApp/login.css' %}">
@@ -39,7 +17,6 @@
             {% for field in form %}
             <div>
                 <div>
->>>>>>> e3d60e8d9cdcf7059a9b82ceb667f5ed290d5e0c
                     {{ field }}
                     {% for error in field.errors %}
                     <div style="color: red">
@@ -51,21 +28,10 @@
                     <small style="color: grey">{{ field.help_text }}</small>
                 {% endif %} -->
             </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        {% endfor %}
-        <button type="submit">Sign Up</button>
-        <div>
-            <a href="{% url 'login' %}">Log in</a>
-        </div>
-    </form>
-=======
-=======
->>>>>>> e3d60e8d9cdcf7059a9b82ceb667f5ed290d5e0c
             {% endfor %}
             <button type="submit" class="button-primary" id="form-button">Sign Up</button>
             <div class="secondary-text">
-                Already have an account? <a href="{% url 'home' %}" class="a-tag">Log in</a>
+                Already have an account? <a href="{% url 'login' %}" class="a-tag">Log in</a>
             </div>
         </form>
     
@@ -80,11 +46,6 @@
             }
         });
     </script>
-<<<<<<< HEAD
->>>>>>> 97d0768 (changed redirect)
-=======
->>>>>>> e3d60e8d9cdcf7059a9b82ceb667f5ed290d5e0c
-    
 </body>
 </html>
 {% endblock %}
