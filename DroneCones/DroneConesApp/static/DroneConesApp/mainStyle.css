@@ -47,6 +47,13 @@ p {
     margin: 80px auto;
 }
 
+.content-container{
+    height: fit-content;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
 h2 {
     align-self: flex-start;
     background-color: white;
@@ -109,6 +116,11 @@ pre {
     transition: transform 0.3s ease-out;
 }
 
+#main-content-container{
+    min-height: 500px;
+    width: 95%;
+}
+
 .link_container:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
@@ -144,7 +156,7 @@ a:active {
     align-items: flex-start;
     flex-direction: column;
     position: fixed;
-    top: 87px;
+    top: 100px;
     left: -305px;
     bottom: 0;
     width: 300px;
