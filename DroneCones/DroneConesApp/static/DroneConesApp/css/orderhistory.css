@@ -1,0 +1,30 @@
+.order{
+    border-radius: 12px;
+    transition: background-color 0.3s ease;
+    padding: .8em;
+    margin: 10px;
+}
+
+.headers{
+    text-align: center;
+    font-weight: bold;
+    background-color: initial;
+}
+
+.no-hover:hover {
+  background-color: initial !important;
+}
+
+.order-item:hover {
+  background-color: #7c0300ba;
+}
+
+.zebra:nth-child(even){
+    background-color: lightgray;
+    color: black;
+}
+
+.zebra:nth-child(odd){
+    background-color: white;
+    color: black;
+}

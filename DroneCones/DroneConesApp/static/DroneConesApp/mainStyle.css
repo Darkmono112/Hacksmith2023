@@ -47,6 +47,13 @@ p {
     margin: 80px auto;
 }
 
+.content-container{
+    height: fit-content;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
 h2 {
     align-self: flex-start;
     background-color: white;
