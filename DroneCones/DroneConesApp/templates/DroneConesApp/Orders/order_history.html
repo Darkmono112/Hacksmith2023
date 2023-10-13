@@ -1,0 +1,57 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Order History{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/orderhistory.css' %}">
+
+<div class="content-container">
+    <h1>Order History</h1>
+    <br>
+    <table width="98%" height="98%" align="center" cellpadding="10" border="0">
+        <tr class="order headers no-hover">
+            <th>Order Date</th>
+            <th>Order Number</th>
+            <th>Order Item(s)</th>
+            <th>Total Cost</th>
+            <th></th><!-- Delete button -->
+        </tr>
+    {% for order in orders %}
+        <tr class="order zebra">
+            <td>10/20/2023</td>
+            <td>#1</td>
+            <td><ul>
+                <li>Chocolate sugar cone</li>
+                <li>Caramel sundae</li>
+            </ul></td>
+            <td>$12.30</td>
+            <td>
+                <form id="delete-form" method="post" data-delete-url="{% url 'DroneConesApp:delete_order' order.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="project_id" value="{{ project.id }}">
+                    <input type="hidden" name="username" id="username">
+                    <button class="inline-delete-button" type="button" onclick="deleteConfirmation(this)">
+                      <img src="{% static 'DroneConesApp/images/trash.png' %}" height="14px" width="auto"> Delete
+                    </button>
+                  </form>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </table>
+
+
+</div>
+<script>
+    function deleteConfirmation(button) {
+  var confirmed = confirm('Are you sure you want to delete this item?');
+  if (confirmed) {
+      form.action = form.getAttribute('data-delete-url');
+      form.submit();
+  } else {
+    //ignore
+  }
+}
+</script>
+{% endblock %}
