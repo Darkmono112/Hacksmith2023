@@ -3,7 +3,7 @@
 ## What was done 
 - Met several times to coordinate and address various issues
 - Settled on a decision regarding the data flow/models
-- created tempalates for every screen
+- Created tempalates for every screen (distributed assignment to teammembers)
     - base
     - landing
     - account
@@ -11,9 +11,9 @@
     - checkout
     - order
     - flyer
-- set up the user roles (decided on using groups)
-- set up the models
-- set up the login flow forms for a user 
+- Set up the user roles (decided on using groups)
+- Set up the models
+- Set up the login flow forms for a user 
 
 ## Demo 
  - Present screens amidst the team and approved final designs
@@ -24,4 +24,4 @@
 
 ## Resolutions
 - Spent a meeting to work through the merge conflicts
-- demo using rebase
+- Demo using rebase
