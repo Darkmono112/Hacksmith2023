@@ -8,22 +8,28 @@
 
 <div id="flyerportal"> 
     <section>
-        <table class="table">
-            <thead>
-              <tr>
-                <th>Drone Size</th>
-                <th>Status</th>
-                <th>Out for Delivery</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Small</td>
-                <td>Active</td>
-                <td>Yes</td>
-              </tr>
-            </tbody>
-        </table>
+      <table width="98%" height="98%" align="center" cellpadding="10" border="0">
+        <tr class="headers no-hover">
+            <th>Drone Size</th>
+            <th>Status</th>
+            <th>Out for Delivery</th>
+        </tr>
+        {% for drone in drones %}
+        <tr class="order zebra">
+            <td>{{ drone.size }}</td>
+            <td>{{ drone.status }}</td>
+            <td>{{ drone.on_delivery }}</td>
+            <td>
+                <form id="active-form" method="post" data-active-url="">
+                    {% csrf_token %}
+                    <button class="" type="button" onclick="">
+                      <img src="{% static 'DroneConesApp/images/trash.png' %}" height="14px" width="auto">
+                    </button>
+                  </form>
+            </td>
+        </tr>
+        {% endfor %}
+      </table>
     </section>
     <aside>
         Add drone form 
