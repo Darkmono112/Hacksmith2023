@@ -1,0 +1,33 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %} Manage Drones {% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/flyerportal.css' %}">
+
+<div id="flyerportal"> 
+    <section>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Drone Size</th>
+                <th>Status</th>
+                <th>Out for Delivery</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Small</td>
+                <td>Active</td>
+                <td>Yes</td>
+              </tr>
+            </tbody>
+        </table>
+    </section>
+    <aside>
+        Add drone form 
+    </aside>
+</div>
+
+{% endblock %}

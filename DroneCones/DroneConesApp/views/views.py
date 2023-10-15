@@ -19,6 +19,6 @@ def payment(request):
 
 
 def flyerportal(request):
-    return HttpResponse("This will be the Flyers page.")
+    return render(request, "DroneConesApp/misc/flyerportal.html", {})
 
 # Create your views here.

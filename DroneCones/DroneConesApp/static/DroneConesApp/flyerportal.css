@@ -1,0 +1,24 @@
+#flyerportal {
+    display: flex;
+    margin: 50px auto;
+    width: 100%;
+    gap: 20px;
+}
+
+#flyerportal section {
+    width: 60%;
+}
+
+#flyerportal table {
+    width:100%;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#flyerportal aside {
+    width: 40%;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
