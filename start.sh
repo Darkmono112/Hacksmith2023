@@ -1,0 +1,1 @@
+python DroneCones/manage.py runserver
