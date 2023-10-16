@@ -46,7 +46,7 @@ def signup(request):
             return redirect('home')
 
     context={'form': form}
-    return render(request, "DroneConesApp/signup.html", context)
+    return render(request, "DroneConesApp/Signup/signup.html", context)
 
 @csrf_protect
 def login_page(request):
@@ -62,7 +62,7 @@ def login_page(request):
             return redirect('home')
 
     context={}
-    return render(request, "DroneConesApp/login.html", context)
+    return render(request, "DroneConesApp/Signup/login.html", context)
 
 
 def logout_page(request):

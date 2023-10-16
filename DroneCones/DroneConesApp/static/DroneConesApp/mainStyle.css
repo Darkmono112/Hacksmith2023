@@ -1,6 +1,19 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
 body {
     display: flex;
-    background-color: #0000;
+    background-color: #FFFFFF;
+    background-image: url("DroneConesApp/static/DroneConesApp/twocones.jpg");
+    background-position: center;
+    background-size: 1500px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -34,6 +47,13 @@ p {
     margin: 80px auto;
 }
 
+.content-container{
+    height: fit-content;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
 h2 {
     align-self: flex-start;
     background-color: black;
@@ -63,21 +83,15 @@ pre {
     padding: 10px;
     gap: 10px;
     display: flex;
-<<<<<<< HEAD
-<<<<<<< HEAD
     height: auto;
     justify-content: space-between;
 }
 
 .navigation {
     display: flex;
-=======
     background-color: lavender;
-=======
     background-color: mediumpurple;
->>>>>>> 44dd902 (Changed navbar links, background, added slideshow)
     justify-content: space-evenly;
->>>>>>> f5ee68c (created landing-page branch with some initial changes)
     align-items: center;
     font-family: sans-serif;
     margin: 0;
@@ -106,6 +120,11 @@ pre {
     transform-origin: bottom center;
     transition: transform 0.3s ease-out;
     border-radius: 10px;
+}
+
+#main-content-container{
+    min-height: 500px;
+    width: 95%;
 }
 
 .link_container:hover::after {
@@ -149,7 +168,7 @@ a:active {
     align-items: flex-start;
     flex-direction: column;
     position: fixed;
-    top: 87px;
+    top: 100px;
     left: -305px;
     bottom: 0;
     width: 300px;

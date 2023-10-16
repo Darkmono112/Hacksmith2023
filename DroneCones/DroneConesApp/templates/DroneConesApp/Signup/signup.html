@@ -4,28 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Signup Page</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'DroneConesApp/login.css' %}">
+
 </head>
 <body>
     <div class="page-container">
-        <h1>Welcome to Drone Cones</h1>
+        <h1>Sign up</h1>
         <form id="user-auth-form" action="" method="POST" class="form-container">
             {% csrf_token %}
-            <div>        
-                <input type="text" id="username" name="username" placeholder="Username*" class="form-input">
-            </div>
+            {% for field in form %}
             <div>
-                <input type="password" id="password" name="password" placeholder="Password*" class="form-input">
+                <div>
+                    {{ field }}
+                    {% for error in field.errors %}
+                    <div style="color: red">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- {% if field == password %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %} -->
             </div>
-            <button type="submit" class="button-primary" id="form-button">Log In</button>
-        </form>
-        <div>
+            {% endfor %}
+            <button type="submit" class="button-primary" id="form-button">Sign Up</button>
             <div class="secondary-text">
-                <a href="{% url 'signup' %}" class="a-tag">Sign Up</a> or <a href="{% url 'home' %}" class="secondary-text underline">Continue as guest</a>
+                Already have an account? <a href="{% url 'DroneConesApp:login' %}" class="a-tag">Log in</a>
             </div>
-        </div>
+        </form>
+    
     </div>
     <script>
         const form = document.getElementById("user-auth-form")
@@ -37,8 +46,8 @@
             }
         });
     </script>
-
 </body>
-{% endblock %}
 </html>
+{% endblock %}
 
+<!-- Afterwards, make sure to extend base.html -->
