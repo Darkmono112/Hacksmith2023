@@ -10,7 +10,12 @@ def home(request):
     return render(request, "DroneConesApp/landing.html", {})
 
 def order(request):
-    return HttpResponse("This will be the Order page.")
+    # get a list of all of the flavors 
+    # if the flavor has an img, then add it 
+    # if not then make it vanilla for now 
+    # django if statement 
+
+    return render(request,"DroneConesApp/OrderFlow/order.html", {}) 
 
 
 def FAQ(request):

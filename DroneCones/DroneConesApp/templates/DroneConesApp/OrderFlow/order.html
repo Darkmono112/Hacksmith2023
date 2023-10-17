@@ -1,4 +1,4 @@
-{% extends "misc/base.html" %}
+{% extends "DroneConesApp/misc/base.html" %}
 
 {% block title %}Order{% endblock %}
 
@@ -22,6 +22,12 @@ Plan : Finished by this week
         
 
 {% endcomment %}
+
+{% comment "" %} This is the icecream div  {% endcomment %}
+
+<div style="text-align:center"> 
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+</div>
 
 
 
