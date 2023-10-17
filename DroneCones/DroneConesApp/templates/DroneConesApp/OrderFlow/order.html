@@ -23,9 +23,25 @@ Plan : Finished by this week
 
 {% endcomment %}
 
-{% comment "" %} This is the icecream div  {% endcomment %}
+{% comment "" %} This is the icecream div
 
-<div style="text-align:center"> 
+For each flavor in the table 
+Take the name for the flavor, 
+find the png, and add it to the flavor 
+make a dot out of it and add it to the div
+
+Change it from Horizontal scrolling to Vertical every 5 entries 
+
+
+{% endcomment %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
+<div class="orders"> 
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
 {% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
 </div>
 
