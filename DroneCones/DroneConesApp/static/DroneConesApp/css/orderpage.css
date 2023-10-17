@@ -1,7 +1,27 @@
 .dot {
-    height: 25px;
-    width: 25px;
+    height: 50px;
+    width: 50px;
     background-color: #bbb;
     border-radius: 50%;
-    display: inline-block;
   }
+.orders {
+    position: fixed;
+    right:0;
+    width: 500px;
+    height: 150px;
+    white-space: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll
+
+}
+.orders div{
+    width: 24.5%;
+    float: none;
+    height: 60%;
+    margin: 0 0.25%;
+    display: inline-flex;
+    zoom: 1;
+}
+.item{
+    text-align: center;
+}
