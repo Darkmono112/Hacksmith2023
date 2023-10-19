@@ -9,15 +9,6 @@ from django.contrib.auth.models import Group
 def home(request):
     return render(request, "DroneConesApp/landing.html", {})
 
-
-
-
-
-def home(request):
-    return render(request, "DroneConesApp/landing.html", {})
-
-
-
 def order(request):
     return HttpResponse("This will be the Order page.")
 
@@ -43,7 +34,7 @@ def signup(request):
             user = form.save()
             assign_group(user, "Customer")
             login(request, user)
-            return redirect('home')
+            return redirect('DroneConesApp:home')
 
     context={'form': form}
     return render(request, "DroneConesApp/Signup/signup.html", context)
@@ -59,7 +50,7 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('DroneConesApp:home')
 
     context={}
     return render(request, "DroneConesApp/Signup/login.html", context)
@@ -67,7 +58,7 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    return redirect('login')
+    return redirect('DroneConesApp:login')
 
 #Assign user to group
 def assign_group(user, group):
