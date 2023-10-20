@@ -19,6 +19,14 @@ def payment(request):
 
 
 def flyerportal(request):
-    return HttpResponse("This will be the Flyers page.")
+    dummy_data = [
+        {"id": 1, "size": "small", "status": "Active", "on_delivery": "false"},
+        {"id": 2, "size": "large", "status": "Inactive", "on_delivery": "false"},
+        {"id": 3, "size": "small", "status": "Active", "on_delivery": "true"},
+    ]
+    context = {
+        'drones': dummy_data,
+    }
+    return render(request, "DroneConesApp/misc/flyerportal.html", context)
 
 # Create your views here.
