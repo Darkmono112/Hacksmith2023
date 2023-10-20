@@ -1,0 +1,73 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}My Account{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/accountpage.css' %}">
+
+<div class="content-container">
+    <h1 style="text-align: center; font-size: 50px">My Account</h1>
+    <hr style="margin-top: -20px; margin-bottom: 30px" width="80%">
+    <div class="profile-container"></div>
+    <div class="profile-container">
+        <body onload="setRandomBackgroundColor()">
+        </body>
+        <div style="display: block;" onload="setRandomBackgroundColor()">
+            <img id="randomColor" src="{% static 'DroneConesApp/images/user.png' %}" style="border-radius: 50%;" height="150px" width="auto">
+        </div>
+        <div style="display: block;">
+            <span style="font-weight: bold; font-size: 25px">{{user.name}}</span>
+        </div>
+    </div>
+    <div class="buttons-container">
+        <a class="button" href="{% url 'DroneConesApp:order_history' %}">
+            Order History
+        </a>
+        <a class="button" href="{% url 'DroneConesApp:change_username' %}">
+            Change Username
+        </a>
+        <a class="button" href="{% url 'DroneConesApp:change_password' %}">
+            Change Password
+        </a>
+        <form id="delete-form" method="post" data-delete-url="{% url 'DroneConesApp:delete_account' %}">
+            {% csrf_token %}
+            <button class="button" type="button" onclick="deleteConfirmation(this)">
+                Delete Account
+            </button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+        // Function to generate a random hex color code
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to set a random background color to the image
+        function setRandomBackgroundColor() {
+            var image = document.getElementById('randomColor');
+            var randomColor = getRandomColor();
+            image.style.backgroundColor = randomColor;
+        }
+    </script>
+<script>
+    function deleteConfirmation(button) {
+    var form = button.parentNode;
+  var confirmed = confirm('Are you sure you want to delete your account?');
+  if (confirmed) {
+      form.action = form.getAttribute('data-delete-url');
+      form.submit();
+  } else {
+    //ignore
+  }
+}
+</script>
+{% endblock %}
