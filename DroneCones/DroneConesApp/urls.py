@@ -8,6 +8,7 @@ urlpatterns = [
     path("FAQ/", views.FAQ, name="FAQ"),
     path("payment/", views.payment, name="payment"),
     path("flyerportal", views.flyerportal, name="flyerportal"),
+    path('create_drone/', views.create_drone, name='create_drone'),
     path("account/", account.account, name="account"),
     path("order_history", orders.order_history, name="order_history"),
     path("delete_order/<int:order_id>/", orders.delete_order, name="delete_order"),

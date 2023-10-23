@@ -6,6 +6,10 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'DroneConesApp/flyerportal.css' %}">
 
+{% if error_message %}
+    <div class="error">{{ error_message }}</div>
+{% endif %}
+
 <div id="flyerportal"> 
     <section>
       <table width="98%" height="98%" cellpadding="10">
@@ -15,31 +19,37 @@
             <th>Out on Delivery</th>
             <th>Actions</th>
         </tr>
-        {% for drone in drones %}
-        <tr class="hover">
-          <td>{{ drone.size }}</td>
-          <td>{{ drone.status }}</td>
-          <td>{{ drone.on_delivery }}</td>
-          <td>
-            <form id="active-form" method="post" data-active-url="">
-              {% csrf_token %}
-              <button class="" type="button" onclick="">
-                {% if drone.status == "Active" %}
-                  Deactivate
-                {% else %}
-                  Activate
-                {% endif %}
-              </button>
-            </form>
-          </td>
+        {% if drones %}
+          {% for drone in drones %}
+          <tr class="hover">
+            <td>{{ drone.size }}</td>
+            <td>{{ drone.status }}</td>
+            <td>{{ drone.on_delivery }}</td>
+            <td>
+              <form id="active-form" method="post" data-active-url="">
+                {% csrf_token %}
+                <button class="" type="button" onclick="">
+                  {% if drone.status == "Active" %}
+                    Deactivate
+                  {% else %}
+                    Activate
+                  {% endif %}
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="4">No drones found</td>
         </tr>
-        {% endfor %}
+        {% endif%}  
       </table>
     </section>
     <aside>
       <h4>Drone Registry</h4>
       <hr>
-      <form id="add-form" method="post" data-add-url="">
+      <form id="add-form" method="post" action="{% url 'DroneConesApp:create_drone' %}">
         {% csrf_token %}
         <div>
           <label for="size">Drone Size</label>
@@ -51,14 +61,14 @@
         </div>
 
         <div>
-          <label for="status">Status</label>
-          <select name="status" id="status">
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+          <label for="active">Status</label>
+          <select name="active" id="status">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
           </select>
         </div>
         
-        <button class="" type="button" onclick="">
+        <button class="" type="submit">
           Register Drone
         </button>
       </form>
