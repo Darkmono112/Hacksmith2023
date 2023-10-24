@@ -1,0 +1,44 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'DroneConesApp/login.css' %}">
+</head>
+<body>
+    <div class="page-container">
+        <h1>Welcome to Drone Cones</h1>
+        <form id="user-auth-form" action="" method="POST" class="form-container">
+            {% csrf_token %}
+            <div>        
+                <input type="text" id="username" name="username" placeholder="Username*" class="form-input">
+            </div>
+            <div>
+                <input type="password" id="password" name="password" placeholder="Password*" class="form-input">
+            </div>
+            <button type="submit" class="button-primary" id="form-button">Log In</button>
+        </form>
+        <div>
+            <div class="secondary-text">
+                <a href="{% url 'DroneConesApp:signup' %}" class="a-tag">Sign Up</a> or <a href="{% url 'DroneConesApp:home' %}" class="secondary-text underline">Continue as guest</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        const form = document.getElementById("user-auth-form")
+        const formButton = document.getElementById("form-button")
+
+        document.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                formButton.click();
+            }
+        });
+    </script>
+
+</body>
+{% endblock %}
+</html>
+

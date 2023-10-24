@@ -1,0 +1,80 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Change later */
+.form-container {
+    width: 50%;
+    max-width: 400px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 20px;
+    margin: 12px 0;
+    box-sizing: border-box;
+    border: 1px solid var(--input-text-color);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.form-input::placeholder {
+    color: var(--input-text-color);
+}
+
+.button-primary {
+    width: 100%;
+    background-color: var(--button-color);
+    color: var(--text-button-color);
+    padding: 12px 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 4px;
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+    cursor:pointer;
+}
+
+.button-primary:hover {
+    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.a-tag {
+    text-decoration: none;
+    color: var(--button-color);
+}
+
+.secondary-text {
+    color: var(--input-text-color);
+    padding: 4px;
+}
+
+.underline {
+    text-decoration: underline;
+}
