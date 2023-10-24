@@ -75,3 +75,6 @@ def assign_group(user, group):
     except:
         pass
 
+def adminpanel(request):
+    return render(request, 'DroneConesApp/misc/adminpanel.html')
+
