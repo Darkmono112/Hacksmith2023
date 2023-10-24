@@ -1,0 +1,53 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'DroneConesApp/login.css' %}">
+
+</head>
+<body>
+    <div class="page-container">
+        <h1>Sign up</h1>
+        <form id="user-auth-form" action="" method="POST" class="form-container">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <div>
+                    {{ field }}
+                    {% for error in field.errors %}
+                    <div style="color: red">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                </div>
+                <!-- {% if field == password %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %} -->
+            </div>
+            {% endfor %}
+            <button type="submit" class="button-primary" id="form-button">Sign Up</button>
+            <div class="secondary-text">
+                Already have an account? <a href="{% url 'DroneConesApp:login' %}" class="a-tag">Log in</a>
+            </div>
+        </form>
+    
+    </div>
+    <script>
+        const form = document.getElementById("user-auth-form")
+        const formButton = document.getElementById("form-button")
+
+        document.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+                formButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
+{% endblock %}
+
+<!-- Afterwards, make sure to extend base.html -->
