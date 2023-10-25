@@ -1,14 +1,15 @@
 .profile-container{
     display: inline-block;
     text-align: -webkit-center;
-    width: 15%;
+    width: 50%;
     height: 100%;
 }
 
 .buttons-container{
-    display: inline-block;
-    text-align: -webkit-center;
-    width: 69%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 50%;
     height: 100%;
 }
 
@@ -22,4 +23,16 @@
     margin-bottom: 20px;
     width: 60%;
     background-color: #B48BD9
+}
+
+.sub-content-container{
+    display: flex;
+    flex-direction: row;
+}
+.content-container{
+    height: fit-content;
+    width: 80%;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
 }
