@@ -1,44 +1,65 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <title>{% block title %}{{ section.title}}{% endblock %} </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ section.title }}{% endblock %} </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="shortcut icon" type="image/png" href="{% static 'DroneConesApp/images/icon.png' %}"/>
-    <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'DroneConesApp/base.css' %}">
+    <script src="{% static 'DroneConesApp/base.js'%}" defer></script>
 </head>
-<body style="background-image: {% static 'DroneConesApp/images/twocones.jpg' %}; background-position: center; background-size: 1500px">
-    <script src="{% static 'DroneConesApp/final.js'%}" defer></script>
-<div class="full-container">
+<body>
 
-    <div class="nav-container">
-        <div class="material-icons" id="menuButton">menu</div>
-        <div class="navdrawer" id="navdrawer">
-            <a><span class="material-icons">home</span>Home</a>
-            <a><span class="material-icons">person</span>Account</a>
-            <a><span class="material-icons">settings</span>Settings</a>
-            <a><span class="material-icons">logout</span>Logout</a>
-        </div>
-        <div style="display: flex; align-items: center; margin-left: 75px">
-            <img src="{% static 'DroneConesApp/images/icon.png' %}" height="50px" width="50px" >
-            <h1>DroneCones</h1>
-        </div>
-        <div class="navigation">
-            <nav>
-                <div class="link_container"><a href="#">Home</a></div>
-                <div class="link_container"><a href="#">Order Now</a></div>
-                <div class="link_container"><a href="#">Promotions</a></div>
-                <div class="link_container"><a href="#">Login</a></div>
-            </nav>
-        </div>
-    </div>
-</div>
+    <div class="mask" id="mask"></div>
 
-<div id="main-content-container">
+    <nav class="nav-bar">
+        <div class="nav-title">
+            <button class="menu-button" id="drawer-button">
+                <span class="material-icons" id="menu-icon">menu</span>
+            </button>
+            <!-- <img src="{% static 'DroneConesApp/images/icon.png' %}" alt=""> -->
+            <span>Drone Cones</span>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'DroneConesApp:home' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'DroneConesApp:flyerportal' %}" class="nav-item">Flyers</a>
+            {% if user.groups.all %}
+                {% for group in user.groups.all %}
+                    {% if group.name == 'Admin' %}
+                        <a href="#" class="nav-item">Admin</a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'DroneConesApp:account' %}" class="nav-item">Account</a>
+            {% else %}
+                <a href="{% url 'DroneConesApp:login' %}" class="nav-item">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+    <nav class="nav-drawer" id="nav-drawer">
+        <a href="{% url 'DroneConesApp:home' %}" class="nav-item">Dashboard</a>
+            <a href="{% url 'DroneConesApp:flyerportal' %}" class="nav-item">Flyers</a>
+            {% if user.groups.all %}
+                {% for group in user.groups.all %}
+                    {% if group.name == 'Admin' %}
+                        <a href="#" class="nav-item">Admin</a>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            {% if user.is_authenticated %}
+                <a href="{% url 'DroneConesApp:account' %}" class="nav-item">Account</a>
+            {% else %}
+                <a href="{% url 'DroneConesApp:login' %}" class="nav-item">Login</a>
+            {% endif %}
+    </nav>
+
+    <section>
         {% block content %}
         {% endblock %}
-    </div>
+    </section>
 
 </body>
 </html>

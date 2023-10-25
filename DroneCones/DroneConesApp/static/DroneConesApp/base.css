@@ -1,0 +1,124 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    overflow-x: hidden;
+}
+
+.nav-bar {
+    display: flex;
+    width: 100%;
+    background-color: var(--nav-bar-color);
+    padding: 16px;
+    position:relative;
+    z-index: 3;
+}
+
+.nav-title {
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.menu-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 8px;
+    border: none;
+    background-color: transparent;
+    color: var(--font-color);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.nav-links {
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 16px 64px 16px 64px;
+}
+
+.nav-drawer {
+    display: flex;
+    position: fixed;
+    width: 200px;
+    left: -250px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px; 
+    visibility: hidden;
+    background-color: var(--accent-color);
+    transition: all .3s ease-in;
+    background-color: var(--nav-bar-color);
+    height: 100%;
+    z-index: 2;
+}
+
+.nav-drawer[data-open="true"] {
+    left: 0px;
+    visibility: visible;
+}
+
+.nav-item {
+    padding: 8px 24px 8px 24px;
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.drawer-item {
+    padding: 8px;
+    color: var(--font-color);
+    text-decoration: none;
+}
+
+.nav-item:hover, .drawer-item:hover {
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ;
+    z-index: 2;
+}
+
+.mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1; /* Place the mask above other content */
+    display: none; /* Initially hidden */
+}
+
+.mask[data-display="true"] {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
