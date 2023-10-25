@@ -1,10 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
-from ..forms.forms import CreateUserForm
+from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
+from DroneConesApp.models import Drone, User
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request, "DroneConesApp/landing.html", {})
@@ -20,17 +23,40 @@ def FAQ(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-
+@login_required
 def flyerportal(request):
-    dummy_data = [
-        {"id": 1, "size": "small", "status": "Active", "on_delivery": "false"},
-        {"id": 2, "size": "large", "status": "Inactive", "on_delivery": "false"},
-        {"id": 3, "size": "small", "status": "Active", "on_delivery": "true"},
-    ]
     context = {
-        'drones': dummy_data,
+        'drones': Drone.objects.filter(owner_id=request.user),
     }
     return render(request, "DroneConesApp/misc/flyerportal.html", context)
+
+@csrf_protect
+@login_required
+def create_drone(request):
+
+    user = request.user
+
+    if request.method == 'POST':
+        form = AddDroneForm(request.POST)
+
+        if form.is_valid():
+            size = form.cleaned_data['size']
+            active = form.cleaned_data['active']
+
+            new_drone = Drone(size=size, owner_id=user, active=(active == 'active'), on_order=False)
+            new_drone.save()
+
+            return HttpResponseRedirect(reverse('DroneConesApp:flyerportal'))
+    
+    if form.errors:
+        context = {
+            'drones': Drone.objects.filter(owner_id=user),
+            'form': form, 
+        }
+        return render(request, 'DroneConesApp/misc/flyerportal.html', context)
+    else:
+        return HttpResponseRedirect('DroneConesApp:flyerportal') 
+
 
 @csrf_protect
 def signup(request):

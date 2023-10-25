@@ -53,18 +53,20 @@
         {% csrf_token %}
         <div>
           <label for="size">Drone Size</label>
+          {{ form.size.errors }}
           <select name="size" id="size">
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
           </select>
         </div>
 
         <div>
           <label for="active">Status</label>
-          <select name="active" id="status">
-            <option value="true">Active</option>
-            <option value="false">Inactive</option>
+          {{ form.active.errors }}
+          <select name="active" id="active">
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
           </select>
         </div>
         
