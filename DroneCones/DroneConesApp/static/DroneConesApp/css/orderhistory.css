@@ -28,3 +28,11 @@
     background-color: white;
     color: black;
 }
+
+.content-container{
+    height: fit-content;
+    width: 80%;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
