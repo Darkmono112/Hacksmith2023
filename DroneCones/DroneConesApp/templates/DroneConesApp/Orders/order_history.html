@@ -19,19 +19,36 @@
         </tr>
     {% for order in orders %}
         <tr class="order zebra">
-            <td>order.date</td>
-            <td>order.id</td>
-            <td><ul>
-                <li>Chocolate sugar cone</li>
-                <li>Caramel sundae</li>
-            </ul></td>
-            <td>$12.30</td>
+            <td style="text-align: center">{{order.date}}</td>
+            <td style="text-align: center">{{order.id}}</td>
             <td>
+                {% for order_item in order_items %}
+                <ul>
+                    {% if order_item.order_id.id == order.id %}
+                        {% if order_item.cone %}
+                            <li>{{order_item.cone}}</li>
+                        {% endif %}
+                        {% if order_item.flavor %}
+                            <li>{{order_item.flavor}}</li>
+                        {% endif %}
+                        {% if order_item.topping %}
+                            <li>{{order_item.topping}}</li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                {% endfor %}
+            </td>
+            {% for order_id, total in order_totals.items %}
+                {% if order_id.id == order.id %}
+                    <td style="text-align: center">${{total|floatformat:2}}</td>
+                {% endif %}
+            {% endfor %}
+            <td style="text-align: center;">
                 <form id="delete-form" method="post" data-delete-url="{% url 'DroneConesApp:delete_order' order.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="project_id" value="{{ project.id }}">
                     <input type="hidden" name="username" id="username">
-                    <button class="inline-delete-button" type="button" onclick="deleteConfirmation(this)">
+                    <button class="button" type="button" onclick="deleteConfirmation(this)">
                       <img src="{% static 'DroneConesApp/images/trash.png' %}" height="14px" width="auto"> Delete
                     </button>
                   </form>
