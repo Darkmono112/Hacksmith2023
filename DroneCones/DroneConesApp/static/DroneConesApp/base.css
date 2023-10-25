@@ -80,6 +80,7 @@ body {
 
 .nav-item {
     padding: 8px 24px 8px 24px;
+    justify-self: center;
     color: var(--font-color);
     text-decoration: none;
     font-weight: 400;

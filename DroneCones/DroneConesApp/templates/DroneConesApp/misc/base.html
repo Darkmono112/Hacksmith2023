@@ -40,7 +40,7 @@
         </div>
     </nav>
     <nav class="nav-drawer" id="nav-drawer">
-        <a href="{% url 'DroneConesApp:home' %}" class="nav-item">Dashboard</a>
+        <a href="{% url 'DroneConesApp:home' %}" class="nav-item"> Dashboard</a>
             <a href="{% url 'DroneConesApp:flyerportal' %}" class="nav-item">Flyers</a>
             {% if user.groups.all %}
                 {% for group in user.groups.all %}
