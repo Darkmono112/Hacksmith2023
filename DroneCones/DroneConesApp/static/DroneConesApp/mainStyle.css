@@ -75,7 +75,7 @@ pre {
 }
 
 .nav-container{
-    background-color: #AA4465;
+    background-color: var(--nav-bar-color);
     position: fixed;
     top: 0;
     left: 0;
@@ -150,7 +150,7 @@ a:active {
 }
 
 .navdrawer {
-    background-color: #8F5C38;
+    background-color:var(--nav-bar-color);
     display: flex;
     justify-content: left;
     align-items: flex-start;
@@ -292,9 +292,6 @@ a:active {
     top: 0;
 }
 
-img {
-
-}
 
 .dots {
     cursor: pointer;
