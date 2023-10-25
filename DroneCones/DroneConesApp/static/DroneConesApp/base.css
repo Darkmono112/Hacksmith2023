@@ -79,17 +79,39 @@ body {
 }
 
 .nav-item {
-    padding: 8px 24px 8px 24px;
+    margin: 8px 24px 8px 24px;
     justify-self: center;
     color: var(--font-color);
     text-decoration: none;
     font-weight: 400;
+    display: inline-block;
+    position: relative;
 }
 
+.nav-item::after, .drawer-item::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .nav-item:hover::after, .drawer-item:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
 .drawer-item {
-    padding: 8px;
+    margin: 8px;
     color: var(--font-color);
     text-decoration: none;
+    display: inline-block;
+    position: relative;
 }
 
 .nav-item:hover, .drawer-item:hover {
@@ -126,4 +148,9 @@ body {
 
 .logo {
     height: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--font-color);
 }
