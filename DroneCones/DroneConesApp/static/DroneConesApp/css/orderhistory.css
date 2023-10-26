@@ -28,3 +28,21 @@
     background-color: white;
     color: black;
 }
+
+.content-container{
+    height: fit-content;
+    width: 80%;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
+.button{
+    padding: .25em;
+    cursor:pointer;
+    font-size: 14px;
+    border: 2px solid #000;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    background-color: #B48BD9
+}

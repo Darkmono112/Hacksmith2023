@@ -1,0 +1,91 @@
+#flyerportal {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    gap: 20px;
+}
+
+#flyerportal section {
+    width: 60%;
+}
+
+#flyerportal table {
+    width:100%;
+    background-color: #f2f2f2;
+    border:1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-spacing: 0;
+}
+
+#flyerportal th {
+    text-align: left;
+}
+
+#flyerportal .hover:hover {
+    background: #ebebeb;
+}
+
+#flyerportal aside {
+    width: 40%;
+    background-color: #f2f2f2;
+    border:1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding:10px;
+}
+
+#flyerportal aside h4 {
+    margin: 0 0 10px 0;
+}
+
+#flyerportal #add-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#flyerportal #add-form div {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    padding:5px 0;
+}
+
+#flyerportal #add-form select {
+    border: 0;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+#flyerportal button {
+    border: 0;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 5px;
+    margin-top:10px;
+    cursor: pointer;
+    background-color: var(--button-color);
+    color: #fff;
+    font-size: 18px;
+    min-width: 100px;
+}
+
+#flyerportal button:hover {
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+@media (max-width: 768px) {
+    #flyerportal {
+        flex-direction: column;
+        justify-content: center;
+    }
+    #flyerportal section {
+        width: 100%;
+        overflow: scroll;
+    }
+    #flyerportal aside {
+        width: 100%;
+    }
+}

@@ -26,39 +26,35 @@ FAB.addEventListener('mouseleave', () => {
     FAB.classList.remove('clicked')
 })
 
-let vine = document.getElementById('vine')
-let flower = document.getElementById('sunflower')
-let spinner3 = document.getElementById('spinner3')
-spinner3.addEventListener("mouseover", () => {
-    vine.animate([{
-        width: `75px`,
-        height: `75px`,
-        zIndex: `-1`,
-        position: `relative`,
-        left: `-25px`,
-        bottom: `120px`,
-    }], {duration: 300, fill: "forwards"})
-})
-spinner3.addEventListener("mouseleave", () => {
-    vine.animate([{
-        width: `1px`,
-        height: `1px`,
-        transform: `rotateZ(5deg)`,
-        position: `relative`,
-        left: `30px`,
-        bottom: `45px`
+const slides = document.querySelectorAll('.slide');
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let currentSlide = 0;
 
+function showSlide(n) {
+    slides.forEach((slide, index) => {
+        slide.style.transform = `translateX(${100 * (index - n)}%)`;
+    });
+}
 
+function prevSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;
+        showSlide(currentSlide);
+    }
+}
 
-    }], {duration: 300, fill: "forwards"})
-})
+function nextSlide() {
+    if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        showSlide(currentSlide);
+    }
+}
 
-document.getElementById('flower-html').innerText = `
-<div class="spinner-container">
-    <div id="spinner3">
-        <img src="img.png" alt="Sunflower" id="sunflower">
-        <img src="img_1.png" alt="Vine" id="vine">
-    </div>
-</div>
-`;
+prevBtn.addEventListener('click', prevSlide);
+nextBtn.addEventListener('click', nextSlide);
+
+// Initial display
+showSlide(currentSlide);
+
 
