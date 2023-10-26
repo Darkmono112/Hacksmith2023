@@ -25,7 +25,7 @@ def FAQ(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-
+# @login_required(login_url='DroneCones:login') # Example prevent unauth access to a location 
 def flyerportal(request):
     dummy_data = [
         {"id": 1, "size": "small", "status": "Active", "on_delivery": "false"},
@@ -83,3 +83,8 @@ def assign_group(user, group):
 def adminpanel(request):
     return render(request, 'DroneConesApp/misc/adminpanel.html')
 
+<<<<<<< HEAD
+
+# Create your views here.
+=======
+>>>>>>> d67f506b4651859653837ceb1a39cd657adb2c82
