@@ -35,14 +35,19 @@ Change it from Horizontal scrolling to Vertical every 5 entries
 
 {% endcomment %}
 <link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
-<div class="orders"> 
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
-{% include "DroneConesApp/OrderFlow/OrderParts/item.html" %}
+<div class="content-container">
+    <h1 style="text-align: center; font-size: 50px">Ice Cream</h1>
+    <hr style="margin-top: -20px; margin-bottom: 30px">
+    <div class="sub-content-container">
+        <div class="option-list">
+            <ul style="list-style: none; padding: 0; margin: 15px;">
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/Cones/all.png' %}" width="70px" height="70px"><span class="list-label">Cones</span></a></li>
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/Toppings/all.png' %}" width="70px" height="70px"><span class="list-label">Toppings</span></a></li>
+            </ul>
+        </div>
+
+    </div>
 </div>
 
 

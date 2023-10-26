@@ -25,3 +25,51 @@
 .item{
     text-align: center;
 }
+
+.sub-content-container{
+    padding: 1em;
+    margin-left: 100px;
+    display: flex;
+    flex-direction: row;
+}
+.content-container{
+    height: fit-content;
+    width: 80%;
+    padding: 1em;
+    background-color: #f3f3f3;
+    border-radius: 12px;
+}
+
+.option-list{
+    border-radius: 8px;
+    border: 1px #000000 solid;
+}
+
+.list-label{
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.option-list li{
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.option-list a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.option-list li:hover {
+    background-color: #b1b0b0; /* Change the background color on hover to gray */
+    cursor: pointer;
+}

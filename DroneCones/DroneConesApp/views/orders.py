@@ -7,8 +7,6 @@ from ..models import *
 def order_history(request):
     orders = Order.objects.order_by('-date')
     order_items = Order_Item.objects.filter(order_id__in=orders)
-    orders = Order.objects.order_by('-date')
-    order_items = Order_Item.objects.filter(order_id__in=orders)
 
     # Create a dictionary to store order totals in cents
     order_totals = defaultdict(int)

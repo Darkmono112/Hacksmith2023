@@ -82,9 +82,3 @@ def assign_group(user, group):
 
 def adminpanel(request):
     return render(request, 'DroneConesApp/misc/adminpanel.html')
-
-<<<<<<< HEAD
-
-# Create your views here.
-=======
->>>>>>> d67f506b4651859653837ceb1a39cd657adb2c82
