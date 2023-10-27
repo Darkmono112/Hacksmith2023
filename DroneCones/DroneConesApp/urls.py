@@ -4,7 +4,7 @@ from .views import views, account, orders
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("order/", views.order, name="order"),
+    path("order/", orders.order, name="order"),
     path("FAQ/", views.FAQ, name="FAQ"),
     path("payment/", views.payment, name="payment"),
     path("flyerportal", views.flyerportal, name="flyerportal"),
@@ -18,6 +18,7 @@ urlpatterns = [
     path("change_username/", account.change_username, name='change_username'),
     path("change_password/", account.change_password, name='change_password'),
     path("delete_account/", account.delete_account, name='delete_account'),
+    path("checkout/", orders.checkout, name='checkout'),
 ]
 
 app_name = "DroneConesApp"

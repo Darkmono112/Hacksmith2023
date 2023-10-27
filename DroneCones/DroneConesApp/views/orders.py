@@ -1,8 +1,43 @@
+import json
 from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from ..models import *
+
+
+def order(request):
+    ice_cream_flavors = Ice_Cream.objects.order_by('flavor')
+    cone_flavors = Cone.objects.order_by('flavor')
+    topping_flavors = Topping.objects.order_by('flavor')
+
+    context = {
+        'ice_cream_flavors': ice_cream_flavors,
+        'cone_flavors': cone_flavors,
+        'topping_flavors': topping_flavors
+    }
+
+    if request.method == 'POST':
+        order_item_names = request.POST.getlist('order_item_name[]')
+        total = request.POST.get('total-price-input')
+
+        request.session['order_items'] = order_item_names
+        request.session['total'] = total
+
+        return redirect('DroneConesApp:checkout')
+
+    return render(request,"DroneConesApp/Orders/order.html", context)
+
+def checkout(request):
+    order_items = request.session.get('order_items', [])
+    total = request.session.get('total', [])
+
+    context = {
+        'order_items': order_items,
+        'total': total
+    }
+    
+    return render(request, 'DroneConesApp/Orders/checkout.html', context)
 
 def order_history(request):
     orders = Order.objects.order_by('-date')

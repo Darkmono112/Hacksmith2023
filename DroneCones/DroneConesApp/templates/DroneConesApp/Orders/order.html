@@ -5,38 +5,9 @@
 {% load static %}
 {% block content %}
 
-{% comment "" %}  
-Plan : Finished by this week 
-    Composition:   
-        Base html will handle the navbar and 
-        Have selctions 
-        Have floating boxes for each piece 
-            For icecream selection have Image of icecream with a title under it 
-                and for toppings and cones  
-        Bottom floating action button? or sticky bar at bottom of the page 
-            Like the Micky D app 
-        Have a floating box that creates your current cone 
-        List out the cones in another box 
-        Current price next to the order button
-        Add another cone to order button somewhere 
-        
-
-{% endcomment %}
-
-{% comment "" %} This is the icecream div
-
-For each flavor in the table 
-Take the name for the flavor, 
-find the png, and add it to the flavor 
-make a dot out of it and add it to the div
-
-Change it from Horizontal scrolling to Vertical every 5 entries 
-
-
-{% endcomment %}
 <link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
 <div class="content-container">
-    <h1 style="text-align: center; font-size: 50px">Ice Cream</h1>
+    <h1 style="text-align: center; font-size: 30px">Ice Cream</h1>
     <hr style="margin-top: -20px; margin-bottom: 30px">
     <div class="sub-content-container">
         <div class="option-list">
@@ -49,7 +20,7 @@ Change it from Horizontal scrolling to Vertical every 5 entries
 
         <div id="icecreamflavors" style="display: block; margin-left: 50px">
             {% for flavor in ice_cream_flavors %}
-            <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
@@ -67,16 +38,32 @@ Change it from Horizontal scrolling to Vertical every 5 entries
 
     </div>
 </div>
-<div class="content-container" style="margin-left: 50px; width: 40%" >
-    <h1 style="text-align: center; font-size: 50px">My Order</h1>
-    <hr style="margin-top: -20px; margin-bottom: 30px">
-    <div class="sub-content-container" id="myOrderContainer">
-        <div>
-            <span>Order Amount:</span>
-            <span>${{}}</span>
+<div class="content-container" style="margin-left: 50px; width: 40%">
+    <form method="post" action="{% url 'DroneConesApp:order' %}">
+        {% csrf_token %}
+        <h1 style="text-align: center; font-size: 30px">My Order</h1>
+        <hr style="margin-top: -15px; margin-bottom: 30px">
+        <h4 style="text-align: center; margin-top: -25px; font-size: 10px">*Click an item to remove it from your order*</h4>
+        <br>
+        <div class="sub-content-container" id="myOrderContainer" style="display: flex; flex-direction: column; margin-top: -30px;">
+            <div id="order-container">
+                <!-- This is where order entries will go -->
+            </div>
+            <div style="text-align: right;">
+                <br>
+                <span>Order Amount: $</span>
+                <input type="hidden" id="total-price-input" name="total-price-input">
+                <span id="total-price" style="font-weight: bold; margin-right: 20px">0.00</span>
+                <button id="checkout-button" class="button" type="submit">
+                    <img src="{% static 'DroneConesApp/images/checkout.png' %}" height="14px" width="auto"> Checkout
+                </button>
+            </div>
         </div>
-    </div>
+    </form>
 </div>
+
+
+
 
 <script>
 // JavaScript code to handle option selection and flavor selection
@@ -112,7 +99,7 @@ optionItems.forEach((item) => {
 
 <script>
 const flavorDivs = document.querySelectorAll('.pick-icon');
-const myOrderContainer = document.getElementById('myOrderContainer');
+const myOrderContainer = document.getElementById('order-container');
 let totalPrice = 0;
 
 flavorDivs.forEach((flavorDiv) => {
@@ -139,22 +126,66 @@ flavorDivs.forEach((flavorDiv) => {
     });
 
     addButton.addEventListener('click', () => {
-        // Create a new entry in the order
-        const orderEntry = document.createElement('div');
-        orderEntry.classList.add('order-entry');
-        const orderImage = flavorImage.cloneNode(true);
-        const orderName = document.createElement('span');
-        orderName.textContent = flavorName;
-        orderEntry.appendChild(orderImage);
-        orderEntry.appendChild(orderName);
-        myOrderContainer.appendChild(orderEntry);
+    // Create a new entry in the order
+    const orderEntry = document.createElement('div');
+    orderEntry.classList.add('order-entry');
+    const orderItemContainer = document.createElement('div');
+    orderItemContainer.style.display = 'inline-block';
+    const orderImage = flavorImage.cloneNode(true);
+    orderImage.style.width = '70px';
+    const orderName = document.createElement('span');
+    orderName.textContent = flavorName;
+    orderEntry.appendChild(orderImage);
+    orderEntry.appendChild(orderName);
+    orderItemContainer.append(orderEntry);
+    myOrderContainer.appendChild(orderItemContainer);
 
-        // Update the total price
-        totalPrice += flavorPrice;
-        document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
+    const hiddenNameInput = document.createElement('input');
+    hiddenNameInput.type = 'hidden';
+    hiddenNameInput.name = 'order_item_name[]';
+    hiddenNameInput.value = flavorName;
+
+    // Append the hidden inputs to the form
+    const form = document.querySelector('form');
+    form.appendChild(hiddenNameInput);
+
+    orderItemContainer.addEventListener('click', () => {
+        removeItemFromOrder(orderItemContainer);
     });
+
+    // Update the total price
+    totalPrice += (flavorPrice / 100);
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
+    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
 });
+
+
+});
+
+function removeItemFromOrder(itemElement) {
+    itemElement.remove();
+
+    // Recalculate the total price after removing the item
+    const orderItems = collectOrderItems();
+    updateTotalPrice(orderItems);
+}
+
+function updateTotalPrice(orderItems) {
+    // Recalculate the total price
+    let totalPrice = 0;
+    orderItems.forEach((item) => {
+        // Calculate the total price based on your item's properties
+        // For example, if you have a property itemPrice for each item, you can use it here.
+        // totalPrice += item.itemPrice;
+    });
+
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
+    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
+
+}
 </script>
+
+
 
 
 {% endblock %}
