@@ -5,17 +5,27 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm
 from django.contrib.auth.models import Group
+from ..models import *
 
 def home(request):
     return render(request, "DroneConesApp/landing.html", {})
 
 def order(request):
+    ice_cream_flavors = Ice_Cream.objects.order_by('flavor')
+    cone_flavors = Cone.objects.order_by('flavor')
+    topping_flavors = Topping.objects.order_by('flavor')
+
+    context = {
+        'ice_cream_flavors': ice_cream_flavors,
+        'cone_flavors': cone_flavors,
+        'topping_flavors': topping_flavors
+    }
     # get a list of all of the flavors 
     # if the flavor has an img, then add it 
     # if not then make it vanilla for now 
     # django if statement 
 
-    return render(request,"DroneConesApp/OrderFlow/order.html", {}) 
+    return render(request,"DroneConesApp/OrderFlow/order.html", context)
 
 
 def FAQ(request):

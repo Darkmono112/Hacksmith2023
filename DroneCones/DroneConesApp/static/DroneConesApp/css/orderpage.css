@@ -28,7 +28,7 @@
 
 .sub-content-container{
     padding: 1em;
-    margin-left: 100px;
+    margin-left: 25px;
     display: flex;
     flex-direction: row;
 }
@@ -72,4 +72,32 @@
 .option-list li:hover {
     background-color: #b1b0b0; /* Change the background color on hover to gray */
     cursor: pointer;
+}
+
+.flavor-list {
+    display: inline-block;
+    margin-left: 50px;
+    overflow-y: scroll;
+}
+
+.pick-icon{
+    display: block;
+    position: relative;
+    text-align: center;
+    float: left;
+    text-decoration: none;
+    color: black;
+    padding: .5em;
+    margin: 1em 1em 1em 1em;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+}
+
+.pick-icon:hover{
+    background-color: #B8B8B8;
+}
+
+.pick-icon li{
+    list-style-type: none;
+    font-size: 20px;
 }
