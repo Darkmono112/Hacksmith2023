@@ -1,3 +1,17 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+}
+
 .dot {
     height: 50px;
     width: 50px;
@@ -125,4 +139,70 @@
 
 .order-entry span{
     font-size: 20px;
+}
+
+.section-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.section-title-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.section-new-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.load-details {
+    text-decoration: underline;
+    color: var(--button-color);
+    cursor: pointer;
+    font-weight: 400;
+    margin: 8px;
+}
+
+#summary-chevron,
+#billing-chevron,
+#shipping-chevron {
+    transform: none;
+    transition: transform 0.3s ease;
+}
+
+#summary-chevron[data-display="true"], 
+#billing-chevron[data-display="true"],
+#shipping-chevron[data-display="true"] {
+    transform: rotate(90deg);
+}
+
+.shipping-container,
+.billing-container,
+.summary-container {
+    display: none;
+    margin: 0px 24px 0px 24px;
+}
+
+.shipping-container[data-display="true"], 
+.billing-container[data-display="true"],
+.summary-container[data-display="true"] {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
