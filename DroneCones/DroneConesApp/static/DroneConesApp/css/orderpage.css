@@ -206,3 +206,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.checkout-container {
+    width: 50%;
+}
