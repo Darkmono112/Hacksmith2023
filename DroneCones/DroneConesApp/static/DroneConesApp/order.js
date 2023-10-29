@@ -10,9 +10,12 @@ const summaryChevron = document.getElementById('summary-chevron');
 const billingChevron = document.getElementById('billing-chevron');
 const shippingChevron = document.getElementById('shipping-chevron');
 
-let isSummaryOpen = false;
+let isSummaryOpen = true;
 let isBillingOpen = false;
 let isShippingOpen = false;
+
+summaryContainer.dataset.display=`${isSummaryOpen}`;
+summaryChevron.dataset.display=`${isSummaryOpen}`; 
 
 function closeOthers(section) {
     if (section === 'summary') {
