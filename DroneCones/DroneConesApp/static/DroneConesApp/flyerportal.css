@@ -84,7 +84,7 @@
     }
     #flyerportal section {
         width: 100%;
-        overflow: scroll;
+        overflow-x: scroll;
     }
     #flyerportal aside {
         width: 100%;
