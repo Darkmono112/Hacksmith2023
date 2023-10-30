@@ -43,4 +43,4 @@ class AddDroneForm(forms.Form):
 class FAQForm(forms.ModelForm):
     class Meta:
         model = FAQ
-        fields = ['question', 'answer']
+        fields = ['question']
