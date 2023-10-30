@@ -1,0 +1,15 @@
+{% extends 'DroneConesApp/misc/base.html'%}
+{% load static %}
+{% block content%}
+    <head>
+        <link rel="stylesheet" href="{% static 'DroneConesApp/faq.css' %}">
+    </head>
+    <div>
+        <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Question</button>
+</form>
+    </div>
+
+{% endblock %}

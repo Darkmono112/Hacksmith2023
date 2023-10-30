@@ -5,20 +5,29 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
-
-from DroneConesApp.models import Drone, User
+from DroneConesApp.models import Drone, User, FAQ
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from ..forms.forms import FAQForm
 
 
 def home(request):
     return render(request, "DroneConesApp/Landing/landing.html", {})
 
+def faq(request):
+    faq_items = FAQ.objects.all()
+    return render(request, 'DroneConesApp/FAQ/mainFAQ.html', {'faq_items': faq_items})
 
-
-def FAQ(request):
-    return HttpResponse("This will be the FAQ/Help Request page.")
+def ask_question(request):
+    if request.method == 'POST':
+        form = FAQForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('DroneConesApp:faq')
+    else:
+        form = FAQForm()
+    return render(request, 'DroneConesApp/FAQ/ask_question.html', {'form': form})
 
 
 def payment(request):

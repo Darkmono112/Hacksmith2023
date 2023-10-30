@@ -48,4 +48,8 @@ class Drone(models.Model):
                 return choice[1]
         return ""
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+
 

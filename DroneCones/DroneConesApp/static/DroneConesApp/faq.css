@@ -1,0 +1,56 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
+.button-primary {
+    width: 100%;
+    background-color: var(--button-color);
+    color: var(--text-button-color);
+    padding: 12px 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+    cursor:pointer;
+}
+
+.button-primary:hover {
+    box-shadow: 0 6px 6px rgba(0,0,0,0.8);
+}
+
+body {
+    background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('images/landing.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+.OrderButton {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #B48BD9;
+    padding: 14px 28px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+
+}
+.OrderButton:hover{
+    background-color: #3C1361 ;
+    color: white;
+}
+.vertical-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }

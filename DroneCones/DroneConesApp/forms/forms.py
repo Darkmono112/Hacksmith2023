@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import RegexValidator
+from DroneConesApp.models import FAQ
 
 
 class CreateUserForm(UserCreationForm):
@@ -38,3 +39,8 @@ class AddDroneForm(forms.Form):
         label='Status',
         required=True,
     )
+
+class FAQForm(forms.ModelForm):
+    class Meta:
+        model = FAQ
+        fields = ['question', 'answer']

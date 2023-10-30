@@ -1,0 +1,21 @@
+{% extends 'DroneConesApp/misc/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>FAQ</title>
+</head>
+<body>
+    <div class="">
+        <h1>Frequently Asked Questions</h1>
+    <ul>
+    <a href="{% url 'DroneConesApp:ask_question' %}">Ask a Question</a>
+        {% for faq_item in faq_items %}
+            <li>
+                <strong>{{ faq_item.question }}</strong><br>
+                {{ faq_item.answer }}
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+</body>
+{% endblock %}
