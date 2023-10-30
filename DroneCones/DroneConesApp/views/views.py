@@ -7,7 +7,7 @@ from ..forms.forms import CreateUserForm
 from django.contrib.auth.models import Group
 
 def home(request):
-    return render(request, "DroneConesApp/landing.html", {})
+    return render(request, "DroneConesApp/Landing/landing.html", {})
 
 def order(request):
     return HttpResponse("This will be the Order page.")
