@@ -25,3 +25,16 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+class AddDroneForm(forms.Form):
+    size = forms.ChoiceField(
+        choices=[('Small', 'Small'), ('Medium', 'Medium'), ('Large', 'Large')],
+        label='Size',
+        required=True,
+    )
+
+    active = forms.ChoiceField(
+        choices=[('active', 'Active'), ('inactive', 'Inactive')],
+        label='Status',
+        required=True,
+    )
