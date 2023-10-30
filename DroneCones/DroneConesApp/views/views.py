@@ -5,16 +5,16 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
+
 from DroneConesApp.models import Drone, User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
-def home(request):
-    return render(request, "DroneConesApp/landing.html", {})
 
-def order(request):
-    return HttpResponse("This will be the Order page.")
+def home(request):
+    return render(request, "DroneConesApp/Landing/landing.html", {})
+
 
 
 def FAQ(request):
@@ -24,7 +24,7 @@ def FAQ(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-@login_required
+# @login_required(login_url='DroneCones:login') # Example prevent unauth access to a location 
 def flyerportal(request):
     context = {
         'drones': Drone.objects.filter(owner_id=request.user),
@@ -125,4 +125,3 @@ def assign_group(user, group):
 
 def adminpanel(request):
     return render(request, 'DroneConesApp/misc/adminpanel.html')
-
