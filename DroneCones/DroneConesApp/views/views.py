@@ -8,7 +8,7 @@ from django.contrib.auth.models import Group
 from ..models import *
 
 def home(request):
-    return render(request, "DroneConesApp/landing.html", {})
+    return render(request, "DroneConesApp/Landing/landing.html", {})
 
 
 
