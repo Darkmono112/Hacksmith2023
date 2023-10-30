@@ -12,6 +12,7 @@ body {
     margin: 0;
     font-family: var(--font-family);
     overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .main-content-container{
