@@ -8,6 +8,7 @@ from django.contrib.auth.models import Group
 from DroneConesApp.models import Drone, User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 def home(request):
     return render(request, "DroneConesApp/landing.html", {})
@@ -57,6 +58,27 @@ def create_drone(request):
     else:
         return HttpResponseRedirect('DroneConesApp:flyerportal') 
 
+@csrf_protect
+@login_required
+def toggle_drone_status(request, id):
+
+    if request.method == 'POST':
+
+        try:
+            drone = Drone.objects.get(id=id)
+        except Drone.DoesNotExist:
+            return HttpResponseForbidden("Drone not found")
+        
+        print(drone.owner_id.id)
+        print(request.user.id)
+
+        if drone.owner_id.id != request.user.id:
+            return HttpResponseForbidden("Permission denied")
+        
+        drone.active = not drone.active
+        drone.save()
+
+        return HttpResponseRedirect(reverse('DroneConesApp:flyerportal'))
 
 @csrf_protect
 def signup(request):

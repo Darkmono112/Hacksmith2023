@@ -9,6 +9,7 @@ urlpatterns = [
     path("payment/", views.payment, name="payment"),
     path("flyerportal", views.flyerportal, name="flyerportal"),
     path('create_drone/', views.create_drone, name='create_drone'),
+    path('toggle_drone_status/<int:id>/', views.toggle_drone_status, name='toggle_drone_status'),
     path("adminpanel", views.adminpanel, name="adminpanel"),
     path("signup/", views.signup, name="signup"),
     path("login/", views.login_page, name="login"),
