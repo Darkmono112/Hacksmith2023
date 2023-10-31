@@ -3,6 +3,7 @@
     margin: auto;
     width: 100%;
     gap: 20px;
+    align-items: flex-start;
 }
 
 #flyerportal section {
@@ -83,9 +84,25 @@
     }
     #flyerportal section {
         width: 100%;
-        overflow: scroll;
+        overflow-x: scroll;
     }
     #flyerportal aside {
         width: 100%;
     }
+}
+
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+.errorlist li {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    background-color: #ffeeee;
+    padding: 5px;
+    font-size: 12px;
+    margin-bottom: 10px;
 }
