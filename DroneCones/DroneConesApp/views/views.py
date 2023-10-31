@@ -124,15 +124,53 @@ def assign_group(user, group):
         pass
 
 def adminpanel(request):
+    icecreams = Ice_Cream.objects.all()
+    cones = Cone.objects.all()
+    toppings = Topping.objects.all()
+    drones = Drone.objects.all()
+    context = {
+        'icecreams': icecreams,
+        'cones': cones,
+        'toppings': toppings,
+        'drones': drones,
+    }
+
+    if request.method == 'POST':
+        restock_item(request)
+    return render(request, 'DroneConesApp/adminpanel.html', context)
+
+def restock(request):
     icecream = Ice_Cream.objects.all()
     cone = Cone.objects.all()
     topping = Topping.objects.all()
-    drones = Drone.objects.all()
     context = {
         'icecreams': icecream,
         'cones': cone,
         'toppings': topping,
-        'drones': drones,
     }
+    return render(request, 'DroneConesApp/restock.html', context)
 
-    return render(request, 'DroneConesApp/adminpanel.html', context)
+def restock_item(request):
+    icecream_flavors = list(Ice_Cream.objects.values_list('flavor', flat=True))
+    cone_flavors = list(Cone.objects.values_list('flavor', flat=True))
+    topping_flavors = list(Topping.objects.values_list('flavor', flat=True))
+    if request.method == 'POST':
+        item = request.POST.get('order-item')
+        quantity = request.POST.get('quantity')
+        icecream_bool = item in icecream_flavors
+        cone_bool = item in cone_flavors
+        topping_bool = item in topping_flavors
+        if icecream_bool:
+            icecream = Ice_Cream.objects.get(flavor=item)
+            print(icecream)
+            icecream.quantity = icecream.quantity + int(quantity)
+            icecream.save()
+        elif cone_bool:
+            cone = Cone.objects.get(flavor=item)
+            cone.quantity = cone.quantity + int(quantity)
+            cone.save()
+        elif topping_bool:
+            topping = Topping.objects.get(flavor=item)
+            topping.quantity = topping.quantity + int(quantity)
+            topping.save()
+        return redirect('DroneConesApp:adminpanel')
