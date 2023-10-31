@@ -127,10 +127,12 @@ def adminpanel(request):
     icecream = Ice_Cream.objects.all()
     cone = Cone.objects.all()
     topping = Topping.objects.all()
+    drones = Drone.objects.all()
     context = {
         'icecreams': icecream,
         'cones': cone,
-        'toppings': topping
+        'toppings': topping,
+        'drones': drones,
     }
 
     return render(request, 'DroneConesApp/adminpanel.html', context)
