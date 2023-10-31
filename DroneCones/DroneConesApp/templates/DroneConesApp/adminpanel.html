@@ -11,12 +11,12 @@
 <script src="{% static 'DroneConesApp/restock.js' %}" defer></script>
 <div id="adminpanel">
     <div class="button-container">
-        <button id="Drones">Drones</button>
-        <button id="Inventory">Inventory</button>
+        <button id="Drones-button">Drones</button>
+        <button id="Inventory-button">Inventory</button>
         <button id="restock">Restock Inventory</button>
     </div>
 
-    <section id="inventory">
+    <section id="inventory" class="inventory">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
               <th>Name</th>
@@ -45,14 +45,14 @@
           </tr>
           {% endfor %}
         </table>
-      </section>
+    </section>
 
       <section id="drones">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
               <th>ID</th>
-              <th>size</th>
-              <th>active</th>
+              <th>Size</th>
+              <th>Active</th>
           </tr>
           {% for icecream in icecreams%}
           <tr class="hover">
@@ -76,7 +76,6 @@
           </tr>
           {% endfor %}
         </table>
-
       </section>
 
     </div>

@@ -1,15 +1,15 @@
-const drones= document.getElementById('Drones');  // button
-const Inventory = document.getElementById('Inventory');  // button
+const drones_button = document.getElementById('Drones-button');  // button
+const inventory_button = document.getElementById('Inventory-button');  // button
+const drones_table = document.getElementById('drones');
+const inventory_table = document.getElementById('inventory')
 
-let inventoryPage = true;
-let dronesPage = false;
 
-drones.addEventListener('click', () => {
-    inventoryPage = false;
-    dronesPage = true;
+drones_button.addEventListener('click', () => {
+    dronesPage.dataset.display = "true";
+    inventoryPage.dataset.display = "false";
 });
 
-drones.addEventListener('click', () => {
-    inventoryPage = false;
-    dronesPage = true;
+inventory_button.addEventListener('click', () => {
+    dronesPage.dataset.display = "false";
+    inventoryPage.dataset.display = "true";
 });

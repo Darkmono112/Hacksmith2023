@@ -9,6 +9,7 @@
 
 #adminpanel section {
     width: 60%;
+    
 }
 
 #adminpanel table {
@@ -60,18 +61,25 @@
     }
 }
 
-.errorlist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-.errorlist li {
-    color: red;
-    font-weight: bold;
-    border: 1px solid red;
-    background-color: #ffeeee;
-    padding: 5px;
-    font-size: 12px;
-    margin-bottom: 10px;
+#inventory {
+    display: block;
+}
+
+#inventory[data-display="true"] {
+    display: block;
+}
+
+#inventory[data-display="false"] {
+    display: none;
+}
+
+#drones {
+    display: none;
+}
+
+#drones[data-display="false"] {
+    display: none;
+}
+#drones[data-display="true"] {
+    display: block;
 }
