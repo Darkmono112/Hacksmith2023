@@ -4,17 +4,19 @@
 
 {% load static %}
 {% block content %}
-<link rel="stylesheet" href="{% static 'DroneConesApp/flyerportal.css' %}">
+
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/adminpanel.css' %}">
+<script src="{% static 'DroneConesApp/adminpanel.js'%}" defer></script>
 <link rel="stylesheet" href="{% static 'DroneConesApp/restock.css' %}">
 <script src="{% static 'DroneConesApp/restock.js' %}" defer></script>
-<div id="flyerportal">
+<div id="adminpanel">
     <div class="button-container">
         <button id="Drones">Drones</button>
-        <button id="Inventory">Ice Cream</button>
+        <button id="Inventory">Inventory</button>
         <button id="restock">Restock Inventory</button>
     </div>
 
-    <section>
+    <section id="inventory">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
               <th>Name</th>
@@ -44,6 +46,39 @@
           {% endfor %}
         </table>
       </section>
+
+      <section id="drones">
+        <table width="98%" height="98%" cellpadding="10">
+          <tr class="headers no-hover">
+              <th>ID</th>
+              <th>size</th>
+              <th>active</th>
+          </tr>
+          {% for icecream in icecreams%}
+          <tr class="hover">
+            <td>{{ icecream.flavor }} Icecream</td>
+            <td>{{ icecream.price }}</td>
+            <td>{{ icecream.quantity }}</td>
+          </tr>
+          {% endfor %}
+          {% for cone in cones %}
+          <tr class="hover">
+            <td>{{ cone.flavor }}</td>
+            <td>{{ cone.price }}</td>
+            <td>{{ cone.quantity }}</td>
+          </tr>
+          {% endfor %}
+          {% for topping in toppings %}
+          <tr class="hover">
+            <td>{{ topping.flavor }}</td>
+            <td>{{ topping.price }}</td>
+            <td>{{ topping.quantity }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+
+      </section>
+
     </div>
     <div class="modal-section" id="modal-section">
       <div class="modal-mask" id="modal-mask"></div>
