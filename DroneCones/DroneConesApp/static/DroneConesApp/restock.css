@@ -53,6 +53,7 @@ body {
     background-color: #FFFFFF;
     width: 30%;
     height: 50%;
+    max-width: 400px;
     border-radius: 20px;
     border: 2px solid #bbb;
 }
