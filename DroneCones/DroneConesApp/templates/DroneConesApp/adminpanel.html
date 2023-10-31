@@ -1,0 +1,36 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/flyerportal.css' %}">
+<div id="flyerportal">
+
+    <div class="button-container">
+        <button id="Drones">Drones</button>
+        <button id="Inventory">Ice Cream</button>
+    </div>
+
+    <section>
+        <table width="98%" height="98%" cellpadding="10">
+          <tr class="headers no-hover">
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Condition</th>
+              <th>Count</th>
+              <th>Date</th>
+          </tr>
+          {% for unit in units %}
+          <tr class="hover">
+            <td>{{ unit.name }}</td>
+            <td>{{ unit.price }}</td>
+            <td>{{ unit.condition }}</td>
+            <td>{{ unit.count }}</td>
+            <td>{{ unit.date }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </section>
+    </div>
+{% endblock %}
