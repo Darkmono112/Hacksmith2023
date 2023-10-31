@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
 
-from DroneConesApp.models import Drone, User
+from DroneConesApp.models import Drone, User, Ice_Cream, Cone, Topping
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -124,4 +124,13 @@ def assign_group(user, group):
         pass
 
 def adminpanel(request):
-    return render(request, 'DroneConesApp/adminpanel.html')
+    icecream = Ice_Cream.objects.all()
+    cone = Cone.objects.all()
+    topping = Topping.objects.all()
+    context = {
+        'icecreams': icecream,
+        'cones': cone,
+        'toppings': topping
+    }
+
+    return render(request, 'DroneConesApp/adminpanel.html', context)

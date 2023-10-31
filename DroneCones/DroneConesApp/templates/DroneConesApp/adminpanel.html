@@ -17,17 +17,27 @@
           <tr class="headers no-hover">
               <th>Name</th>
               <th>Unit Price</th>
-              <th>Condition</th>
-              <th>Count</th>
-              <th>Date</th>
+              <th>Quantity</th>
           </tr>
-          {% for unit in units %}
+          {% for icecream in icecreams%}
           <tr class="hover">
-            <td>{{ unit.name }}</td>
-            <td>{{ unit.price }}</td>
-            <td>{{ unit.condition }}</td>
-            <td>{{ unit.count }}</td>
-            <td>{{ unit.date }}</td>
+            <td>{{ icecream.flavor }} Icecream</td>
+            <td>{{ icecream.price }}</td>
+            <td>{{ icecream.quantity }}</td>
+          </tr>
+          {% endfor %}
+          {% for cone in cones %}
+          <tr class="hover">
+            <td>{{ cone.flavor }}</td>
+            <td>{{ cone.price }}</td>
+            <td>{{ cone.quantity }}</td>
+          </tr>
+          {% endfor %}
+          {% for topping in toppings %}
+          <tr class="hover">
+            <td>{{ topping.flavor }}</td>
+            <td>{{ topping.price }}</td>
+            <td>{{ topping.quantity }}</td>
           </tr>
           {% endfor %}
         </table>
