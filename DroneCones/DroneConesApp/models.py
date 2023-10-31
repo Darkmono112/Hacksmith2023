@@ -16,6 +16,7 @@ class Order_Item(models.Model):
     flavor = models.CharField(max_length=50)
     cone = models.CharField(max_length=50)
     topping = models.CharField(max_length=50)
+    total = models.IntegerField()
 
 class Ice_Cream(models.Model):
     quantity = models.IntegerField()

@@ -1,0 +1,15 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/landing.css' %}">
+<div class="vertical-center">
+<h2> Craving that frozen cream while out and about? Look no further! We'll fly it straight to you!</h2>
+<a href="{% url 'DroneConesApp:order' %}">
+<button type="button" class="button-primary" > Order Now !!</button> 
+</a>
+</div> 
+
+{% endblock %} 

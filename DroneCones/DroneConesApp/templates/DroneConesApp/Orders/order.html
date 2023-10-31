@@ -1,0 +1,191 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Order{% endblock %}
+
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
+<div class="content-container">
+    <h1 style="text-align: center; font-size: 30px">Ice Cream</h1>
+    <hr style="margin-top: -20px; margin-bottom: 30px">
+    <div class="sub-content-container">
+        <div class="option-list">
+            <ul style="list-style: none; padding: 0; margin: 10px;">
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/Cones/all.png' %}" width="70px" height="70px"><span class="list-label">Cones</span></a></li>
+                <li><a><img src="{% static 'DroneConesApp/images/Sprites/Toppings/all.png' %}" width="70px" height="70px"><span class="list-label">Toppings</span></a></li>
+            </ul>
+        </div>
+
+        <div id="icecreamflavors" style="display: block; margin-left: 50px">
+            {% for flavor in ice_cream_flavors %}
+            <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            {% endfor %}
+        </div>
+
+        <div id="coneflavors" style="display: none; margin-left: 50px">
+            {% for flavor in cone_flavors %}
+            <div style="display: inline-block"><a class="pick-icon" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            {% endfor %}
+        </div>
+
+        <div id="toppingflavors" style="display: none; margin-left: 50px">
+            {% for flavor in topping_flavors %}
+            <div style="display: inline-block"><a class="pick-icon" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            {% endfor %}
+        </div>
+
+    </div>
+</div>
+<div class="content-container" style="margin-left: 50px; width: 40%">
+    <form method="post" action="{% url 'DroneConesApp:order' %}">
+        {% csrf_token %}
+        <h1 style="text-align: center; font-size: 30px">My Order</h1>
+        <hr style="margin-top: -15px; margin-bottom: 30px">
+        <h4 style="text-align: center; margin-top: -25px; font-size: 10px">*Click an item to remove it from your order*</h4>
+        <br>
+        <div class="sub-content-container" id="myOrderContainer" style="display: flex; flex-direction: column; margin-top: -30px;">
+            <div id="order-container">
+                <!-- This is where order entries will go -->
+            </div>
+            <div style="text-align: right;">
+                <br>
+                <span>Order Amount: $</span>
+                <input type="hidden" id="total-price-input" name="total-price-input">
+                <span id="total-price" style="font-weight: bold; margin-right: 20px">0.00</span>
+                <button id="checkout-button" class="button" type="submit">
+                    <img src="{% static 'DroneConesApp/images/checkout.png' %}" height="14px" width="auto"> Checkout
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+<script>
+// JavaScript code to handle option selection and flavor selection
+
+// Option list
+const optionList = document.querySelector('.option-list ul');
+const optionItems = optionList.querySelectorAll('li');
+const iceCreamFlavors = document.getElementById('icecreamflavors');
+const coneFlavors = document.getElementById('coneflavors');
+const toppingFlavors = document.getElementById('toppingflavors');
+
+optionItems.forEach((item) => {
+    item.addEventListener('click', (event) => {
+        optionItems.forEach((el) => {
+            el.classList.remove('selected');
+        });
+        item.classList.add('selected');
+        const selectedOption = item.querySelector('a > span').textContent.toLowerCase();
+        iceCreamFlavors.style.display = 'none';
+        coneFlavors.style.display = 'none';
+        toppingFlavors.style.display = 'none';
+
+        if (selectedOption === 'ice cream') {
+            iceCreamFlavors.style.display = 'block';
+        } else if (selectedOption === 'cones') {
+            coneFlavors.style.display = 'block';
+        } else if (selectedOption === 'toppings') {
+            toppingFlavors.style.display = 'block';
+        }
+    });
+});
+</script>
+
+<script>
+const flavorDivs = document.querySelectorAll('.pick-icon');
+const myOrderContainer = document.getElementById('order-container');
+let totalPrice = 0;
+
+flavorDivs.forEach((flavorDiv) => {
+    const flavorImage = flavorDiv.querySelector('img');
+    const flavorName = flavorDiv.querySelector('li').textContent;
+    const flavorPrice = Number(flavorDiv.getAttribute('data-price'));
+    let isButtonVisible = false;
+
+    // Create the "Add to Order" button
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add to Order';
+    addButton.style.display = 'none';
+
+    flavorDiv.appendChild(addButton);
+
+    flavorDiv.addEventListener('click', () => {
+        if (!isButtonVisible) {
+            addButton.style.display = 'block';
+            isButtonVisible = true;
+        } else {
+            addButton.style.display = 'none';
+            isButtonVisible = false;
+        }
+    });
+
+    addButton.addEventListener('click', () => {
+    // Create a new entry in the order
+    const orderEntry = document.createElement('div');
+    orderEntry.classList.add('order-entry');
+    const orderItemContainer = document.createElement('div');
+    orderItemContainer.style.display = 'inline-block';
+    const orderImage = flavorImage.cloneNode(true);
+    orderImage.style.width = '70px';
+    const orderName = document.createElement('span');
+    orderName.textContent = flavorName;
+    orderEntry.appendChild(orderImage);
+    orderEntry.appendChild(orderName);
+    orderItemContainer.append(orderEntry);
+    myOrderContainer.appendChild(orderItemContainer);
+
+    const hiddenNameInput = document.createElement('input');
+    hiddenNameInput.type = 'hidden';
+    hiddenNameInput.name = 'order_item_name[]';
+    hiddenNameInput.value = flavorName;
+
+    // Append the hidden inputs to the form
+    const form = document.querySelector('form');
+    form.appendChild(hiddenNameInput);
+
+    orderItemContainer.addEventListener('click', () => {
+        removeItemFromOrder(orderItemContainer);
+    });
+
+    // Update the total price
+    totalPrice += (flavorPrice / 100);
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
+    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
+});
+
+
+});
+
+function removeItemFromOrder(itemElement) {
+    itemElement.remove();
+
+    // Recalculate the total price after removing the item
+    const orderItems = collectOrderItems();
+    updateTotalPrice(orderItems);
+}
+
+function updateTotalPrice(orderItems) {
+    // Recalculate the total price
+    let totalPrice = 0;
+    orderItems.forEach((item) => {
+        // Calculate the total price based on your item's properties
+        // For example, if you have a property itemPrice for each item, you can use it here.
+        // totalPrice += item.itemPrice;
+    });
+
+    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
+    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
+
+}
+</script>
+
+
+
+
+{% endblock %}

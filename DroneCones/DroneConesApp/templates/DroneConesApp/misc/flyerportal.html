@@ -15,50 +15,65 @@
             <th>Out on Delivery</th>
             <th>Actions</th>
         </tr>
-        {% for drone in drones %}
-        <tr class="hover">
-          <td>{{ drone.size }}</td>
-          <td>{{ drone.status }}</td>
-          <td>{{ drone.on_delivery }}</td>
-          <td>
-            <form id="active-form" method="post" data-active-url="">
-              {% csrf_token %}
-              <button class="" type="button" onclick="">
-                {% if drone.status == "Active" %}
-                  Deactivate
-                {% else %}
-                  Activate
-                {% endif %}
-              </button>
-            </form>
-          </td>
+        {% if drones %}
+          {% for drone in drones %}
+          <tr class="hover">
+            <td>{{ drone.size }}</td>
+            <td>
+              {% if drone.active %}
+                Active
+              {% else %}
+                Inactive
+              {% endif %}
+            </td>            
+            <td>{{ drone.on_order }}</td>
+            <td>
+              <form id="active-form" method="post" action="{% url 'DroneConesApp:toggle_drone_status' drone.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ drone.id }}"> 
+                <button class="" type="submit">
+                  {% if drone.active %}
+                    Deactivate
+                  {% else %}
+                    Activate
+                  {% endif %}
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="4">No drones found</td>
         </tr>
-        {% endfor %}
+        {% endif%}  
       </table>
     </section>
     <aside>
       <h4>Drone Registry</h4>
       <hr>
-      <form id="add-form" method="post" data-add-url="">
+      <form id="add-form" method="post" action="{% url 'DroneConesApp:create_drone' %}">
         {% csrf_token %}
         <div>
           <label for="size">Drone Size</label>
+          {{ form.size.errors }}
           <select name="size" id="size">
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
           </select>
         </div>
 
         <div>
-          <label for="status">Status</label>
-          <select name="status" id="status">
+          <label for="active">Status</label>
+          {{ form.active.errors }}
+          <select name="active" id="active">
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
         </div>
         
-        <button class="" type="button" onclick="">
+        <button class="" type="submit">
           Register Drone
         </button>
       </form>
