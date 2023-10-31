@@ -21,7 +21,6 @@ urlpatterns = [
     path("change_password/", account.change_password, name='change_password'),
     path("delete_account/", account.delete_account, name='delete_account'),
     path("checkout/", orders.checkout, name='checkout'),
-    path("restock/", views.restock, name='restock'),
 ]
 
 app_name = "DroneConesApp"
