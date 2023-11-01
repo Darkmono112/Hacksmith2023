@@ -16,6 +16,7 @@
         <button id="restock">Restock Inventory</button>
     </div>
 
+    <!-- Inventory table -->
     <section id="inventory" class="inventory">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
@@ -47,6 +48,7 @@
         </table>
     </section>
 
+    <!-- Drones table -->
       <section id="drones">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
@@ -56,9 +58,9 @@
           </tr>
           {% for drone in drones %}
           <tr class="hover">
-            <td>{{ drone.owner_id }} Icecream</td>
+            <td>{{ drone.owner_id }}</td>
             <td>{{ drone.size }}</td>
-            <td>{{ icecream.active }}</td>
+            <td>{{ drone.active }}</td>
           </tr>
           {% endfor %}
           

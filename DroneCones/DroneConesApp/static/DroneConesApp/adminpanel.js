@@ -5,11 +5,11 @@ const inventory_table = document.getElementById('inventory')
 
 
 drones_button.addEventListener('click', () => {
-    dronesPage.dataset.display = "true";
-    inventoryPage.dataset.display = "false";
+    drones_table.dataset.display = "true";
+    inventory_table.dataset.display = "false";
 });
 
 inventory_button.addEventListener('click', () => {
-    dronesPage.dataset.display = "false";
-    inventoryPage.dataset.display = "true";
+    drones_table.dataset.display = "false";
+    inventory_table.dataset.display = "true";
 });
