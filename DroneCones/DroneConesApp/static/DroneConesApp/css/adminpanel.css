@@ -74,7 +74,7 @@
 }
 
 #drones {
-    display: none;
+    display: block;
 }
 
 #drones[data-display="false"] {

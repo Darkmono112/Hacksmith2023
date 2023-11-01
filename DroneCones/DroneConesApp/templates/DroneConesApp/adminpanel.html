@@ -50,31 +50,18 @@
       <section id="drones">
         <table width="98%" height="98%" cellpadding="10">
           <tr class="headers no-hover">
-              <th>ID</th>
+              <th>Owner ID</th>
               <th>Size</th>
               <th>Active</th>
           </tr>
-          {% for icecream in icecreams%}
+          {% for drone in drones %}
           <tr class="hover">
-            <td>{{ icecream.flavor }} Icecream</td>
-            <td>{{ icecream.price }}</td>
-            <td>{{ icecream.quantity }}</td>
+            <td>{{ drone.owner_id }} Icecream</td>
+            <td>{{ drone.size }}</td>
+            <td>{{ icecream.active }}</td>
           </tr>
           {% endfor %}
-          {% for cone in cones %}
-          <tr class="hover">
-            <td>{{ cone.flavor }}</td>
-            <td>{{ cone.price }}</td>
-            <td>{{ cone.quantity }}</td>
-          </tr>
-          {% endfor %}
-          {% for topping in toppings %}
-          <tr class="hover">
-            <td>{{ topping.flavor }}</td>
-            <td>{{ topping.price }}</td>
-            <td>{{ topping.quantity }}</td>
-          </tr>
-          {% endfor %}
+          
         </table>
       </section>
 
