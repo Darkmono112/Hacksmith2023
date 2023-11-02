@@ -9,6 +9,7 @@
 
 #adminpanel section {
     width: 60%;
+    
 }
 
 #adminpanel table {
@@ -46,6 +47,14 @@
     box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+#Drones-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
+#Inventory-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
 @media (max-width: 768px) {
     #adminpanel {
         flex-direction: column;
@@ -60,18 +69,25 @@
     }
 }
 
-.errorlist {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-.errorlist li {
-    color: red;
-    font-weight: bold;
-    border: 1px solid red;
-    background-color: #ffeeee;
-    padding: 5px;
-    font-size: 12px;
-    margin-bottom: 10px;
+#inventory {
+    display: block;
+}
+
+#inventory[data-display="true"] {
+    display: block;
+}
+
+#inventory[data-display="false"] {
+    display: none;
+}
+
+#drones {
+    display: none;
+}
+
+#drones[data-display="false"] {
+    display: none;
+}
+#drones[data-display="true"] {
+    display: block;
 }
