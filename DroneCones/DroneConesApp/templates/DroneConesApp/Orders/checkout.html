@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <div>
-                    <span class="show-details">
+                    <span class="show-details" id="show-summary">
                         Show Details
                     </span>
                 </div>
@@ -65,7 +65,7 @@
                     </span>
                 </div>
                 <div>
-                    <span class="show-details">
+                    <span class="show-details" id="show-billing">
                         Show Details
                     </span>
                 </div>
@@ -78,9 +78,9 @@
                     {% csrf_token %}
                     Credit Card Details
                     <div class="unified-input form-input">
-                        <input title="Please enter card number" required type="text" id="card-number" name="card-number" placeholder="Card Number">
+                        <input title="Please enter card number" required type="number" id="card-number" name="card-number" placeholder="Card Number">
                         <input title="Please enter expiration date" required type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY">
-                        <input title="Please enter cvv" required type="text" id="cvv" name="cvv" placeholder="CVV">
+                        <input title="Please enter cvv" required type="number" id="cvv" name="cvv" placeholder="CVV">
                     </div>
                     <div class="location-details">
                         Billing Address
@@ -94,12 +94,9 @@
                         </div>
                         <div class="unified-input form-input">
                             <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
-                            <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
+                            <input title="Please enter zip code" required type="number" id="zip" name="zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
                         </div>
                     </div>
-                    <!-- {% if user.is_authenticated %}
-                    <button type="submit" class="button-primary" id="form-button" name="billing">Save Billing Details</button>
-                    {% endif %} -->
                 </form>
             </div>
             
@@ -116,7 +113,7 @@
                     </span>
                 </div>
                 <div>
-                    <span class="show-details">
+                    <span class="show-details" id="show-shipping">
                         Show Details
                     </span>
                 </div>
@@ -138,18 +135,16 @@
                         </div>
                         <div class="unified-input form-input">
                             <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
-                            <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
+                            <input inputmode="numeric" title="Please enter zip code" required type="number" id="zip" name="zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
                         </div>
                     </div>
-                    <!-- {% if user.is_authenticated %}
-                    <button type="submit" class="button-primary" id="form-button" name="shipping">Save Shipping Details</button>
-                    {% endif %} -->
                 </form>
             </div>
         </div>
         <hr>
+        <span id="error-message"></span>
         <div class="checkout-button">
-            <button id="checkout-button" type="submit" class="button-primary half" style="text-align: center;" id="form-button">Checkout</button>
+            <button id="checkout-button" type="submit" class="button-primary half" style="text-align: center;" id="form-button" disabled>Checkout</button>
         </div>
 </div>
 {% endblock %}

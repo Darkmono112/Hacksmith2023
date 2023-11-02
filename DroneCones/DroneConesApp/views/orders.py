@@ -42,41 +42,47 @@ def checkout(request):
 
 def set_billing(request):
     if request.method == "POST":
-        user = request.user
-        first_name = request.POST.get('first-name')
-        last_name = request.POST.get('last-name')
-        street_address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zipcode = request.POST.get('zip')
+        try:
+            user = request.user
+            first_name = request.POST.get('first-name')
+            last_name = request.POST.get('last-name')
+            street_address = request.POST.get('address')
+            city = request.POST.get('city')
+            state = request.POST.get('state')
+            zipcode = request.POST.get('zip')
+        except:
+            return HttpResponse(status=400)
         if user is not None:
             billing_address = Billing_Address(user_id=user,first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
             billing_address.save()
+            return HttpResponse(status=201)
         else:
             billing_address = Billing_Address(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
             billing_address.save()
-
-    #These will turn to redirects when Paige has completed the thanks for order page
-    return HttpResponse(status=200)
+            return HttpResponse(status=201)
+    return HttpResponse(status=400)
 
 def set_shipping(request):
     if request.method == "POST":
-        user = request.user
-        first_name = request.POST.get('first-name')
-        last_name = request.POST.get('last-name')
-        street_address = request.POST.get('address')
-        city = request.POST.get('city')
-        state = request.POST.get('state')
-        zipcode = request.POST.get('zip')
+        try:
+            user = request.user
+            first_name = request.POST.get('first-name')
+            last_name = request.POST.get('last-name')
+            street_address = request.POST.get('address')
+            city = request.POST.get('city')
+            state = request.POST.get('state')
+            zipcode = request.POST.get('zip')
+        except:
+            return HttpResponse(status=400)
         if user is not None:
             shipping_address = Shipping_Address(user_id=user, first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
             shipping_address.save()
+            return HttpResponse(status=200)
         else:
             shipping_address = Shipping_Address(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
             shipping_address.save()
-    
-    #These will turn to redirects when Paige has completed the thanks for order page
-    return HttpResponse(status=200)
+            return HttpResponse(status=200)
+    return HttpResponse(status=400)
 
 
 def order_history(request):
