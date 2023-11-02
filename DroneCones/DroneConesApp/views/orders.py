@@ -37,16 +37,7 @@ def checkout(request):
         'order_items': order_items,
         'total': total
     }
-    # if request.method == "POST":
-    #     print(request.POST)
-    #     if 'billing' in request.POST:
-    #         print(request.POST)
-    #         print("here")
-    #         set_billing(request)
-    #     if 'shipping' in request.POST:
-    #         print(request.POST)
-    #         set_shipping(request)
-    
+
     return render(request, 'DroneConesApp/Orders/checkout.html', context)
 
 def set_billing(request):
