@@ -23,12 +23,16 @@ class Ice_Cream(models.Model):
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_name(self):
+        return f"{self.flavor} Ice Cream"
 
 class Cone(models.Model):
     quantity = models.IntegerField()
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_name(self):
+        return f"{self.flavor} Cone"
 
 class Topping(models.Model):
     quantity = models.IntegerField()

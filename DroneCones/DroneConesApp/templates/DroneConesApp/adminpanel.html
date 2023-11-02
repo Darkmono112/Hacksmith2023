@@ -90,10 +90,10 @@
               <select name="order-item" id="order-item" class="form-input" required>
                   <option value="" disabled selected>Select an option</option>
                   {% for icecream in icecreams%}
-                  <option value="{{ icecream.flavor }}">{{ icecream.flavor }} Icecream</option>
+                  <option value="{{ icecream.get_name }}">{{ icecream.get_name }}</option>
                   {% endfor %}
                   {% for cone in cones %}
-                  <option value="{{ cone.flavor }}">{{ cone.flavor }} Cone</option>
+                  <option value="{{ cone.get_name }}">{{ cone.get_name }}</option>
                   {% endfor %}
                   {% for topping in toppings %}
                   <option value="{{ topping.flavor }}">{{ topping.flavor }}</option>
