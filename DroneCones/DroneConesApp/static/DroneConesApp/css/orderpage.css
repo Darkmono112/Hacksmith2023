@@ -333,3 +333,25 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.details-container input[type=number]::-webkit-inner-spin-button,
+.details-container input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    display: none;
+    margin: 0;
+}
+
+button:disabled {
+    background-color: var(--text-button-color);
+    color: var(--button-color);
+    cursor: not-allowed;
+    border: 1px solid var(--button-color);
+    border-radius: 4px;
+}
+
+#error-message {
+    color: var(--button-color);
+    font-weight: bold;
+    font-size: .75rem;
+    margin: 8px;
+}
