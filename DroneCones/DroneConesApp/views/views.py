@@ -5,29 +5,34 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
-from DroneConesApp.models import Drone, User, FAQ
+from DroneConesApp.models import Drone, User, FAQ, Help_Request
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from ..forms.forms import FAQForm
+from ..forms.forms import RequestHelpForm
 
 
 def home(request):
     return render(request, "DroneConesApp/Landing/landing.html", {})
 
-def faq(request):
+def faq(request, redirect):
     faq_items = FAQ.objects.all()
-    return render(request, 'DroneConesApp/FAQ/mainFAQ.html', {'faq_items': faq_items})
+    return render(request, 'DroneConesApp/FAQ/mainFAQ.html', {'faq_items': faq_items, 'redirect': redirect})
 
-def ask_question(request):
+
+def request_help(request):
     if request.method == 'POST':
-        form = FAQForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('DroneConesApp:faq')
+        helpObject = Help_Request()
+        helpObject.email = request.POST.get("email")
+        helpObject.question = request.POST.get("question")
+        helpObject.save()
+        return redirect('DroneConesApp:faq', 1)
     else:
-        form = FAQForm()
-    return render(request, 'DroneConesApp/FAQ/ask_question.html', {'form': form})
+        form = RequestHelpForm()
+    return render(request, 'DroneConesApp/FAQ/request_help.html', {'form': form})
+
+def answer(request):
+    pass
 
 
 def payment(request):

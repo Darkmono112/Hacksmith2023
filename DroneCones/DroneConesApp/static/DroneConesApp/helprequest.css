@@ -37,7 +37,7 @@ h1 {
     max-width: 800px;
 }
 
-.faq-item {
+.form-input {
     width: 100%;
     padding: 14px 20px;
     margin: 12px 0;
@@ -48,38 +48,6 @@ h1 {
     color: var(--text-color);
     font-family: var(--font-family);
 }
-
-.notification{
-    background-color: var(--button-color);
-    color: var(--text-button-color);
-    position: absolute;
-    top: 50px;
-    z-index: 5;
-    width: 50%;
-    text-align: center;
-    padding: 14px 20px;
-    margin: 12px 0;
-    box-sizing: border-box;
-    border: 1px solid var(--input-text-color);
-    border-radius: 4px;
-    font-family: var(--font-family);
-    animation: 3s fade-out;
-    animation-fill-mode: forwards;
-}
-
-@keyframes fade-out{
-    0%{
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        display: none;
-    }
-}
-
 
 .form-input::placeholder {
     color: var(--input-text-color);

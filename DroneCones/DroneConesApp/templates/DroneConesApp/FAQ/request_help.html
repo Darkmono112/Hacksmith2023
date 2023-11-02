@@ -1,0 +1,24 @@
+{% extends 'DroneConesApp/misc/base.html'%}
+{% load static %}
+{% block content%}
+    <head>
+        <link rel="stylesheet" href="{% static 'DroneConesApp/helprequest.css' %}">
+        <title>Help Request Page</title>
+    </head>
+    <div class="page-container">
+
+
+        <h1>Send a Help Request</h1>
+        <form id="RequestHelpForm" action="" method="POST" class="list-container">
+            {% csrf_token %}
+            <div class="form-input">
+                <textarea type="text" style="min-width: 99.5%; max-width: 99.5%; height: 250px" name="question" placeholder="Describe Your Problem" class="form-input"></textarea>
+            </div>
+            <div class="form-input">
+                <input type="Email" name="email" placeholder="Email" class="form-input">
+            </div>
+            <button type="submit" class="button-primary">Submit Help Request</button>
+        </form>
+    </div>
+
+{% endblock %}
