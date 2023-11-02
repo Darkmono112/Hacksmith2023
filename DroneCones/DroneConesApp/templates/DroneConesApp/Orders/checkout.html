@@ -74,7 +74,7 @@
         <div class="details-container" id="billing-container">
             <div class="card-details">
                 <!-- Credit Card Details -->
-                <form action="" method="POST">
+                <form action="{% url 'DroneConesApp:set_billing' %}" method="POST" id="billing-form">
                     {% csrf_token %}
                     Credit Card Details
                     <div class="unified-input form-input">
@@ -97,7 +97,9 @@
                             <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
                         </div>
                     </div>
-                    <button type="submit" class="button-primary" id="form-button">Save Billing Details</button>
+                    <!-- {% if user.is_authenticated %}
+                    <button type="submit" class="button-primary" id="form-button" name="billing">Save Billing Details</button>
+                    {% endif %} -->
                 </form>
             </div>
             
@@ -122,7 +124,7 @@
         </div>
         <div class="details-container" id="shipping-container">
             <div class="card-details">
-                <form action="">
+                <form action="{% url 'DroneConesApp:set_shipping' %}" method="POST" id="shipping-form">
                     {% csrf_token %}
                     <div class="location-details">
                         Shipping Address
@@ -139,13 +141,15 @@
                             <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
                         </div>
                     </div>
-                    <button type="submit" class="button-primary" id="form-button">Save Shipping Details</button>
+                    <!-- {% if user.is_authenticated %}
+                    <button type="submit" class="button-primary" id="form-button" name="shipping">Save Shipping Details</button>
+                    {% endif %} -->
                 </form>
             </div>
         </div>
         <hr>
         <div class="checkout-button">
-            <button type="submit" class="button-primary half" style="text-align: center;" id="form-button">Checkout</button>
+            <button id="checkout-button" type="submit" class="button-primary half" style="text-align: center;" id="form-button">Checkout</button>
         </div>
 </div>
 {% endblock %}

@@ -62,3 +62,30 @@ shippingSection.addEventListener('click', () => {
     shippingContainer.dataset.display=`${isShippingOpen}`;
     shippingChevron.dataset.display=`${isShippingOpen}`;
 });
+
+const checkoutButton = document.getElementById('checkout-button');
+const billingForm = document.getElementById('billing-form');
+const shippingForm = document.getElementById('shipping-form');
+checkoutButton.addEventListener('click', async () => {
+    const billingFormData = new FormData(billingForm);
+    const shippingFormData = new FormData(shippingForm);
+
+    const billingRequest = fetch(billingForm.action, {
+        method: 'POST',
+        body: billingFormData
+    });
+
+    const shippingRequest = fetch(shippingForm.action, {
+        method: 'POST',
+        body: shippingFormData
+    });
+
+    await Promise.all([billingRequest, shippingRequest]);
+});
+
+// checkoutButton.addEventListener('click', async () => {
+//     billingFormData = new FormData(billingForm);
+//     shippingFormData = new FormData(shippingForm);
+//     billingForm.submit();
+//     shippingForm.submit();
+// });

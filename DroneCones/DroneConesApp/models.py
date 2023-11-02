@@ -48,4 +48,21 @@ class Drone(models.Model):
                 return choice[1]
         return ""
 
+class Billing_Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zipcode = models.IntegerField()
+
+class Shipping_Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zipcode = models.IntegerField()
 
