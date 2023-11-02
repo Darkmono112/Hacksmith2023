@@ -47,6 +47,14 @@
     box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+#Drones-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
+#Inventory-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
 @media (max-width: 768px) {
     #adminpanel {
         flex-direction: column;
