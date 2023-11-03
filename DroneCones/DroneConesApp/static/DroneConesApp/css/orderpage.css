@@ -433,3 +433,23 @@ button:disabled {
     font-size: .75rem;
     margin: 8px;
 }
+
+.popup {
+    position: fixed; /* Position the popup relative to the viewport */
+    top: 14%; /* Adjust the vertical position as needed */
+    left: 50%; /* Adjust the horizontal position as needed */
+    transform: translate(-50%, -50%); /* Center the popup */
+    background-color: #fdb400;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    width: 80%;
+    text-align: center;
+    height: fit-content;
+    display: block;
+    z-index: 1000; /* Adjust the z-index to ensure it's above other elements */
+    /* Additional styling as needed */
+}
