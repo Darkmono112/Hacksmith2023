@@ -1,7 +1,6 @@
 import json
 from collections import defaultdict
-
-from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from ..models import *
@@ -19,12 +18,38 @@ def order(request):
     }
 
     if request.method == 'POST':
-        print(request.POST)
-        order_item_names = request.POST.getlist('order_item_name[]')
-        total = request.POST.get('total-price-input')
+        qty_data = {key: value for key, value in request.POST.items() if 'qty' in key}
+        print(qty_data)
+        order_items_data = json.loads(request.POST.get('order_items_data'))
 
-        request.session['order_items'] = order_item_names
-        request.session['total'] = total
+        order = Order()
+        order.user_id = get_object_or_404(User, pk=request.user.id)
+        order.save()
+
+        order_items = []
+        grand_total = 0
+
+        for index, item in enumerate(order_items_data):
+            for index in range(int(qty_data[f'qty{index}'])):
+                ice_cream = ', '.join(item.get('iceCream', []))
+                cone = ', '.join(item.get('cones', []))
+                topping = ', '.join(item.get('toppings', []))
+                total = item.get('subtotal', 0)
+                grand_total += total
+
+                order_item = Order_Item(
+                    order_id=order,
+                    flavor=ice_cream,
+                    cone=cone,
+                    topping=topping,
+                    total=total
+                )
+                order_item.save()  # Save each order item
+                order_items.append(order_item)
+
+        order_items_json = serializers.serialize('json', order_items)
+        request.session['order_items'] = order_items_json
+        request.session['total'] = grand_total
 
         return redirect('DroneConesApp:checkout')
 
