@@ -123,6 +123,7 @@
         <div class="details-container" id="shipping-container">
             <div class="card-details">
                 <form action="">
+                    {% csrf_token %}
                     <div class="location-details">
                         Shipping Address
                         <div class="unified-input form-input">

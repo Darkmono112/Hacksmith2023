@@ -45,7 +45,7 @@
             {% if user.groups.all %}
                 {% for group in user.groups.all %}
                     {% if group.name == 'Admin' %}
-                        <a href="#" class="nav-item">Admin</a>
+                        <a href="{% url 'DroneConesApp:adminpanel' %}" class="nav-item">Admin</a>
                     {% endif %}
                 {% endfor %}
             {% endif %}
