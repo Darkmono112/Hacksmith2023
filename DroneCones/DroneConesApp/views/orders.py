@@ -3,6 +3,7 @@ from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
 from ..models import *
 
 
@@ -36,8 +37,54 @@ def checkout(request):
         'order_items': order_items,
         'total': total
     }
-    
+
+    if request.method == "POST":
+        set_billing(request)
+        set_shipping(request)
+
     return render(request, 'DroneConesApp/Orders/checkout.html', context)
+
+def set_billing(request):
+    try:
+        user = request.user
+        first_name = request.POST.get('billing-first-name')
+        last_name = request.POST.get('billing-last-name')
+        street_address = request.POST.get('billing-address')
+        city = request.POST.get('billing-city')
+        state = request.POST.get('billing-state')
+        zipcode = request.POST.get('billing-zip')
+    except:
+        return HttpResponse(status=400)
+    if user is not None:
+        billing_address = Billing_Address(user_id=user,first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
+        billing_address.save()
+        return HttpResponse(status=201)
+    else:
+        billing_address = Billing_Address(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
+        billing_address.save()
+        return HttpResponse(status=201)
+
+def set_shipping(request):
+    try:
+        user = request.user
+        first_name = request.POST.get('shipping-first-name')
+        last_name = request.POST.get('shipping-last-name')
+        street_address = request.POST.get('shipping-address')
+        city = request.POST.get('shipping-city')
+        state = request.POST.get('shipping-state')
+        zipcode = request.POST.get('shipping-zip')
+    except:
+        return HttpResponse(status=400)
+    if user is not None:
+        shipping_address = Shipping_Address(user_id=user, first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
+        shipping_address.save()
+        return HttpResponse(status=200)
+    else:
+        shipping_address = Shipping_Address(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
+        shipping_address.save()
+        return HttpResponse(status=200)
+
+
 
 def order_history(request):
     orders = Order.objects.order_by('-date')
