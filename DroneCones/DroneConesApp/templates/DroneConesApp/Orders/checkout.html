@@ -10,6 +10,7 @@
 <div class="content-container checkout-container">
     <h1 style="text-align: center; font-size: 30px">Checkout</h1>
     <hr style="margin-top: -20px; margin-bottom: 30px">
+    <form action="" method="POST" id="checkout-form">
         <div class="section-container">
             <div class="section-title-container" id="summary">
                 <div class="title">
@@ -37,7 +38,7 @@
                             <th>Count</th>
                             <th>Cost</th>
                         </tr>
-                        <!-- add django loop -->
+                        <!-- django for loop -->
                         <tr class="hover">
                             <td>Strawberry Icecream</td>
                             <td>1</td>
@@ -74,7 +75,7 @@
         <div class="details-container" id="billing-container">
             <div class="card-details">
                 <!-- Credit Card Details -->
-                <form action="{% url 'DroneConesApp:set_billing' %}" method="POST" id="billing-form">
+                <div>
                     {% csrf_token %}
                     Credit Card Details
                     <div class="unified-input form-input">
@@ -85,19 +86,19 @@
                     <div class="location-details">
                         Billing Address
                         <div class="unified-input form-input">
-                            <input title="Please enter first name" type="text" id="first-name" name="first-name" placeholder="First Name">
-                            <input title="Please enter last name" required type="text" id="last-name" name="last-name" placeholder="Last Name">
+                            <input title="Please enter first name" type="text" id="first-name" name="billing-first-name" placeholder="First Name">
+                            <input title="Please enter last name" required type="text" id="last-name" name="billing-last-name" placeholder="Last Name">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter address" required type="text" id="address" name="address" placeholder="Address">
-                            <input title="Please enter city" required type="text" id="city" name="city" placeholder="City">
+                            <input title="Please enter address" required type="text" id="address" name="billing-address" placeholder="Address">
+                            <input title="Please enter city" required type="text" id="city" name="billing-city" placeholder="City">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
-                            <input title="Please enter zip code" required type="number" id="zip" name="zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
+                            <input title="Please enter state" required type="text" id="state" name="billing-state" placeholder="State">
+                            <input title="Please enter zip code" required type="number" id="zip" name="billing-zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
             
         </div>
@@ -121,30 +122,31 @@
         </div>
         <div class="details-container" id="shipping-container">
             <div class="card-details">
-                <form action="{% url 'DroneConesApp:set_shipping' %}" method="POST" id="shipping-form">
+                <div>
                     {% csrf_token %}
                     <div class="location-details">
                         Shipping Address
                         <div class="unified-input form-input">
-                            <input title="Please enter first name" required type="text" id="first-name" name="first-name" placeholder="First Name">
-                            <input title="Please enter last name" required type="text" id="last-name" name="last-name" placeholder="Last Name">
+                            <input title="Please enter first name" required type="text" id="first-name" name="shipping-first-name" placeholder="First Name">
+                            <input title="Please enter last name" required type="text" id="last-name" name="shipping-last-name" placeholder="Last Name">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter address" required type="text" id="address" name="address" placeholder="Address">
-                            <input title="Please enter city" required type="text" id="city" name="city" placeholder="City">
+                            <input title="Please enter address" required type="text" id="address" name="shipping-address" placeholder="Address">
+                            <input title="Please enter city" required type="text" id="city" name="shipping-city" placeholder="City">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
-                            <input inputmode="numeric" title="Please enter zip code" required type="number" id="zip" name="zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
+                            <input title="Please enter state" required type="text" id="state" name="shipping-state" placeholder="State">
+                            <input inputmode="numeric" title="Please enter zip code" required type="number" id="zip" name="shipping-zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <hr>
         <span id="error-message">Please fill out required fields</span>
         <div class="checkout-button">
-            <button id="checkout-button" type="submit" class="button-primary half" style="text-align: center;" id="form-button" disabled>Checkout</button>
+            <button id="checkout-button" type="submit" class="button-primary half" style="text-align: center;" id="form-button" disabled title="Please fill out every field">Checkout</button>
         </div>
+    </form>
 </div>
 {% endblock %}

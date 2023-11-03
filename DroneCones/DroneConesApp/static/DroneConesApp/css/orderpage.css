@@ -334,6 +334,12 @@ body {
     align-items: center;
 }
 
+.details-container input::-webkit-inner-spin-button,
+.details-container input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 button:disabled {
     background-color: var(--text-button-color);
     color: var(--button-color);
