@@ -276,6 +276,13 @@ body {
     border-radius: 4px;
 }
 
+.order-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .order-item-container{
     width: 95%;
     display: flex;
@@ -295,6 +302,39 @@ body {
 
 .edit-options-container{
     width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.order-item-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.order-item-actions span{
+    cursor: pointer;
+    color: darkblue;
+    font-size: 14px;
+}
+
+.order-item-quantity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.order-item-quantity input{
+    width: 28px;
+}
+
+.item-name-container{
+    text-align: left;
+    color: dimgray;
+
 }
 
 .form-input {

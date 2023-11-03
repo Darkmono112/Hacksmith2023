@@ -45,8 +45,8 @@
         <hr style="margin-top: -15px; margin-bottom: 30px">
         <h4 style="text-align: center; margin-top: -25px; margin-bottom: 35px; font-size: 10px">*Click an item to remove it from your order*</h4>
         <div class="sub-content-container" id="myOrderContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: -30px; margin-left: 0; padding: 0">
-            <div id="order-container" style="display: flex;flex-direction: row;flex-wrap: wrap;">
-                <div id="blank-order-item" style="text-align: center">
+            <div class='order-container' id="order-container">
+                <div id="blank-order-item" style="text-align: center; width: 100%">
                     <p>There are currently no items in your cart!</p>
                 </div>
             </div>
@@ -79,7 +79,8 @@ const myOrderContainer = document.getElementById('order-container');
 let totalPrice = 0;
 
 addOrderItemButton.addEventListener('click', () => {
-    blank.remove()
+    blank.remove();
+    deactivateAllOtherDivs();
 
     const orderItemContainer = document.createElement('div');
     orderItemContainer.classList.add('order-item-container');
@@ -108,15 +109,66 @@ addOrderItemButton.addEventListener('click', () => {
 
         <div class="edit-options-container">
             <div class="order-item-actions">
-                <button class="edit-item">Edit</button>
-                <button class="remove-item">Remove</button>
+                <span id='edit-button' style="display: none">Edit |</span>
+                <span id='remove-button' style="margin-left: 5px;"> Remove</span>
             </div>
             <div class="order-item-quantity">
-                <input type="number" value="1" min="1" max="10" step="1">
+                <label for="qty" style="font-size: 14px">Qty: </label>
+                <input name='qty' type="number" value="1" min="1" max="9" step="1">
             </div>
         </div>
     `;
+
+    //event listeners need to be added every time a new order item is added
+    const editButtons = document.querySelectorAll('#edit-button')
+    editButtons.forEach((button) => {
+        button.style.display = 'block';
+    });
+
+    myOrderContainer.appendChild(orderItemContainer);
+
+    reconfigEditButtons();
+
+    const removeButtons = document.querySelectorAll('#remove-button');
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const parentContainer = button.parentElement.parentElement.parentElement;
+            if(parentContainer.getAttribute('data-active') === 'true'){
+                parentContainer.remove();
+                setLastDivActive()
+            }
+            else{
+                parentContainer.remove()
+            }
+        });
+    });
 });
+
+function setLastDivActive() {
+    const orderItemContainers = document.querySelectorAll('.order-item-container');
+
+    if (orderItemContainers.length > 0) {
+        const last = orderItemContainers[orderItemContainers.length - 1];
+        last.setAttribute('data-active', 'true');
+        last.children[2].children[0].children[0].style.display = 'none';
+    }
+}
+
+
+function reconfigEditButtons(){
+    const editButtons = document.querySelectorAll('#edit-button');
+    editButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const parentContainer = button.parentElement.parentElement.parentElement;
+            deactivateAllOtherDivs();
+            editButtons.forEach((edit) => {
+                edit.style.display = 'block';
+            });
+            parentContainer.setAttribute('data-active', true);
+            button.style.display = 'none';
+        });
+    });
+}
 
 
 optionItems.forEach((item) => {
@@ -197,6 +249,15 @@ flavorDivs.forEach((flavorDiv) => {
 });
 
 });
+
+function deactivateAllOtherDivs(){
+    const allOrderItemContainers = document.querySelectorAll('.order-item-container');
+    console.log("Found " + allOrderItemContainers.length + " order item containers");
+    allOrderItemContainers.forEach((entry) => {
+        entry.setAttribute('data-active', false)
+        console.log("Set " + entry.toString() + " to false")
+    });
+}
 
 function removeItemFromOrder(itemElement) {
     itemElement.remove();
