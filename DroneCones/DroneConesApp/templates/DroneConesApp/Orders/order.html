@@ -12,7 +12,7 @@
     <div class="sub-content-container">
         <div class="option-list">
             <ul style="list-style: none; padding: 0; margin: 10px;">
-                <li><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
+                <li class="selected"><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
                 <li><a><img src="{% static 'DroneConesApp/images/Sprites/Cones/all.png' %}" width="70px" height="70px"><span class="list-label">Cones</span></a></li>
                 <li><a><img src="{% static 'DroneConesApp/images/Sprites/Toppings/all.png' %}" width="70px" height="70px"><span class="list-label">Toppings</span></a></li>
             </ul>
@@ -88,22 +88,19 @@ addOrderItemButton.addEventListener('click', () => {
 
     orderItemContainer.innerHTML = `
         <div class="ice-cream-cone-container">
-            <div class="topping-layer">
+            <div id="topping-layer">
 
             </div>
-            <div class="ice-cream-layer">
+            <div id="ice-cream-layer">
 
             </div>
-            <div class="cone-layer">
+            <div id="cone-layer">
 
             </div>
         </div>
 
         <div class="item-name-container">
             <ul name="item-names" id="item-names">
-                <li>item 1</li>
-                <li>item 2</li>
-                <li>item 3</li>
             </ul>
         </div>
 
@@ -115,6 +112,9 @@ addOrderItemButton.addEventListener('click', () => {
             <div class="order-item-quantity">
                 <label for="qty" style="font-size: 14px">Qty: </label>
                 <input name='qty' type="number" value="1" min="1" max="9" step="1">
+            </div>
+            <div style="display: flex; flex-direction: row; margin-top: 15px; margin-right: 90px">
+                <strong>Subtotal: </strong><span>$</span><span id="subtotal"></span>
             </div>
         </div>
     `;
@@ -136,6 +136,7 @@ addOrderItemButton.addEventListener('click', () => {
             if(parentContainer.getAttribute('data-active') === 'true'){
                 parentContainer.remove();
                 setLastDivActive()
+                updateTotalPrice()
             }
             else{
                 parentContainer.remove()
@@ -202,8 +203,8 @@ flavorDivs.forEach((flavorDiv) => {
     // Create the "Add to Order" button
     const addButton = document.createElement('button');
     addButton.textContent = 'Add to Order';
+    addButton.classList.add('button');
     addButton.style.display = 'none';
-    addButton.class = 'button'
 
     flavorDiv.appendChild(addButton);
 
@@ -218,90 +219,91 @@ flavorDivs.forEach((flavorDiv) => {
     });
 
     addButton.addEventListener('click', () => {
-    // Create a new entry in the order
-    const orderEntry = document.createElement('div');
-    orderEntry.classList.add('order-entry');
-    orderEntry.setAttribute('data-price', flavorPrice.toString());
-    const orderImage = flavorImage.cloneNode(true);
-    orderImage.style.width = '70px';
-    const orderName = document.createElement('span');
-    orderName.textContent = flavorName;
-    orderEntry.appendChild(orderImage);
-    orderEntry.appendChild(orderName);
-    myOrderContainer.appendChild(orderEntry);
+        const selectedOption = document.querySelector('.selected').textContent.toLowerCase();
+        let activeOrderItem = document.querySelector('.order-item-container[data-active="true"]');
+        if(!activeOrderItem){
+            addOrderItemButton.click();
+            activeOrderItem = document.querySelector('.order-item-container[data-active="true"]');
+        }
+        const iceCreamLayer = activeOrderItem.children[0].children[1];
+        const coneLayer = activeOrderItem.children[0].children[2];
+        const toppingLayer = activeOrderItem.children[0].children[0];
 
-    const hiddenNameInput = document.createElement('input');
-    hiddenNameInput.type = 'hidden';
-    hiddenNameInput.name = 'order_item_name[]';
-    hiddenNameInput.value = flavorName;
+        let flavorNameElement = document.createElement('li');
+        const activeItemList = activeOrderItem.children[1].children[0];
+        flavorNameElement.textContent = flavorName;
+        flavorNameElement.setAttribute('data-price', flavorPrice)
 
-    orderEntry.append(hiddenNameInput)
+        // Add the flavor image to the correct layer
+        const flavorImageClone = flavorImage.cloneNode(true);
 
-    orderEntry.addEventListener('click', () => {
-        removeItemFromOrder(orderEntry);
+        if (selectedOption === 'ice cream') {
+            flavorImageClone.style.width = '30px';
+            flavorNameElement.textContent = "1 Scoop " + flavorName;
+            iceCreamLayer.appendChild(flavorImageClone);
+        } else if (selectedOption === 'cones') {
+            flavorImageClone.style.width = '45px';
+            flavorNameElement.textContent = flavorName + " Cone";
+            coneLayer.appendChild(flavorImageClone);
+        } else if (selectedOption === 'toppings') {
+            flavorImageClone.style.width = '30px';
+            flavorNameElement.textContent = flavorName;
+            toppingLayer.appendChild(flavorImageClone);
+        }
+        activeItemList.appendChild(flavorNameElement);
+
+        flavorNameElement.addEventListener('click', () => {
+            flavorNameElement.remove();
+
+            if (selectedOption === 'ice cream') {
+                iceCreamLayer.removeChild(flavorImageClone);
+            } else if (selectedOption === 'cones') {
+                coneLayer.removeChild(flavorImageClone);
+            } else if (selectedOption === 'toppings') {
+                toppingLayer.removeChild(flavorImageClone);
+            }
+
+            updateTotalPrice()
+            const totalElement = document.getElementById('total-price');
+            console.log(totalElement.textContent)
+            if(totalElement.textContent === "0.00"){
+                activeOrderItem.remove()
+            }
+        });
+
+        blank.remove();
+        updateTotalPrice();
+    });
+});
+
+function updateTotalPrice() {
+    const orderContainers = document.querySelectorAll('.order-item-container');
+    let total = 0;
+    orderContainers.forEach((orderContainer) => {
+        const containerItems = orderContainer.querySelectorAll('#item-names > li');
+        let subtotal = 0;
+
+        containerItems.forEach((entry) => {
+            const price = Number(entry.getAttribute('data-price')) / 100;
+            const quantity = parseInt(orderContainer.children[2].querySelector('input[name="qty"]').value, 10);
+            subtotal += price * quantity;
+        });
+
+        total += subtotal
+
+        const subtotalElement = orderContainer.querySelector('#subtotal');
+        subtotalElement.textContent = subtotal.toFixed(2);
     });
 
-    // Update the total price
-    totalPrice += (flavorPrice / 100);
-    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
-    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
-    blank.remove()
-});
-
-});
+    const totalElement = document.getElementById('total-price')
+    totalElement.textContent = total.toFixed(2);
+}
 
 function deactivateAllOtherDivs(){
     const allOrderItemContainers = document.querySelectorAll('.order-item-container');
-    console.log("Found " + allOrderItemContainers.length + " order item containers");
     allOrderItemContainers.forEach((entry) => {
         entry.setAttribute('data-active', false)
-        console.log("Set " + entry.toString() + " to false")
     });
-}
-
-function removeItemFromOrder(itemElement) {
-    itemElement.remove();
-    // Recalculate the total price after removing the item
-    const orderItems = collectOrderItems();
-    updateTotalPrice(orderItems);
-}
-
-function updateTotalPrice(orderItems) {
-    const totalPrice = calculateTotalPrice(orderItems);
-    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
-}
-
-function calculateTotalPrice(orderItems) {
-    totalPrice = 0;
-    for (const orderItem of orderItems) {
-        totalPrice += orderItem.price;
-    }
-    return totalPrice;
-}
-
-function collectOrderItems() {
-    const orderItems = [];
-    const orderEntryElements = document.querySelectorAll('.order-entry');
-
-    orderEntryElements.forEach((entry) => {
-        const imageSrc = entry.querySelector('img').src;
-        const itemName = entry.querySelector('span').textContent;
-        const price = Number(entry.getAttribute('data-price'))/100
-        orderItems.push({ imageSrc, itemName, price });
-        // Add a click event listener to remove the item when clicked
-        entry.addEventListener('click', () => {
-            removeItemFromOrder(entry);
-        });
-    });
-
-    if(orderItems.length === 0){
-        blank = document.createElement('div');
-        blank.style.textAlign = "center";
-        blank.innerHTML = `<p>There are currently no items in your cart!</p>`;
-        myOrderContainer.appendChild(blank)
-    }
-
-    return orderItems;
 }
 
 </script>
