@@ -44,7 +44,7 @@
     </div>
 </div>
 <div class="content-container" style="margin-left: 50px; width: 40%; text-align: center">
-    <form method="post" action="{% url 'DroneConesApp:order' %}">
+    <form method="post" id="checkout-form" action="{% url 'DroneConesApp:order' %}">
         {% csrf_token %}
         <h1 style="text-align: center; font-size: 30px">My Order</h1>
         <hr style="margin-top: -15px; margin-bottom: 30px">
@@ -65,10 +65,17 @@
                 </div>
             </div>
         </div>
-        <button id="checkout-button" class="button" type="submit" style="width: 80%; margin-top: 10px">
+        <button id="checkout-button" class="button" onclick="submitOrder()" type="button" style="width: 80%; margin-top: 10px">
             <img src="{% static 'DroneConesApp/images/checkout.png' %}" height="14px" width="auto"> Checkout
         </button>
     </form>
+    <script>
+        document.getElementById('checkout-form').addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+          }
+        });
+    </script>
 </div>
 
 <script>
@@ -82,8 +89,8 @@ const coneFlavors = document.getElementById('coneflavors');
 const toppingFlavors = document.getElementById('toppingflavors');
 const flavorDivs = document.querySelectorAll('.pick-icon');
 const myOrderContainer = document.getElementById('order-container');
-let totalPrice = 0;
-
+const orderItemsData = [];
+let order_item_count = 0;
 // Event listener for Add Order Item button
 addOrderItemButton.addEventListener('click', () => {
     // remove no items in cart message
@@ -93,6 +100,7 @@ addOrderItemButton.addEventListener('click', () => {
     const orderItemContainer = document.createElement('div');
     orderItemContainer.classList.add('order-item-container');
     orderItemContainer.setAttribute('data-active', true);
+    orderItemContainer.setAttribute('data-id', order_item_count);
 
     // base template for each order item
     orderItemContainer.innerHTML = `
@@ -153,6 +161,14 @@ addOrderItemButton.addEventListener('click', () => {
             }
         });
     });
+    const orderItemData = {
+        iceCream: [],
+        cones: [],
+        toppings: [],
+        subtotal: 0, // Add more relevant data as needed
+    };
+    orderItemsData.push(orderItemData);
+    order_item_count++;
 });
 
 function setLastDivActive() {
@@ -249,7 +265,6 @@ flavorDivs.forEach((flavorDiv) => {
 
         let flavorNameElement = document.createElement('li');
         const activeItemList = activeOrderItem.children[1].children[0];
-        flavorNameElement.textContent = flavorName;
         flavorNameElement.setAttribute('data-price', flavorPrice)
 
         // Add the flavor image to the correct layer
@@ -259,14 +274,20 @@ flavorDivs.forEach((flavorDiv) => {
                 flavorImageClone.style.width = '30px';
                 flavorNameElement.textContent = "1 Scoop " + flavorName;
                 iceCreamLayer.appendChild(flavorImageClone);
+                orderItemsData[activeOrderItem.getAttribute('data-id')].iceCream.push(flavorName)
+                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
             } else if (selectedOption === 'cones') {
                 flavorImageClone.style.width = '45px';
                 flavorNameElement.textContent = flavorName + " Cone";
                 coneLayer.appendChild(flavorImageClone);
+                orderItemsData[activeOrderItem.getAttribute('data-id')].cones.push(flavorName)
+                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
             } else if (selectedOption === 'toppings') {
                 flavorImageClone.style.width = '30px';
                 flavorNameElement.textContent = flavorName;
                 toppingLayer.appendChild(flavorImageClone);
+                orderItemsData[activeOrderItem.getAttribute('data-id')].toppings.push(flavorName)
+                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
             }
             activeItemList.appendChild(flavorNameElement);
 
@@ -363,6 +384,30 @@ function showPopup(message) {
             popup.remove(); // Remove the popup element after it has faded out
         }, 500); // Adjust the time here to match the CSS transition duration (0.5s in this example)
     }, 1500);
+}
+
+function submitOrder() {
+    const blank = document.getElementById('blank-order-item');
+    if(blank){
+        showPopup("Add some items to your cart to checkout!");
+    }
+    else {
+        // Convert the array to a JSON string
+        const orderItemsDataString = JSON.stringify(orderItemsData);
+
+        // Add a hidden input to store the order item data
+        const orderItemsInput = document.createElement('input');
+        orderItemsInput.type = 'hidden';
+        orderItemsInput.name = 'order_items_data'; // Use an appropriate name
+        orderItemsInput.value = orderItemsDataString;
+
+        // Add the hidden input to the form
+        const form = document.querySelector('form');
+        form.appendChild(orderItemsInput);
+
+        // Submit the form
+        form.submit();
+    }
 }
 </script>
 

@@ -19,6 +19,7 @@ def order(request):
     }
 
     if request.method == 'POST':
+        print(request.POST)
         order_item_names = request.POST.getlist('order_item_name[]')
         total = request.POST.get('total-price-input')
 
