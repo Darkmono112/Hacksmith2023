@@ -94,28 +94,7 @@ shippingSection.addEventListener('click', () => {
 });
 
 const checkoutButton = document.getElementById('checkout-button');
-const billingForm = document.getElementById('billing-form');
-const shippingForm = document.getElementById('shipping-form');
-checkoutButton.addEventListener('click', async () => {
-    const billingFormData = new FormData(billingForm);
-    const shippingFormData = new FormData(shippingForm);
-
-    const billingRequest = fetch(billingForm.action, {
-        method: 'POST',
-        body: billingFormData
-    });
-
-    const shippingRequest = fetch(shippingForm.action, {
-        method: 'POST',
-        body: shippingFormData
-    });
-
-    await Promise.all([billingRequest, shippingRequest]);
-});
-
-// enable button when all required fields are filled
-const requiredBillingFields = document.getElementById('billing-form').querySelectorAll("[required]");
-const requiredShippingFields = document.getElementById('shipping-form').querySelectorAll("[required]");
+const requiredCheckoutFields = document.getElementById('checkout-form').querySelectorAll("[required]");
 const errorMessage = document.getElementById('error-message');
 
 function checkRequiredFields(requiredFields) {
@@ -124,13 +103,13 @@ function checkRequiredFields(requiredFields) {
         if (field.hasAttribute("pattern")) {
             const pattern = new RegExp(field.getAttribute("pattern"));
             if (!pattern.test(field.value)) {
-                errorMessage.innerHTML = `Please fill out ${field.name} correctly`;
+                checkoutButton.title = `Please fill out ${field.name} correctly`;
                 return false;
             }
         }
         else {
             if (field.value === "") {
-                errorMessage.innerHTML = `Please fill out ${field.name}`;
+                checkoutButton.title = `Please fill out ${field.name}`;
                 return false;
             }
         }
@@ -139,10 +118,10 @@ function checkRequiredFields(requiredFields) {
     return true;
 }
 
-requiredBillingFields.forEach((field) => { 
+requiredCheckoutFields.forEach((field) => { 
     field.addEventListener('keydown', () => {
         setTimeout(() => {
-            if (checkRequiredFields(requiredBillingFields) && checkRequiredFields(requiredShippingFields)) {
+            if (checkRequiredFields(requiredCheckoutFields)) {
                 checkoutButton.removeAttribute('disabled');
             } else {
                 checkoutButton.setAttribute('disabled', 'disabled');
@@ -150,16 +129,3 @@ requiredBillingFields.forEach((field) => {
         }, 0)
     });
 });
-
-requiredShippingFields.forEach((field) => {
-    field.addEventListener('input', () => {
-        setTimeout(() => {
-            if (checkRequiredFields(requiredBillingFields) && checkRequiredFields(requiredShippingFields)) {
-                checkoutButton.removeAttribute('disabled');
-            } else {
-                checkoutButton.setAttribute('disabled', 'disabled');
-            }
-        }, 0)
-    });
-});
-
