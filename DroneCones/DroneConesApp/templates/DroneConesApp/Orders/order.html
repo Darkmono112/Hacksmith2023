@@ -46,7 +46,9 @@
         <h4 style="text-align: center; margin-top: -25px; margin-bottom: 35px; font-size: 10px">*Click an item to remove it from your order*</h4>
         <div class="sub-content-container" id="myOrderContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: -30px; margin-left: 0; padding: 0">
             <div id="order-container" style="display: flex;flex-direction: row;flex-wrap: wrap;">
-                <!-- This is where order entries will go -->
+                <div id="blank-order-item" style="text-align: center">
+                    <p>There are currently no items in your cart!</p>
+                </div>
             </div>
             <div style="text-align: right; width: 80%">
                 <br>
@@ -65,14 +67,57 @@
 </div>
 
 <script>
-// JavaScript code to handl e option selection and flavor selection
-
-// Option list
+let blank = document.getElementById('blank-order-item');
+const addOrderItemButton = document.getElementById('add-order-item')
 const optionList = document.querySelector('.option-list ul');
 const optionItems = optionList.querySelectorAll('li');
 const iceCreamFlavors = document.getElementById('icecreamflavors');
 const coneFlavors = document.getElementById('coneflavors');
 const toppingFlavors = document.getElementById('toppingflavors');
+const flavorDivs = document.querySelectorAll('.pick-icon');
+const myOrderContainer = document.getElementById('order-container');
+let totalPrice = 0;
+
+addOrderItemButton.addEventListener('click', () => {
+    blank.remove()
+
+    const orderItemContainer = document.createElement('div');
+    orderItemContainer.classList.add('order-item-container');
+    orderItemContainer.setAttribute('data-active', true);
+
+    orderItemContainer.innerHTML = `
+        <div class="ice-cream-cone-container">
+            <div class="topping-layer">
+
+            </div>
+            <div class="ice-cream-layer">
+
+            </div>
+            <div class="cone-layer">
+
+            </div>
+        </div>
+
+        <div class="item-name-container">
+            <ul name="item-names" id="item-names">
+                <li>item 1</li>
+                <li>item 2</li>
+                <li>item 3</li>
+            </ul>
+        </div>
+
+        <div class="edit-options-container">
+            <div class="order-item-actions">
+                <button class="edit-item">Edit</button>
+                <button class="remove-item">Remove</button>
+            </div>
+            <div class="order-item-quantity">
+                <input type="number" value="1" min="1" max="10" step="1">
+            </div>
+        </div>
+    `;
+});
+
 
 optionItems.forEach((item) => {
     item.addEventListener('click', () => {
@@ -94,12 +139,7 @@ optionItems.forEach((item) => {
         }
     });
 });
-</script>
 
-<script>
-const flavorDivs = document.querySelectorAll('.pick-icon');
-const myOrderContainer = document.getElementById('order-container');
-let totalPrice = 0;
 
 flavorDivs.forEach((flavorDiv) => {
     const flavorImage = flavorDiv.querySelector('img');
@@ -153,6 +193,7 @@ flavorDivs.forEach((flavorDiv) => {
     totalPrice += (flavorPrice / 100);
     document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
     document.getElementById('total-price-input').value = totalPrice.toFixed(2);
+    blank.remove()
 });
 
 });
@@ -191,6 +232,13 @@ function collectOrderItems() {
             removeItemFromOrder(entry);
         });
     });
+
+    if(orderItems.length === 0){
+        blank = document.createElement('div');
+        blank.style.textAlign = "center";
+        blank.innerHTML = `<p>There are currently no items in your cart!</p>`;
+        myOrderContainer.appendChild(blank)
+    }
 
     return orderItems;
 }
