@@ -39,18 +39,20 @@
                             <th>Cost</th>
                         </tr>
                         <!-- django for loop -->
+                        {% for item in order_items %}
                         <tr class="hover">
-                            <td>Strawberry Icecream</td>
-                            <td>1</td>
-                            <td>$3</td>
+                            <td>{{item.flavor}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>${{item.total}}</td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                     <hr>
                 </table>
                 <div class="total">
                     
                     <span>Total: </span>
-                    <span>$3</span>
+                    <span>${{total}}</span>
                 </div>
             </div>
         </div>
