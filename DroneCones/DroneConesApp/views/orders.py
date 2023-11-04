@@ -58,9 +58,18 @@ def order(request):
 def checkout(request):
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', [])
+    order_items = json.loads(order_items)
+    
+    parsed_items = []
+    for item in order_items:
+        item['fields']['quantity'] = 1
+        if item['fields'] in parsed_items:
+            parsed_items[parsed_items.index(item['fields'])]['quantity'] += 1
+        else:
+            parsed_items.append(item['fields'])
 
     context = {
-        'order_items': order_items,
+        'order_items': parsed_items,
         'total': total
     }
 
