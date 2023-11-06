@@ -30,9 +30,12 @@
             <a class="button" href="{% url 'DroneConesApp:change_password' %}">
                 Change Password
             </a>
+            <a class="button" href="{% url 'DroneConesApp:logout' %}">
+                Logout
+            </a>
             <form id="delete-form" method="post" data-delete-url="{% url 'DroneConesApp:delete_account' %}">
                 {% csrf_token %}
-                <button class="button" type="button" onclick="deleteConfirmation(this)">
+                <button class="button" style="background-color:rgb(211, 74, 97)" type="button" onclick="deleteConfirmation(this)">
                     Delete Account
                 </button>
             </form>
