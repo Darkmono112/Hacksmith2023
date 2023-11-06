@@ -9,3 +9,14 @@
     width: 50%;
     text-align: center;
 }
+
+@media (max-width: 768px) {
+    #order_tracking {
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+    }
+    #order_tracking div {
+        width: 100%;
+    }
+}
