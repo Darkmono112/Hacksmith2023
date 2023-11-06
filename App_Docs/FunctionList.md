@@ -1,5 +1,4 @@
 # Specific methods and material 
-The following sections will brake down our code for
-maintainability reasons 
+The following is functional Documentation for Drone Cones 
 
-# INSERT DOCUMENTATION HERE
+## 
