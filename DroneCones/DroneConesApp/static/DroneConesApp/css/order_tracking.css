@@ -1,0 +1,11 @@
+#order_tracking {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: auto;
+}
+
+#order_tracking div {
+    width: 50%;
+    text-align: center;
+}

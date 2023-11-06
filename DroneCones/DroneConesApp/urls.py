@@ -21,6 +21,8 @@ urlpatterns = [
     path("change_password/", account.change_password, name='change_password'),
     path("delete_account/", account.delete_account, name='delete_account'),
     path("checkout/", orders.checkout, name='checkout'),
+    path("order_tracking/", orders.order_tracking, name='order_tracking'),
+
 ]
 
 app_name = "DroneConesApp"

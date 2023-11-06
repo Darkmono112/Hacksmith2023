@@ -3,6 +3,9 @@ from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from urllib.parse import urlencode
+from datetime import datetime
+
 from ..models import *
 
 
@@ -69,3 +72,13 @@ def delete_order(request, order_id):
         order.delete()
 
     return redirect('DroneConesApp:order_history')
+
+def order_tracking(request):
+
+    # TODO: pass in created date from the order as well as the address and items
+    context = {
+        "items": '',
+        "address": urlencode({'address': '300 W Center St, Logan UT 84321' }),
+        "order_date": 'Mon, 06 Nov 2023 02:41:27 GMT'
+    }
+    return render(request, 'DroneConesApp/Orders/order_tracking.html', context)
