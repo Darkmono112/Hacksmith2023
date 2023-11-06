@@ -12,10 +12,10 @@
         <form id="RequestHelpForm" action="" method="POST" class="list-container">
             {% csrf_token %}
             <div class="form-input">
-                <textarea type="text" style="min-width: 99.5%; max-width: 99.5%; height: 250px" name="question" placeholder="Describe Your Problem" class="form-input"></textarea>
+                <textarea type="text" style="min-width: 99.5%; max-width: 99.5%; height: 250px" required name="question" placeholder="Describe Your Problem" class="form-input"></textarea>
             </div>
             <div class="form-input">
-                <input type="Email" name="email" placeholder="Email" class="form-input">
+                <input type="Email" required name="email" placeholder="Email" class="form-input">
             </div>
             <button type="submit" class="button-primary">Submit Help Request</button>
         </form>

@@ -31,10 +31,6 @@ def request_help(request):
         form = RequestHelpForm()
     return render(request, 'DroneConesApp/FAQ/request_help.html', {'form': form})
 
-def answer(request):
-    pass
-
-
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
