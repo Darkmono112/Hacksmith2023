@@ -1,0 +1,25 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %} Become a Flyer {% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/flyerportal.css' %}">
+
+<div id="flyersignup"> 
+    <h1>Become a Flyer</h1>
+      <hr>
+      <p>Flyers can lease as many drones as they want to Drone Cones, and they will receive a percentage of earnings for each order.</p>
+      <p>You are able to pause the use of your drones by the system at any time.</p>
+      <p>Theres no reason to wait! Enroll now and get started!</p>
+      <button id="signup" type="button">
+        Sign Up
+      </button>
+</div>
+
+<script>
+    document.getElementById("signup").onclick = function () {
+        location.href = "{% url 'DroneConesApp:flyersignup' %}";
+    };
+</script>
+{% endblock %}
