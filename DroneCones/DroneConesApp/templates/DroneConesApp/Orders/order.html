@@ -150,15 +150,28 @@ addOrderItemButton.addEventListener('click', () => {
     removeButtons.forEach((button) => {
         button.addEventListener('click', () => {
             const parentContainer = button.parentElement.parentElement.parentElement;
+            const id = parentContainer.getAttribute('data-id');
+            let keyToDelete = null;
+
+            for (const key in orderItemsData) {
+                if (orderItemsData[key].id == id) {
+                    keyToDelete = key;
+                    break; // Exit the loop once we've found the item to delete
+                }
+            }
+
+            delete orderItemsData[keyToDelete];
+
             //If item being removed is selected, default selected to the last item in the list
             if(parentContainer.getAttribute('data-active') === 'true'){
                 parentContainer.remove();
-                setLastDivActive()
-                updateTotalPrice()
+                setLastDivActive();
+                updateTotalPrice();
             }
             else{
                 parentContainer.remove()
             }
+
         });
     });
     const orderItemData = {
@@ -166,6 +179,7 @@ addOrderItemButton.addEventListener('click', () => {
         cones: [],
         toppings: [],
         subtotal: 0, // Add more relevant data as needed
+        id: order_item_count,
     };
     orderItemsData.push(orderItemData);
     order_item_count++;
@@ -268,46 +282,64 @@ flavorDivs.forEach((flavorDiv) => {
         flavorNameElement.setAttribute('data-price', flavorPrice)
 
         // Add the flavor image to the correct layer
+        console.log(activeOrderItem.getAttribute('data-id'));
         const flavorImageClone = flavorImage.cloneNode(true);
         if(canAddToOrder(selectedOption, activeOrderItem)) {
+            const id = activeOrderItem.getAttribute('data-id');
             if (selectedOption === 'ice cream') {
                 flavorImageClone.style.width = '30px';
                 flavorNameElement.textContent = "1 Scoop " + flavorName;
                 iceCreamLayer.appendChild(flavorImageClone);
-                orderItemsData[activeOrderItem.getAttribute('data-id')].iceCream.push(flavorName)
-                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
+                orderItemsData[id].iceCream.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
             } else if (selectedOption === 'cones') {
                 flavorImageClone.style.width = '45px';
                 flavorNameElement.textContent = flavorName + " Cone";
                 coneLayer.appendChild(flavorImageClone);
-                orderItemsData[activeOrderItem.getAttribute('data-id')].cones.push(flavorName)
-                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
+                orderItemsData[id].cones.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
             } else if (selectedOption === 'toppings') {
                 flavorImageClone.style.width = '30px';
                 flavorNameElement.textContent = flavorName;
                 toppingLayer.appendChild(flavorImageClone);
-                orderItemsData[activeOrderItem.getAttribute('data-id')].toppings.push(flavorName)
-                orderItemsData[activeOrderItem.getAttribute('data-id')].subtotal += flavorPrice;
+                orderItemsData[id].toppings.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
             }
             activeItemList.appendChild(flavorNameElement);
 
             flavorNameElement.addEventListener('click', () => {
                 flavorNameElement.remove();
+                const id = activeOrderItem.getAttribute('data-id');
+                let curKey = null;
 
-                if (selectedOption === 'ice cream') {
-                    iceCreamLayer.removeChild(flavorImageClone);
-                } else if (selectedOption === 'cones') {
-                    coneLayer.removeChild(flavorImageClone);
-                } else if (selectedOption === 'toppings') {
-                    toppingLayer.removeChild(flavorImageClone);
+                for (const key in orderItemsData) {
+                    if (orderItemsData[key].id == id) {
+                        curKey = key;
+                        break; // Exit the loop once we've found the item to delete
+                    }
                 }
 
+                if (selectedOption === 'ice cream') {
+                    const index = orderItemsData[curKey].iceCream.indexOf(flavorName);
+                    orderItemsData[curKey].iceCream.splice(index, 1);
+                    iceCreamLayer.removeChild(flavorImageClone);
+                } else if (selectedOption === 'cones') {
+                    const index = orderItemsData[curKey].cones.remove(flavorName);
+                    orderItemsData[curKey].cones.splice(index, 1);
+                    coneLayer.removeChild(flavorImageClone);
+                } else if (selectedOption === 'toppings') {
+                    const index = orderItemsData[curKey].toppings.remove(flavorName);
+                    orderItemsData[curKey].toppings.splice(index, 1);
+                    toppingLayer.removeChild(flavorImageClone);
+                }
+                orderItemsData[curKey].subtotal -= flavorPrice;
                 updateTotalPrice()
                 const totalElement = document.getElementById('total-price');
                 console.log(totalElement.textContent)
                 if (totalElement.textContent === "0.00") {
                     activeOrderItem.remove()
                 }
+
 
             });
 
@@ -329,7 +361,7 @@ function updateTotalPrice() {
 
         containerItems.forEach((entry) => {
             const price = Number(entry.getAttribute('data-price')) / 100;
-            const quantity = parseInt(orderContainer.children[2].querySelector('input[name="qty"]').value, 10);
+            const quantity = parseInt(orderContainer.children[2].querySelector('input[name*="qty"]').value, 10);
             subtotal += price * quantity;
         });
 
