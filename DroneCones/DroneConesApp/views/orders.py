@@ -9,8 +9,40 @@ def item_in_list(item, item_list):
     item_copy = item.copy()
     item_copy.pop('quantity')
     item_copy.pop('total')
-    print(item_copy)
+    item_copy.pop('name')
+    for idx, val in enumerate(item_list):
+        val_copy = val.copy()
+        val_copy.pop('quantity')
+        val_copy.pop('total')
+        val_copy.pop('name')
+        if item_copy == val_copy:
+            return idx
     return -1
+
+def get_name(item):
+    scoop_dict = {
+        '1': 'Single Scoop ',
+        '2': 'Double Scoop ',
+        '3': 'Triple Scoop '
+    }
+    flavor = item['flavor'].split(',')
+    cone = item['cone']
+    topping = item['topping']
+    name = ""
+    if len(flavor) > 0 and flavor[0] != '':
+        name+=scoop_dict[f"{len(flavor)}"]
+        name+=f"of {','.join(flavor)} Ice Cream"
+    if len(cone) > 0:
+        if len(flavor) > 0 and flavor[0] != '':
+            name+=f" in a {cone} cone "
+        else:
+            name+=f"{cone} cone "
+    if len(topping) > 0 and topping[0] != '':
+        name+=f"with {', '.join(topping)}"
+    return name
+    
+    
+    
 
 def order(request):
     ice_cream_flavors = Ice_Cream.objects.order_by('flavor')
@@ -68,15 +100,20 @@ def checkout(request):
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', [])
     order_items = json.loads(order_items)
-    
+
     parsed_items = []
     for item in order_items:
         item['fields']['quantity'] = 1
+        item['fields']['name'] = get_name(item['fields'])
         idx = item_in_list(item['fields'], parsed_items)
-        if item['fields'] in parsed_items:
-            parsed_items[parsed_items.index(item['fields'])]['quantity'] += 1
+        if idx != -1:
+            parsed_items[idx]['quantity'] += 1
         else:
             parsed_items.append(item['fields'])
+        # if item['fields'] in parsed_items:
+        #     parsed_items[parsed_items.index(item['fields'])]['quantity'] += 1
+        # else:
+        #     parsed_items.append(item['fields'])
 
     context = {
         'order_items': parsed_items,
