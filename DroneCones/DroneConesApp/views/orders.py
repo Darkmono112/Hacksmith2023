@@ -27,22 +27,16 @@ def get_name(item):
     }
     flavor = item['flavor'].split(',')
     cone = item['cone']
-    topping = item['topping']
+    topping = item['topping'].split(',')
     name = ""
     if len(flavor) > 0 and flavor[0] != '':
         name+=scoop_dict[f"{len(flavor)}"]
         name+=f"of {','.join(flavor)} Ice Cream"
     if len(cone) > 0:
-        if len(flavor) > 0 and flavor[0] != '':
-            name+=f" in a {cone} cone "
-        else:
-            name+=f"{cone} cone "
+        name += f" in a {cone} cone " if len(flavor) > 0 and flavor[0] != '' else f"{cone} cone "
     if len(topping) > 0 and topping[0] != '':
         name+=f"with {', '.join(topping)}"
     return name
-    
-    
-    
 
 def order(request):
     ice_cream_flavors = Ice_Cream.objects.order_by('flavor')
