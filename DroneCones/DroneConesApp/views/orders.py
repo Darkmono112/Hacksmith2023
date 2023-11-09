@@ -37,7 +37,7 @@ def order(request):
 
         for item in order_items_data:
             if item:
-                for index in range(int(qty_data[f'qty{item.get('id')}'])):
+                for index in range(int(qty_data[f'qty{item.get("id")}'])):
                     ice_cream = ', '.join(item.get('iceCream', []))
                     cone = ', '.join(item.get('cones', []))
                     topping = ', '.join(item.get('toppings', []))
