@@ -5,6 +5,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from ..models import *
 
+def item_in_list(item, item_list):
+    item_copy = item.copy()
+    item_copy.pop('quantity')
+    item_copy.pop('total')
+    print(item_copy)
+    return -1
 
 def order(request):
     ice_cream_flavors = Ice_Cream.objects.order_by('flavor')
@@ -66,6 +72,7 @@ def checkout(request):
     parsed_items = []
     for item in order_items:
         item['fields']['quantity'] = 1
+        idx = item_in_list(item['fields'], parsed_items)
         if item['fields'] in parsed_items:
             parsed_items[parsed_items.index(item['fields'])]['quantity'] += 1
         else:
