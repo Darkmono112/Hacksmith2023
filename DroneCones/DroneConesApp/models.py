@@ -48,4 +48,13 @@ class Drone(models.Model):
                 return choice[1]
         return ""
 
+class FAQ(models.Model):
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+
+class Help_Request(models.Model):
+    email = models.EmailField(max_length=60)
+    date = models.DateTimeField(auto_now=True)
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
 
