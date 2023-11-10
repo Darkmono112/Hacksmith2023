@@ -13,6 +13,13 @@ python manage.py migrate
 ```
 This will populate most of the data tables for drone cones with example data for the application
 
+## Enableing user groups 
+
+run the following command prior to running the site
+```shell
+python manage.py create_groups
+```
+
 # Startup 
 
 ## Basic method
