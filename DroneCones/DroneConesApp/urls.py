@@ -22,8 +22,6 @@ urlpatterns = [
     path("change_password/", account.change_password, name='change_password'),
     path("delete_account/", account.delete_account, name='delete_account'),
     path("checkout/", orders.checkout, name='checkout'),
-    path("set_billing/", orders.set_billing, name='set_billing'),
-    path("set_shipping/", orders.set_shipping, name='set_shipping'),
     path('help/<int:redirect>/', views.faq, name='faq'),
     path('requesthelp/', views.request_help, name='request_help'),
 ]
