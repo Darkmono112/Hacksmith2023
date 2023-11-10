@@ -36,18 +36,19 @@ def restock_item(request):
     if request.method == 'POST':
         item = request.POST.get('order-item')
         quantity = request.POST.get('quantity')
-        if "Ice Cream" in item:
-            item = item.removesuffix(" Ice Cream")
-            icecream = Ice_Cream.objects.get(flavor=item)
-            icecream.quantity = icecream.quantity + int(quantity)
-            icecream.save()
-        elif "Cone" in item:
-            item = item.removesuffix(" Cone")
-            cone = Cone.objects.get(flavor=item)
-            cone.quantity = cone.quantity + int(quantity)
-            cone.save()
-        else:
-            topping = Topping.objects.get(flavor=item)
-            topping.quantity = topping.quantity + int(quantity)
-            topping.save()
+        if int(quantity) > 0:
+            if "Ice Cream" in item:
+                item = item.removesuffix(" Ice Cream")
+                icecream = Ice_Cream.objects.get(flavor=item)
+                icecream.quantity = icecream.quantity + int(quantity)
+                icecream.save()
+            elif "Cone" in item:
+                item = item.removesuffix(" Cone")
+                cone = Cone.objects.get(flavor=item)
+                cone.quantity = cone.quantity + int(quantity)
+                cone.save()
+            else:
+                topping = Topping.objects.get(flavor=item)
+                topping.quantity = topping.quantity + int(quantity)
+                topping.save()
         return redirect('DroneConesApp:adminpanel')
