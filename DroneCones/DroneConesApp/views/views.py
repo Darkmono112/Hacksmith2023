@@ -34,12 +34,26 @@ def request_help(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-# @login_required(login_url='DroneCones:login') # Example prevent unauth access to a location 
+@login_required(login_url='DroneCones:login') 
 def flyerportal(request):
-    context = {
-        'drones': Drone.objects.filter(owner_id=request.user),
-    }
-    return render(request, "DroneConesApp/misc/flyerportal.html", context)
+
+    # see if user is registered as a drone flyer
+    # if they are send to front end as normal
+    # if not, return different page with sign up form which will redirect to flyer portal 
+    if request.user.groups.filter(name='Flyer').exists():
+        context = {
+            'drones': Drone.objects.filter(owner_id=request.user),
+        }
+        return render(request, "DroneConesApp/misc/flyerportal.html", context)
+    else:
+        return render(request, "DroneConesApp/misc/flyersignup.html")
+
+@login_required(login_url='DroneCones:login') 
+def flyersignup(request):
+    user = request.user
+    flyer_group = Group.objects.get(name='Flyer')
+    user.groups.add(flyer_group)
+    return render(request, "DroneConesApp/misc/flyerportal.html")
 
 @csrf_protect
 @login_required
