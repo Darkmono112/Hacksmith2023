@@ -435,10 +435,17 @@ button:disabled {
 }
 
 .popup {
+<<<<<<< HEAD
     position: fixed; /* Position the popup relative to the viewport */
     top: 14%; /* Adjust the vertical position as needed */
     left: 50%; /* Adjust the horizontal position as needed */
     transform: translate(-50%, -50%); /* Center the popup */
+=======
+    position: fixed;
+    top: 14%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+>>>>>>> c5633ef474e22b6269fe49814ed22aa626dbe477
     background-color: #fdb400;
     padding: 10px;
     border: 1px solid #ddd;
@@ -450,6 +457,17 @@ button:disabled {
     text-align: center;
     height: fit-content;
     display: block;
+<<<<<<< HEAD
     z-index: 1000; /* Adjust the z-index to ensure it's above other elements */
     /* Additional styling as needed */
+=======
+    z-index: 1000;
+}
+
+.items-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 50px;
+>>>>>>> c5633ef474e22b6269fe49814ed22aa626dbe477
 }

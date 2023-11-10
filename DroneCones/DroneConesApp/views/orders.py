@@ -94,7 +94,6 @@ def checkout(request):
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', []) /100
     order_items = json.loads(order_items)
-
     parsed_items = []
     for item in order_items:
         item['fields']['quantity'] = 1

@@ -8,6 +8,7 @@ urlpatterns = [
     path("FAQ/", views.FAQ, name="FAQ"),
     path("payment/", views.payment, name="payment"),
     path("flyerportal", views.flyerportal, name="flyerportal"),
+    path("flyersignup", views.flyersignup, name="flyersignup"),
     path('create_drone/', views.create_drone, name='create_drone'),
     path('toggle_drone_status/<int:id>/', views.toggle_drone_status, name='toggle_drone_status'),
     path("adminpanel", views.adminpanel, name="adminpanel"),
@@ -21,6 +22,10 @@ urlpatterns = [
     path("change_password/", account.change_password, name='change_password'),
     path("delete_account/", account.delete_account, name='delete_account'),
     path("checkout/", orders.checkout, name='checkout'),
+    path("set_billing/", orders.set_billing, name='set_billing'),
+    path("set_shipping/", orders.set_shipping, name='set_shipping'),
+    path('help/<int:redirect>/', views.faq, name='faq'),
+    path('requesthelp/', views.request_help, name='request_help'),
 ]
 
 app_name = "DroneConesApp"
