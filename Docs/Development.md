@@ -1,7 +1,11 @@
 # Development Phase 1
 
-## Security Risks
-The majority of security concerns will be handled by the Django Framework, but we as developers will always be looking for more ways to increase security of thr application. 
+## Security
+This section is to make up for documention backlog from previous sprints.
+
+The majority of security concerns will be handled by the Django Framework, but we as developers will 
+always be looking for more ways to increase security of thr application. Throughout this sprint, we have collectively
+been working on keeping security tight and looking for potential holes.
 
 ### Database
 Like with any application, the data this program will store it it's database is very important and needs to be protected.
@@ -59,80 +63,62 @@ However, they also introduce various security risks that developers need to be a
    Inappropriately handling sensitive information in forms, such as passwords or personal details, can lead to data leaks. 
    We need to make sure that passwords, emails, and addresses are stored securely without access from the front-end.
 
-## User Interface
-### Admin
-### Flyer Portal
-### 
+## Work Distribution:
+Below is a summary of work distribution according to group member. 
+
+* Porter Ellis:
+  - Finished FAQ/Contact page css, which allows a user to submit a help request
+  - Finished database population migration to add FAQ and starting inventory items
+  - Helped with pull requests and merge conflict resolution
+  
+* Rob Gordon:
+  - Worked on refactoring file structure into more manageable subdirectories, including all javascript and css files
+  - Started compiling documentation for the app
+  - Helped with pull request and merge conflict resolution
+  - Helped with drawing and javascripting images for inventory items (on order page)
+  
+* Paige M:
+  - Built the flyer signup page, including ability to add/remove drones
+  - Worked on order tracking tickets 
+  - Helped with pull request and merge conflict resolution
+  - Had medical issues, therefore excused from a portion of the work
+  
+* Zane Hirning:
+  - Aided Ben Smith in order flow completion, including adding/removing items from order and submitting an order
+  - Got a jump on debugging orders, including incorrect subtotals, wrong order items in final order, etc 
+  - Helped with pull request and merge conflict resolution
+  
+* Ben Smith:
+  - Aided Zane Hirning in order flow completion and all above-mentioned tasks
+  - Completed javascript/css of order building for nice look and feel
+  - Helped with pull request and merge conflict resolution
+
+* Ben Hamner:
+  - Admin panel css and adding/removing items from inventory
+  - Earnings for all drone owners/drones individually
+  - Helped with pull request and merge conflict resolution
 
 
-#### Overall Flowchart
-![Overall Flowchart](md_images/Figma_Diagram.png)
-#### Checkout Screen
-![Checkout Screen](md_images/checkout_screen.png)
-- Manager 
-    - Inventory with editable values 
-    - History???
-#### Inventory Screen
-![Inventory Screen](md_images/inventory_screen.jpg)
-- Flyer 
-    - Drone management ( Managers have access ) create new drone 
-    - Order cue 
-#### optional 
-- About 
--   Track your order 
+## Sprint Difficulties:
+**Problem:** 
+Communication going into the start of this sprint was sorely lacking.  We were meeting less than once
+per week and never updating group members on work completed. This created major issues with pull requests and work 
+being done twice.
 
-## Programming Language/Framework
-#### Server Side:
-- Django
-#### UI Side:
-- Vue
-- Javascript
-- HTML
-- CSS
-#### 3rd Party Interfaces
-- Google Maps API
-## Data Architecture
-- Monolithic. Django can be considered a monolithic architecture as all the components are integrated including the use of the dbsqlite database.
-## Database Tables:
-**User Table**
-- Email
-- ID 
-- Password
-- User role (Consumer, Flyer, Admin)
+**Resolution:** 
+We started meeting twice a week. Once over zoom and once in person. We also became much more active 
+in the Discord, updating each other on how our work was going and what we needed help with. This significantly 
+streamlined the work flow and reduced merge conflicts.  
 
-**Price Table**
-- Item  ( IE 1 scoop 2 scoop )
-- Price 
+**Problem:**
 
-**Order History Table**
-( Max history size in testing)
-- Keeps track of orders and users via foreign keys
-- (Track 5 previous orders)
-- Order number 
-- User ID 
-- Sale price 
-- Drone ID
+**Resolution:**
 
-**Drone Table**
-- Email or User ID 
-- size 
-- Drone ID
-- Active status ( Like are you on vacation?)
-- On order / in use or free 
-- Orders carried / flight time  ( Compensation for our app )
-- Max Battery / max mileage ( Ask about how we measure battery life )
+**Problem:**
 
-**Inventory Table:**
-- Inventory with 'type' column
-- Item name 
-- Amount 
-- units ( stored as servings) 
-- cost per unit (maybe )
+**Resolution:**
 
+**Problem:**
 
+**Resolution:**
 
-
-[Definitions Here](https://gitlab.cs.usu.edu/erik.falor/fa23-cs3450-lecturenotes/-/tree/master/Module2/Lec09-Mon_Sep_18?ref_type=heads)
-## 3rd Party Interfaces
--- What other interfaces should we use? (This might fit under the umbrella of programming language/framework)
-- Google Maps API
