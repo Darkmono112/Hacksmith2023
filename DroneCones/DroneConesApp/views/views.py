@@ -5,31 +5,55 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
-
-from DroneConesApp.models import Drone, User
+from DroneConesApp.models import Drone, User, FAQ, Help_Request
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from ..forms.forms import RequestHelpForm
 
 
 def home(request):
     return render(request, "DroneConesApp/Landing/landing.html", {})
 
+def faq(request, redirect):
+    faq_items = FAQ.objects.all()
+    return render(request, 'DroneConesApp/FAQ/mainFAQ.html', {'faq_items': faq_items, 'redirect': redirect})
 
 
-def FAQ(request):
-    return HttpResponse("This will be the FAQ/Help Request page.")
-
+def request_help(request):
+    if request.method == 'POST':
+        helpObject = Help_Request()
+        helpObject.email = request.POST.get("email")
+        helpObject.question = request.POST.get("question")
+        helpObject.save()
+        return redirect('DroneConesApp:faq', 1)
+    else:
+        form = RequestHelpForm()
+    return render(request, 'DroneConesApp/FAQ/request_help.html', {'form': form})
 
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-# @login_required(login_url='DroneCones:login') # Example prevent unauth access to a location 
+@login_required(login_url='DroneCones:login') 
 def flyerportal(request):
-    context = {
-        'drones': Drone.objects.filter(owner_id=request.user),
-    }
-    return render(request, "DroneConesApp/misc/flyerportal.html", context)
+
+    # see if user is registered as a drone flyer
+    # if they are send to front end as normal
+    # if not, return different page with sign up form which will redirect to flyer portal 
+    if request.user.groups.filter(name='Flyer').exists():
+        context = {
+            'drones': Drone.objects.filter(owner_id=request.user),
+        }
+        return render(request, "DroneConesApp/misc/flyerportal.html", context)
+    else:
+        return render(request, "DroneConesApp/misc/flyersignup.html")
+
+@login_required(login_url='DroneCones:login') 
+def flyersignup(request):
+    user = request.user
+    flyer_group = Group.objects.get(name='Flyer')
+    user.groups.add(flyer_group)
+    return render(request, "DroneConesApp/misc/flyerportal.html")
 
 @csrf_protect
 @login_required
