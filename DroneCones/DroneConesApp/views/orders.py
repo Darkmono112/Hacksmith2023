@@ -92,26 +92,24 @@ def order(request):
 
 def checkout(request):
     order_items = request.session.get('order_items', [])
-    total = request.session.get('total', [])
+    total = request.session.get('total', []) /100
     order_items = json.loads(order_items)
 
     parsed_items = []
     for item in order_items:
         item['fields']['quantity'] = 1
+        item["fields"]["total"] = "{0:.2f}".format(int(item["fields"]["total"]/100))
         item['fields']['name'] = get_name(item['fields'])
         idx = item_in_list(item['fields'], parsed_items)
         if idx != -1:
             parsed_items[idx]['quantity'] += 1
+            parsed_items[parsed_items.index(item['fields'])]["total"] = "{0:.2f}".format(float(item["fields"]["total"]) + float(parsed_items[parsed_items.index(item['fields'])]["total"]))
         else:
             parsed_items.append(item['fields'])
-        # if item['fields'] in parsed_items:
-        #     parsed_items[parsed_items.index(item['fields'])]['quantity'] += 1
-        # else:
-        #     parsed_items.append(item['fields'])
-
+            
     context = {
         'order_items': parsed_items,
-        'total': total
+        'total': "{0:.2f}".format(total)
     }
 
     if request.method == "POST":
