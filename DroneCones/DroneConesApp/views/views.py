@@ -1,36 +1,108 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
-from ..forms.forms import CreateUserForm
+from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
+from DroneConesApp.models import Drone, User, FAQ, Help_Request
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from ..forms.forms import RequestHelpForm
+
 
 def home(request):
-    return render(request, "DroneConesApp/landing.html", {})
+    return render(request, "DroneConesApp/Landing/landing.html", {})
 
-def order(request):
-    return HttpResponse("This will be the Order page.")
+def faq(request, redirect):
+    faq_items = FAQ.objects.all()
+    return render(request, 'DroneConesApp/FAQ/mainFAQ.html', {'faq_items': faq_items, 'redirect': redirect})
 
 
-def FAQ(request):
-    return HttpResponse("This will be the FAQ/Help Request page.")
-
+def request_help(request):
+    if request.method == 'POST':
+        helpObject = Help_Request()
+        helpObject.email = request.POST.get("email")
+        helpObject.question = request.POST.get("question")
+        helpObject.save()
+        return redirect('DroneConesApp:faq', 1)
+    else:
+        form = RequestHelpForm()
+    return render(request, 'DroneConesApp/FAQ/request_help.html', {'form': form})
 
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-
+@login_required(login_url='DroneCones:login') 
 def flyerportal(request):
-    dummy_data = [
-        {"id": 1, "size": "small", "status": "Active", "on_delivery": "false"},
-        {"id": 2, "size": "large", "status": "Inactive", "on_delivery": "false"},
-        {"id": 3, "size": "small", "status": "Active", "on_delivery": "true"},
-    ]
-    context = {
-        'drones': dummy_data,
-    }
-    return render(request, "DroneConesApp/misc/flyerportal.html", context)
+
+    # see if user is registered as a drone flyer
+    # if they are send to front end as normal
+    # if not, return different page with sign up form which will redirect to flyer portal 
+    if request.user.groups.filter(name='Flyer').exists():
+        context = {
+            'drones': Drone.objects.filter(owner_id=request.user),
+        }
+        return render(request, "DroneConesApp/misc/flyerportal.html", context)
+    else:
+        return render(request, "DroneConesApp/misc/flyersignup.html")
+
+@login_required(login_url='DroneCones:login') 
+def flyersignup(request):
+    user = request.user
+    flyer_group = Group.objects.get(name='Flyer')
+    user.groups.add(flyer_group)
+    return render(request, "DroneConesApp/misc/flyerportal.html")
+
+@csrf_protect
+@login_required
+def create_drone(request):
+
+    user = request.user
+
+    if request.method == 'POST':
+        form = AddDroneForm(request.POST)
+
+        if form.is_valid():
+            size = form.cleaned_data['size']
+            active = form.cleaned_data['active']
+
+            new_drone = Drone(size=size, owner_id=user, active=(active == 'active'), on_order=False)
+            new_drone.save()
+
+            return HttpResponseRedirect(reverse('DroneConesApp:flyerportal'))
+    
+    if form.errors:
+        context = {
+            'drones': Drone.objects.filter(owner_id=user),
+            'form': form, 
+        }
+        return render(request, 'DroneConesApp/misc/flyerportal.html', context)
+    else:
+        return HttpResponseRedirect('DroneConesApp:flyerportal') 
+
+@csrf_protect
+@login_required
+def toggle_drone_status(request, id):
+
+    if request.method == 'POST':
+
+        try:
+            drone = Drone.objects.get(id=id)
+        except Drone.DoesNotExist:
+            return HttpResponseForbidden("Drone not found")
+        
+        print(drone.owner_id.id)
+        print(request.user.id)
+
+        if drone.owner_id.id != request.user.id:
+            return HttpResponseForbidden("Permission denied")
+        
+        drone.active = not drone.active
+        drone.save()
+
+        return HttpResponseRedirect(reverse('DroneConesApp:flyerportal'))
 
 @csrf_protect
 def signup(request):
@@ -77,4 +149,3 @@ def assign_group(user, group):
 
 def adminpanel(request):
     return render(request, 'DroneConesApp/misc/adminpanel.html')
-

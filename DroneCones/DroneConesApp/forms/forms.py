@@ -4,6 +4,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import RegexValidator
+from DroneConesApp.models import Help_Request
 
 
 class CreateUserForm(UserCreationForm):
@@ -25,3 +26,21 @@ class CreateUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+class AddDroneForm(forms.Form):
+    size = forms.ChoiceField(
+        choices=[('Small', 'Small'), ('Medium', 'Medium'), ('Large', 'Large')],
+        label='Size',
+        required=True,
+    )
+
+    active = forms.ChoiceField(
+        choices=[('active', 'Active'), ('inactive', 'Inactive')],
+        label='Status',
+        required=True,
+    )
+
+class RequestHelpForm(forms.ModelForm):
+    class Meta:
+        model = Help_Request
+        fields = ['question', 'email']

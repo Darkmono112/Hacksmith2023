@@ -1,0 +1,151 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
+<script src="{% static 'DroneConesApp/js/order.js'%}" defer></script>
+<div class="content-container checkout-container">
+    <h1 style="text-align: center; font-size: 30px">Checkout</h1>
+    <hr style="margin-top: -20px; margin-bottom: 30px">
+        <div class="section-container">
+            <div class="section-title-container" id="summary">
+                <div class="title">
+                    <span class="material-symbols-outlined chevron" id="summary-chevron">
+                        chevron_right
+                    </span>
+                    <span>
+                        Order Summary
+                    </span>
+                </div>
+                <div>
+                    <span class="show-details">
+                        Show Details
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="details-container" id="summary-container">
+            <div>Order Total</div>
+            <div class="item-table" id="order-summary">
+                <table cellpadding="30">
+                    <tbody>
+                        <tr class="no-hover">
+                            <th>Item</th>
+                            <th>Count</th>
+                            <th>Cost</th>
+                        </tr>
+                        <!-- add django loop -->
+                        <tr class="hover">
+                            <td>Strawberry Icecream</td>
+                            <td>1</td>
+                            <td>$3</td>
+                        </tr>
+                    </tbody>
+                    <hr>
+                </table>
+                <div class="total">
+                    
+                    <span>Total: </span>
+                    <span>$3</span>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="section-container">
+            <div class="section-title-container" id="billing">
+                <div class="title">
+                    <span class="material-symbols-outlined chevron" id="billing-chevron">
+                        chevron_right
+                    </span>
+                    <span>
+                        Billing Information
+                    </span>
+                </div>
+                <div>
+                    <span class="show-details">
+                        Show Details
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="details-container" id="billing-container">
+            <div class="card-details">
+                <!-- Credit Card Details -->
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    Credit Card Details
+                    <div class="unified-input form-input">
+                        <input title="Please enter card number" required type="text" id="card-number" name="card-number" placeholder="Card Number">
+                        <input title="Please enter expiration date" required type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY">
+                        <input title="Please enter cvv" required type="text" id="cvv" name="cvv" placeholder="CVV">
+                    </div>
+                    <div class="location-details">
+                        Billing Address
+                        <div class="unified-input form-input">
+                            <input title="Please enter first name" type="text" id="first-name" name="first-name" placeholder="First Name">
+                            <input title="Please enter last name" required type="text" id="last-name" name="last-name" placeholder="Last Name">
+                        </div>
+                        <div class="unified-input form-input">
+                            <input title="Please enter address" required type="text" id="address" name="address" placeholder="Address">
+                            <input title="Please enter city" required type="text" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="unified-input form-input">
+                            <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
+                            <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
+                        </div>
+                    </div>
+                    <button type="submit" class="button-primary" id="form-button">Save Billing Details</button>
+                </form>
+            </div>
+            
+        </div>
+        <hr>
+        <div class="section-container">
+            <div class="section-title-container chevron" id="shipping">
+                <div class="title">
+                    <span class="material-symbols-outlined" id="shipping-chevron">
+                        chevron_right
+                    </span>
+                    <span>
+                        Shipping Information
+                    </span>
+                </div>
+                <div>
+                    <span class="show-details">
+                        Show Details
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="details-container" id="shipping-container">
+            <div class="card-details">
+                <form action="">
+                    {% csrf_token %}
+                    <div class="location-details">
+                        Shipping Address
+                        <div class="unified-input form-input">
+                            <input title="Please enter first name" required type="text" id="first-name" name="first-name" placeholder="First Name">
+                            <input title="Please enter last name" required type="text" id="last-name" name="last-name" placeholder="Last Name">
+                        </div>
+                        <div class="unified-input form-input">
+                            <input title="Please enter address" required type="text" id="address" name="address" placeholder="Address">
+                            <input title="Please enter city" required type="text" id="city" name="city" placeholder="City">
+                        </div>
+                        <div class="unified-input form-input">
+                            <input title="Please enter state" required type="text" id="state" name="state" placeholder="State">
+                            <input title="Please enter zip code" required type="text" id="zip" name="zip" placeholder="Zip">
+                        </div>
+                    </div>
+                    <button type="submit" class="button-primary" id="form-button">Save Shipping Details</button>
+                </form>
+            </div>
+        </div>
+        <hr>
+        <div class="checkout-button">
+            <button type="submit" class="button-primary half" style="text-align: center;" id="form-button">Checkout</button>
+        </div>
+</div>
+{% endblock %}
