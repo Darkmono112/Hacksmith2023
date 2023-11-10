@@ -7,8 +7,8 @@
     <title>{% block title %}{{ section.title }}{% endblock %} </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- <link rel="stylesheet" href="{% static 'DroneConesApp/mainStyle.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'DroneConesApp/base.css' %}">
-    <script src="{% static 'DroneConesApp/base.js'%}" defer></script>
+    <link rel="stylesheet" href="{% static 'DroneConesApp/css/base.css' %}">
+    <script src="{% static 'DroneConesApp/js/base.js'%}" defer></script>
 </head>
 <body>
 
@@ -54,6 +54,7 @@
             {% else %}
                 <a href="{% url 'DroneConesApp:login' %}" class="nav-item">Login</a>
             {% endif %}
+            <a href="{% url 'DroneConesApp:faq' 0 %}" class="nav-item">FAQ</a>
     </nav>
 
     <div class="main-content-container">
