@@ -23,19 +23,19 @@
             </ul>
         </div>
 
-        <div id="icecreamflavors" style="display: flex; flex-direction: row; flex-wrap: nowrap; margin-left: 50px">
+        <div id="icecreamflavors" class="items-container">
             {% for flavor in ice_cream_flavors %}
             <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
-        <div id="coneflavors" style="display: none; margin-left: 50px">
+        <div id="coneflavors" class="items-container" style="display: none">
             {% for flavor in cone_flavors %}
             <div style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
-        <div id="toppingflavors" style="display: none; margin-left: 50px">
+        <div id="toppingflavors" class="items-container" style="display:none;">
             {% for flavor in topping_flavors %}
             <div style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
