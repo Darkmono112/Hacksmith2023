@@ -23,11 +23,7 @@
             </ul>
         </div>
 
-<<<<<<< HEAD
-        <div id="icecreamflavors" style="display: flex; flex-direction: row; flex-wrap: nowrap; margin-left: 50px">
-=======
         <div id="icecreamflavors" class="items-container">
->>>>>>> c5633ef474e22b6269fe49814ed22aa626dbe477
             {% for flavor in ice_cream_flavors %}
             <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}

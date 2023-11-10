@@ -67,8 +67,6 @@ class Shipping_Address(models.Model):
     city = models.CharField(max_length=20)
     state = models.CharField(max_length=20)
     zipcode = models.IntegerField()
-<<<<<<< HEAD
-=======
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.TextField()
@@ -78,5 +76,5 @@ class Help_Request(models.Model):
     date = models.DateTimeField(auto_now=True)
     question = models.CharField(max_length=255)
     answer = models.TextField()
->>>>>>> c5633ef474e22b6269fe49814ed22aa626dbe477
+
 
