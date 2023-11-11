@@ -97,7 +97,7 @@ def checkout(request):
     parsed_items = []
     for item in order_items:
         item['fields']['quantity'] = 1
-        item["fields"]["total"] = "{0:.2f}".format(int(item["fields"]["total"]/100))
+        item["fields"]["total"] = "{0:.2f}".format(float(item["fields"]["total"]/100))
         item['fields']['name'] = get_name(item['fields'])
         idx = item_in_list(item['fields'], parsed_items)
         if idx != -1:
