@@ -25,6 +25,8 @@ class Ice_Cream(models.Model):
     price = models.IntegerField()
     def get_name(self):
         return f"{self.flavor} Ice Cream"
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Cone(models.Model):
     quantity = models.IntegerField()
@@ -33,12 +35,16 @@ class Cone(models.Model):
     price = models.IntegerField()
     def get_name(self):
         return f"{self.flavor} Cone"
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Topping(models.Model):
     quantity = models.IntegerField()
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Drone(models.Model):
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
