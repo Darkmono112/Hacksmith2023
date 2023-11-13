@@ -118,11 +118,3 @@ While this can normally be resolved after a few weeks of training, each of us ha
 Created jobs suitable to each developer's understanding of the technology used. This naturally happened to those most familiar
 with each technology swiftly finishing the designated functions. The next sprint will have a similar feel to it.
 
-**Problem:**
-
-**Resolution:**
-
-**Problem:**
-
-**Resolution:**
-
