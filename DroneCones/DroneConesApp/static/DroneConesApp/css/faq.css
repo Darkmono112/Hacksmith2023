@@ -1,0 +1,123 @@
+:root {
+    --nav-bar-color: #B48BD9;
+    --text-color: #000000;
+    --button-color: #3C1361;
+    --text-button-color: #FFFFFF;
+    --background-color: #FFFFFF;
+    --input-text-color: rgba(0, 0, 0, 0.50);
+    --font-family: 'Roboto', sans-serif;
+}
+
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-weight: 600;
+    text-underline: black;
+    text-decoration: underline;
+}
+
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+}
+
+/* Change later */
+.list-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 80%;
+    max-width: 800px;
+}
+
+.faq-item {
+    width: 100%;
+    padding: 14px 20px;
+    margin: 12px 0;
+    box-sizing: border-box;
+    border: 1px solid var(--input-text-color);
+    border-radius: 4px;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.notification{
+    background-color: var(--button-color);
+    color: var(--text-button-color);
+    position: absolute;
+    top: 50px;
+    z-index: 5;
+    width: 50%;
+    text-align: center;
+    padding: 14px 20px;
+    margin: 12px 0;
+    box-sizing: border-box;
+    border: 1px solid var(--input-text-color);
+    border-radius: 4px;
+    font-family: var(--font-family);
+    animation: 3s fade-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade-out{
+    0%{
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+
+.form-input::placeholder {
+    color: var(--input-text-color);
+}
+
+.button-primary {
+    background-color: var(--button-color);
+    color: var(--text-button-color);
+    padding: 12px 20px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 4px;
+    /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19);
+    cursor:pointer;
+}
+
+.button-container{
+    position: fixed;
+    left: 80vw;
+    bottom: 10vh;
+    width: 200px;
+}
+
+.button-primary:hover {
+    box-shadow: 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.a-tag {
+    text-decoration: none;
+    color: var(--button-color);
+}
+
+.secondary-text {
+    color: var(--input-text-color);
+    padding: 4px;
+}
+
+.underline {
+    text-decoration: underline;
+}

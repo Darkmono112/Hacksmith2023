@@ -1,0 +1,25 @@
+{% extends 'DroneConesApp/misc/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <title>FAQ</title>
+    <link rel="stylesheet" href="{% static 'DroneConesApp/css/faq.css' %}">
+</head>
+    {% if redirect == 1 %}
+          <p class="notification" id="notification">Your help request has been submitted!</p>
+        {% endif %}
+    <div class="page-container">
+        <h1>Frequently Asked Questions</h1>
+            <div class="list-container">
+                {% for faq_item in faq_items %}
+                    <div class="faq-item">
+                        <strong>{{ faq_item.question }}</strong><br>
+                        {{ faq_item.answer }}
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+    <div class="button-container">
+            <button class="button-primary" type="button"><a href="{% url 'DroneConesApp:request_help' %}">Submit a Help Request</a></button>
+        </div>
+{% endblock %}
