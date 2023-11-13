@@ -4,7 +4,7 @@
 This section is to make up for documention backlog from previous sprints.
 
 The majority of security concerns will be handled by the Django Framework, but we as developers will 
-always be looking for more ways to increase security of thr application. Throughout this sprint, we have collectively
+always be looking for more ways to increase security of the application. Throughout this sprint, we have collectively
 been working on keeping security tight and looking for potential holes.
 
 ### Database
