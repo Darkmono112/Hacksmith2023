@@ -111,8 +111,12 @@ in the Discord, updating each other on how our work was going and what we needed
 streamlined the work flow and reduced merge conflicts.  
 
 **Problem:**
+Unequal knowledge base. There were many gaps in our knowledge of the various technologies utilized by our group.
+While this can normally be resolved after a few weeks of training, each of us had limited time to get caught up.
 
 **Resolution:**
+Created jobs suitable to each developer's understanding of the technology used. This naturally happened to those most familiar
+with each technology swiftly finishing the designated functions. The next sprint will have a similar feel to it.
 
 **Problem:**
 
