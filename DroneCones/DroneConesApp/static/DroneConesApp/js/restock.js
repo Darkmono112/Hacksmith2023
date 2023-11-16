@@ -1,19 +1,19 @@
-const modalMask = document.getElementById("modal-mask");
+const restockMask = document.getElementById("restock-mask");
 const restock = document.getElementById("restock");
-const modalSection = document.getElementById("modal-section");
+const restockModal = document.getElementById("restock-modal");
 
 let modalOpen = false;
 
 restock.addEventListener("click", () => {
     modalOpen = !modalOpen;
-    modalMask.dataset.display = `${modalOpen}`;
-    modalSection.dataset.display = `${modalOpen}`;
+    restockMask.dataset.display = `${modalOpen}`;
+    restockModal.dataset.display = `${modalOpen}`;
 });
 
-modalMask.addEventListener("click", () => {
+restockMask.addEventListener("click", () => {
     modalOpen = !modalOpen;
-    modalMask.dataset.display = `${modalOpen}`;
-    modalSection.dataset.display = `${modalOpen}`;
+    restockMask.dataset.display = `${modalOpen}`;
+    restockModal.dataset.display = `${modalOpen}`;
 });
 
 function updateTotalPrice() {

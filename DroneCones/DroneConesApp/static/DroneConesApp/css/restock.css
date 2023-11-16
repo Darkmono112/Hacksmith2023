@@ -31,7 +31,7 @@ body {
     display: none; /* Initially hidden */
 }
 
-#modal-mask[data-display="true"] {
+#restock-mask[data-display="true"] {
     display: block;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -98,7 +98,7 @@ label {
     font-weight: bold;
 }
 
-#modal-section[data-display="true"] {
+#restock-modal[data-display="true"] {
     display: flex;
     animation: fadeIn 0.3s ease-in-out;
     position: fixed;
