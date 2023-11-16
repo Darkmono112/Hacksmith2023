@@ -59,7 +59,7 @@ def restock_item(request):
 def edit_item(request):
     if request.method == 'POST':
         name = request.POST.get('edit-name-input')
-        price = request.POST.get('edit-price')
+        price = int(float(request.POST.get('edit-price'))*100)
         quantity = request.POST.get('edit-quantity')
 
         if "Ice Cream" in name:
