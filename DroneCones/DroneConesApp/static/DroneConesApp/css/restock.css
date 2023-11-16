@@ -31,7 +31,12 @@ body {
     display: none; /* Initially hidden */
 }
 
-.modal-mask[data-display="true"] {
+#modal-mask[data-display="true"] {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#edit-mask[data-display="true"] {
     display: block;
     animation: fadeIn 0.3s ease-in-out;
 }
@@ -93,8 +98,25 @@ label {
     font-weight: bold;
 }
 
-.modal-section[data-display="true"] {
+#modal-section[data-display="true"] {
     display: flex;
     animation: fadeIn 0.3s ease-in-out;
     position: fixed;
+}
+
+#edit-modal[data-display="true"] {
+    display: flex;
+    animation: fadeIn 0.3s ease-in-out;
+    position: fixed;
+}
+
+#edit-mask[data-display="true"] {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#edit-name {
+    font-size: 1.25rem;
+    font-family: inherit;
+    font-weight: 700;
 }

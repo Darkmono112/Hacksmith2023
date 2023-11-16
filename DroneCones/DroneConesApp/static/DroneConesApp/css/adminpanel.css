@@ -91,3 +91,17 @@
 #drones[data-display="true"] {
     display: block;
 }
+
+#adminpanel .hover:hover .edit-button{
+    display: inline-block;
+}
+
+.edit-button {
+    display: none;
+    color: var(--button-color);
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    color: var(--nav-bar-color);
+}
