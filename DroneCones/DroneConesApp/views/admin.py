@@ -61,9 +61,7 @@ def edit_item(request):
         name = request.POST.get('edit-name-input')
         price = request.POST.get('edit-price')
         quantity = request.POST.get('edit-quantity')
-        print(name)
-        print(price)
-        print(quantity)
+
         if "Ice Cream" in name:
             name = name.removesuffix(" Ice Cream")
             icecream = Ice_Cream.objects.get(flavor=name)
