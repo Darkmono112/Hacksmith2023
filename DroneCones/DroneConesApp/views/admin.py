@@ -29,7 +29,8 @@ def adminpanel(request):
     }
 
     if request.method == 'POST':
-        if request.POST.get("edit-price"):
+        #means an edit item request. This could probably be handled more gracefully, but this will work for now.
+        if request.POST.get("edit-price") and request.POST.get("edit-quantity") and request.POST.get("edit-name-input"):
             edit_item(request)
         else:
             restock_item(request)
