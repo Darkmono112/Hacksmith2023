@@ -93,11 +93,11 @@
 }
 
 #adminpanel .hover:hover .edit-button{
-    display: inline-block;
+    visibility: visible;
 }
 
 .edit-button {
-    display: none;
+    visibility: hidden;
     color: var(--button-color);
     cursor: pointer;
 }
