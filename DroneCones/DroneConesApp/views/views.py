@@ -131,7 +131,9 @@ def login_page(request):
         if user is not None:
             login(request, user)
             return redirect('DroneConesApp:home')
-
+        else:
+            context={"error": "Invalid username or password."}
+            return render(request, "DroneConesApp/Signup/login.html", context)
     context={}
     return render(request, "DroneConesApp/Signup/login.html", context)
 
