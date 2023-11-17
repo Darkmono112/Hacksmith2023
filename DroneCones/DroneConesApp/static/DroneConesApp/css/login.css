@@ -78,3 +78,13 @@ h1 {
 .underline {
     text-decoration: underline;
 }
+
+#error-message {
+    color: var(--button-color);
+    font-weight: bold;
+    font-size: .75rem;
+    margin: 8px;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
