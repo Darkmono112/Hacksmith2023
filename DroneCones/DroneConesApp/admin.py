@@ -7,5 +7,8 @@ admin.site.register(Ice_Cream)
 admin.site.register(Cone)
 admin.site.register(Topping)
 admin.site.register(Drone)
+admin.site.register(Billing_Address)
+admin.site.register(Shipping_Address)
 admin.site.register(FAQ)
 admin.site.register(Help_Request)
+
