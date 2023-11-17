@@ -88,11 +88,11 @@ def order(request):
         request.session['order_items'] = order_items_json
         request.session['total'] = grand_total
 
-        return redirect('DroneConesApp:checkout')
+        return redirect('DroneConesApp:checkout', order_id=order.id)
 
     return render(request,"DroneConesApp/Orders/order.html", context)
 
-def checkout(request):
+def checkout(request, order_id):
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', []) /100
     order_items = json.loads(order_items)
@@ -116,6 +116,9 @@ def checkout(request):
     if request.method == "POST":
         set_billing(request)
         set_shipping(request)
+        print("set addresses")
+        return redirect('DroneConesApp:order_tracking', order_id=order_id)
+
 
     return render(request, 'DroneConesApp/Orders/checkout.html', context)
 
@@ -192,12 +195,15 @@ def delete_order(request, order_id):
 
     return redirect('DroneConesApp:order_history')
 
-def order_tracking(request):
+def order_tracking(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    order_items = Order_Item.objects.filter(order_id=order)
 
-    # TODO: pass in created date from the order as well as the address and items
+    print(order.address.street_address + ", " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) )
+    print(order.date)
     context = {
-        "items": '',
-        "address": urlencode({'address': '300 W Center St, Logan UT 84321' }),
-        "order_date": 'Mon, 06 Nov 2023 02:41:27 GMT'
+        "items": order_items,
+        "address": urlencode({ 'address': order.address.street_address + ", " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) }),
+        "order_date": order.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
     }
     return render(request, 'DroneConesApp/Orders/order_tracking.html', context)
