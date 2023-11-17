@@ -10,7 +10,7 @@ def account(request):
 def change_username(request):
     user = get_object_or_404(User, pk=request.user.id)
     context = {
-        'username': user.name
+        'username': user.username
     }
     if request.method == 'POST':
         username = request.POST.get('username')
