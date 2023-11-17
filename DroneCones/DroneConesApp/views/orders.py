@@ -203,7 +203,7 @@ def order_tracking(request, order_id):
     print(order.date)
     context = {
         "items": order_items,
-        "address": urlencode({ 'address': order.address.street_address + ", " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) }),
+        "address": urlencode({ 'address': order.address.street_address + " " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) }),
         "order_date": order.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
     }
     return render(request, 'DroneConesApp/Orders/order_tracking.html', context)
