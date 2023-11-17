@@ -1,0 +1,121 @@
+{% extends "DroneConesApp/misc/base.html" %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/adminpanel.css' %}">
+<script src="{% static 'DroneConesApp/js/adminpanel.js'%}" defer></script>
+<link rel="stylesheet" href="{% static 'DroneConesApp/css/restock.css' %}">
+<script src="{% static 'DroneConesApp/js/restock.js' %}" defer></script>
+<div id="adminpanel">
+    <div class="button-container">
+        <button id="Drones-button">Drones</button>
+        <button id="Inventory-button">Inventory</button>
+        <button id="restock">Restock Inventory</button>
+    </div>
+
+    <!-- Inventory table -->
+    <section id="inventory" class="inventory">
+        <table width="98%" height="98%" cellpadding="10">
+          <tr class="headers no-hover">
+              <th>Name</th>
+              <th>Unit Price</th>
+              <th>Quantity</th>
+              <th><span class="material-symbols-outlined" style="visibility: hidden;">edit</span>
+              </th>
+          </tr>
+          {% for icecream in icecreams%}
+          <tr class="hover">
+            <td>{{ icecream.get_name }}</td>
+            <td>{{ icecream.get_price }}</td>
+            <td>{{ icecream.quantity }}</td>
+            <td><span class="material-symbols-outlined edit-button" data-item="{{icecream.flavor}}">edit</span></td>
+          </tr>
+          {% endfor %}
+          {% for cone in cones %}
+          <tr class="hover">
+            <td>{{ cone.get_name }}</td>
+            <td>{{ cone.get_price }}</td>
+            <td>{{ cone.quantity }}</td>
+            <td><span class="material-symbols-outlined edit-button">edit</span></td>
+          </tr>
+          {% endfor %}
+          {% for topping in toppings %}
+          <tr class="hover">
+            <td>{{ topping.flavor }}</td>
+            <td>{{ topping.get_price }}</td>
+            <td>{{ topping.quantity }}</td>
+            <td><span class="material-symbols-outlined edit-button">edit</span></td>
+          </tr>
+          {% endfor %}
+        </table>
+    </section>
+
+    <!-- Drones table -->
+      <section id="drones">
+        <table width="98%" height="98%" cellpadding="10">
+          <tr class="headers no-hover">
+              <th>Owner ID</th>
+              <th>Size</th>
+              <th>Active</th>
+          </tr>
+          {% for drone in drones %}
+          <tr class="hover">
+            <td>{{ drone.owner_id }}</td>
+            <td>{{ drone.size }}</td>
+            <td>{{ drone.active }}</td>
+          </tr>
+          {% endfor %}
+          
+        </table>
+      </section>
+
+    </div>
+    <div class="modal-section" id="restock-modal">
+      <div class="modal-mask" id="restock-mask"></div>
+      <div class="modal-container">
+          <h1>Restock Item</h1>
+          <form action="" method="POST" class="form-container" id="restock-form" name="restock-form">
+              {% csrf_token %}
+              <label for="order_item">Item:</label>
+              <select name="order-item" id="order-item" class="form-input" required>
+                  <option value="" disabled selected>Select an option</option>
+                  {% for icecream in icecreams%}
+                  <option value="{{ icecream.get_name }}" data-price="{{ icecream.price }}">{{ icecream.get_name }}</option>
+                  {% endfor %}
+                  {% for cone in cones %}
+                  <option value="{{ cone.get_name }}" data-price="{{ cone.price }}">{{ cone.get_name }}</option>
+                  {% endfor %}
+                  {% for topping in toppings %}
+                  <option value="{{ topping.flavor }}" data-price="{{ topping.price }}">{{ topping.flavor }}</option>
+                  {% endfor %}
+              </select>
+              <label for="quantity">Quantity:</label>
+              <input type="number" class="form-input" name="quantity" id="quantity" required min="1">
+              <button type="submit" class="button-primary" id="form-button" id="form-button">Order More!</button>
+              <div>
+                <p>Total Cost: $<span id="total-price">0.00</span></p>
+              </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-section" id="edit-modal">
+        <div class="modal-mask" id="edit-mask"></div>
+        <div class="modal-container">
+            <h1>Edit Item</h1>
+            <form action="" method="POST" class="form-container" id="edit-form" name="edit-form">
+                {% csrf_token %}
+                <label for="edit-name"></label>
+                <input type="hidden" name="edit-name-input" id="edit-name-input">
+                <p id="edit-name"></p>
+                <label for="edit-price">Price:</label>
+                <input type="text" class="form-input" name="edit-price" id="edit-price" required>
+                <label for="quantity">Quantity:</label>
+                <input type="number" class="form-input" name="edit-quantity" id="edit-quantity" required min="1">
+                <button type="submit" class="button-primary" id="form-button" id="form-button">Order More!</button>
+            </form>
+          </div>
+        </div>
+{% endblock %}
