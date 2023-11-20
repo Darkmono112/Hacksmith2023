@@ -6,9 +6,20 @@ DRONE_SIZES = [
     ('Medium', '4'),
     ('Large', '8')
 ]
+
+class Shipping_Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zipcode = models.IntegerField()
+
 class Order(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
+    address = models.ForeignKey(Shipping_Address, on_delete=models.SET_DEFAULT, default=1)
     # We don't need a total_price param, we should just add it up in the view
 
 class Order_Item(models.Model):
@@ -69,14 +80,6 @@ class Billing_Address(models.Model):
     state = models.CharField(max_length=20)
     zipcode = models.IntegerField()
 
-class Shipping_Address(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
-    street_address = models.CharField(max_length=100)
-    city = models.CharField(max_length=20)
-    state = models.CharField(max_length=20)
-    zipcode = models.IntegerField()
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.TextField()

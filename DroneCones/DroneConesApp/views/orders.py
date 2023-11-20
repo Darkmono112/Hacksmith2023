@@ -2,6 +2,8 @@ import json
 from collections import defaultdict
 from django.core import serializers
 from django.shortcuts import render, get_object_or_404, redirect
+from urllib.parse import urlencode
+from datetime import datetime
 from django.http import HttpResponse
 from ..models import *
 
@@ -86,11 +88,11 @@ def order(request):
         request.session['order_items'] = order_items_json
         request.session['total'] = grand_total
 
-        return redirect('DroneConesApp:checkout')
+        return redirect('DroneConesApp:checkout', order_id=order.id)
 
     return render(request,"DroneConesApp/Orders/order.html", context)
 
-def checkout(request):
+def checkout(request, order_id):
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', []) /100
     order_items = json.loads(order_items)
@@ -114,6 +116,9 @@ def checkout(request):
     if request.method == "POST":
         set_billing(request)
         set_shipping(request)
+        print("set addresses")
+        return redirect('DroneConesApp:order_tracking', order_id=order_id)
+
 
     return render(request, 'DroneConesApp/Orders/checkout.html', context)
 
@@ -189,3 +194,16 @@ def delete_order(request, order_id):
         order.delete()
 
     return redirect('DroneConesApp:order_history')
+
+def order_tracking(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    order_items = Order_Item.objects.filter(order_id=order)
+
+    print(order.address.street_address + ", " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) )
+    print(order.date)
+    context = {
+        "items": order_items,
+        "address": urlencode({ 'address': order.address.street_address + " " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) }),
+        "order_date": order.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+    }
+    return render(request, 'DroneConesApp/Orders/order_tracking.html', context)
