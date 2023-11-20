@@ -25,7 +25,7 @@ src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q={{ a
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const targetTime = new Date("{{ order_date }}").getTime() + 5 * 60 * 1000;
+    const targetTime = new Date("{{ order_date }}").getTime() + 1 * 60 * 1000;
 
     function updateCountdown() {
         const now = new Date().getTime();

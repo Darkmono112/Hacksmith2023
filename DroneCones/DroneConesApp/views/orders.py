@@ -84,6 +84,7 @@ def order(request):
                         order_item.save()  # Save each order item
                         order_items.append(order_item)
 
+        decrement_inventory(order_items)
         order_items_json = serializers.serialize('json', order_items)
         request.session['order_items'] = order_items_json
         request.session['total'] = grand_total
@@ -91,6 +92,33 @@ def order(request):
         return redirect('DroneConesApp:checkout', order_id=order.id)
 
     return render(request,"DroneConesApp/Orders/order.html", context)
+
+def decrement_inventory(order_items):
+    for item in order_items:
+        # Decrement Ice Cream inventory
+        ice_cream_flavors = item.flavor.split(',')
+        for flavor in ice_cream_flavors:
+            try:
+                obj = get_object_or_404(Ice_Cream, flavor=flavor.strip())
+                obj.quantity -= 1
+                obj.save()
+            except: pass
+        # Decrement Cone inventory
+        cone_flavor = item.cone
+        try:
+            cone_obj = get_object_or_404(Cone, flavor=cone_flavor.strip())
+            cone_obj.quantity -= 1
+            cone_obj.save()
+        except: pass
+
+        topping_flavors = item.topping.split(',')
+        for flavor in topping_flavors:
+            try:
+                topping_obj = get_object_or_404(Topping, flavor=flavor.strip())
+                topping_obj.quantity -= 1
+                topping_obj.save()
+            except: pass
+
 
 def checkout(request, order_id):
     order_items = request.session.get('order_items', [])
