@@ -53,7 +53,7 @@ def order(request):
 
     if request.method == 'POST':
         qty_data = {key: value for key, value in request.POST.items() if 'qty' in key}
-        print(qty_data)
+
         order_items_data = json.loads(request.POST.get('order_items_data'))
 
         order = Order()
@@ -121,6 +121,7 @@ def decrement_inventory(order_items):
 
 
 def checkout(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
     order_items = request.session.get('order_items', [])
     total = request.session.get('total', []) /100
     order_items = json.loads(order_items)
@@ -143,8 +144,7 @@ def checkout(request, order_id):
 
     if request.method == "POST":
         set_billing(request)
-        set_shipping(request)
-        print("set addresses")
+        set_shipping(request, order)
         return redirect('DroneConesApp:order_tracking', order_id=order_id)
 
 
@@ -170,7 +170,7 @@ def set_billing(request):
         billing_address.save()
         return HttpResponse(status=201)
 
-def set_shipping(request):
+def set_shipping(request, order):
     try:
         user = request.user
         first_name = request.POST.get('shipping-first-name')
@@ -179,15 +179,20 @@ def set_shipping(request):
         city = request.POST.get('shipping-city')
         state = request.POST.get('shipping-state')
         zipcode = request.POST.get('shipping-zip')
-    except:
+    except Exception as e:
+        print(e)
         return HttpResponse(status=400)
     if user is not None:
         shipping_address = Shipping_Address(user_id=user, first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
         shipping_address.save()
+        order.address = shipping_address
+        order.save()
         return HttpResponse(status=200)
     else:
         shipping_address = Shipping_Address(first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
         shipping_address.save()
+        order.address = shipping_address
+        order.save()
         return HttpResponse(status=200)
 
 

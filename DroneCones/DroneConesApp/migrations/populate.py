@@ -28,6 +28,10 @@ def populate(apps, schema_editor):
     t = Topping(quantity='100', flavor='cherry', price='100')
     t.save()
 
+    Shipping_Address = apps.get_model('DroneConesApp', 'Shipping_Address')
+    default = Shipping_Address(first_name="Big", last_name="Blue", street_address="Old Main Hill", city="Logan", state="UT", zipcode="84322")
+    default.save()
+
 
 class Migration(migrations.Migration):
     dependencies = [
