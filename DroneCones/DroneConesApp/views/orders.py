@@ -7,6 +7,17 @@ from datetime import datetime
 from django.http import HttpResponse
 from ..models import *
 
+def get_drone(order_quantity):
+    #small = 1, medium = 4, large = 8
+    drones = Drone.objects.filter(active=True, on_order=False)
+    for drone in drones:
+        if int(drone.get_capacity()) >= order_quantity:
+            drone.on_order = True
+            drone.save()
+            return drone
+    return None
+    # need to consider what happens if order_quantity is greater than 8
+
 def item_in_list(item, item_list):
     item_copy = item.copy()
     item_copy.pop('quantity')
@@ -58,6 +69,7 @@ def order(request):
 
         order = Order()
         order.user_id = get_object_or_404(User, pk=request.user.id)
+        total_quantity = sum(int(value) for key, value in qty_data.items())
         order.save()
 
         order_items = []
@@ -83,6 +95,13 @@ def order(request):
                         )
                         order_item.save()  # Save each order item
                         order_items.append(order_item)
+
+        drones = get_drone(total_quantity)
+        if drones is not None:
+            drones.commissions += grand_total/100 * .5
+            drones.save()
+            order.drones.add(drones)
+            
 
         decrement_inventory(order_items)
         order_items_json = serializers.serialize('json', order_items)
@@ -133,7 +152,7 @@ def checkout(request, order_id):
         idx = item_in_list(item['fields'], parsed_items)
         if idx != -1:
             parsed_items[idx]['quantity'] += 1
-            parsed_items[parsed_items.index(item['fields'])]["total"] = "{0:.2f}".format(float(item["fields"]["total"]) + float(parsed_items[parsed_items.index(item['fields'])]["total"]))
+            parsed_items[idx]["total"] = "{0:.2f}".format(float(item["fields"]["total"]) + float(parsed_items[idx]["total"]))
         else:
             parsed_items.append(item['fields'])
             
