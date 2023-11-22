@@ -101,6 +101,7 @@ def order(request):
             drones.commissions += grand_total/100 * .5
             drones.save()
             order.drones.add(drones)
+            order.save()
             
 
         decrement_inventory(order_items)
