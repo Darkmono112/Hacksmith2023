@@ -165,9 +165,10 @@ document.addEventListener("DOMContentLoaded", function () {
         drawConfetti();
         //reset on_order status
         var droneIds = "{{ drone|safe }}";
-        droneIds = droneIds.replace(/^\[|\]$/g, '')
+        droneIds = droneIds.replace(/^\[|\]$/g, '').trim()
+        droneIds = droneIds.split(",")
         for (var i = 0; i < droneIds.length; i++) {
-            var droneId = droneIds[i];
+            var droneId = droneIds[i].trim();
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "/reset_on_order_status/" + droneId + "/", true);
             xhr.send();

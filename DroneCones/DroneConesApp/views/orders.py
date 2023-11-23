@@ -10,13 +10,19 @@ import time
 
 def get_drone(order_quantity):
     #small = 1, medium = 4, large = 8
-    drones = Drone.objects.filter(active=True, on_order=False)
+    drones = Drone.objects.filter(active=True, on_order=False).order_by("-size")
+    drone_list = []
     for drone in drones:
-        if int(drone.get_capacity()) >= order_quantity:
+        if int(drone.get_capacity()) <= order_quantity:
+            drone_list.append(drone)
             drone.on_order = True
             drone.save()
-            return drone
-    return None
+            order_quantity-=int(drone.get_capacity())
+        elif int(drone.get_capacity()) >= order_quantity:
+            drone.on_order = True
+            drone.save()
+            drone_list.append(drone)
+    return drone_list
     # need to consider what happens if order_quantity is greater than 8
 
 def item_in_list(item, item_list):
@@ -98,12 +104,14 @@ def order(request):
                         order_items.append(order_item)
 
         drones = get_drone(total_quantity)
+        print(drones)
         if drones is not None:
-            drones.commissions += grand_total/100 * .5
-            drones.save()
-            order.drones.add(drones)
-            order.save()
-            
+            for drone in drones:
+                drone.commissions += (grand_total/100 * .5) / len(drones)
+                drone.save()
+                order.drones.add(drone)
+                order.save()
+                
 
         decrement_inventory(order_items)
         order_items_json = serializers.serialize('json', order_items)
