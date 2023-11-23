@@ -6,6 +6,7 @@ from urllib.parse import urlencode
 from datetime import datetime
 from django.http import HttpResponse
 from ..models import *
+import time
 
 def get_drone(order_quantity):
     #small = 1, medium = 4, large = 8
@@ -257,6 +258,13 @@ def order_tracking(request, order_id):
     context = {
         "items": order_items,
         "address": urlencode({ 'address': order.address.street_address + " " + order.address.city + " " + order.address.state + " " + str(order.address.zipcode) }),
-        "order_date": order.date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+        "order_date": order.date.strftime("%a, %d %b %Y %H:%M:%S GMT"),
+        "drone": list(order.drones.values_list('id', flat=True)) if order.drones.exists() else []
     }
     return render(request, 'DroneConesApp/Orders/order_tracking.html', context)
+
+def reset_on_order_status(request, drone_id):
+    drone = get_object_or_404(Drone, pk=drone_id)
+    drone.on_order = False
+    drone.save()
+    return HttpResponse(f"Drone {drone_id} reset to False.")

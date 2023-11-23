@@ -163,6 +163,15 @@ document.addEventListener("DOMContentLoaded", function () {
         // Start the animation when "Delivered" appears
         startTime = Date.now();
         drawConfetti();
+        //reset on_order status
+        var droneIds = "{{ drone|safe }}";
+        droneIds = droneIds.replace(/^\[|\]$/g, '')
+        for (var i = 0; i < droneIds.length; i++) {
+            var droneId = droneIds[i];
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/reset_on_order_status/" + droneId + "/", true);
+            xhr.send();
+        }
       }
     }
 
