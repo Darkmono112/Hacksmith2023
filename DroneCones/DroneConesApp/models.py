@@ -33,7 +33,7 @@ class Shipping_Address(models.Model):
     zipcode = models.IntegerField()
 
 class Order(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     # drone = models.ForeignKey(Drone, on_delete=models.CASCADE)
     drones = models.ManyToManyField(Drone, blank=True)
     date = models.DateTimeField(auto_now=True)

@@ -73,11 +73,16 @@ def order(request):
         qty_data = {key: value for key, value in request.POST.items() if 'qty' in key}
 
         order_items_data = json.loads(request.POST.get('order_items_data'))
-
-        order = Order()
-        order.user_id = get_object_or_404(User, pk=request.user.id)
-        total_quantity = sum(int(value) for key, value in qty_data.items())
-        order.save()
+        user = request.user.id
+        if user is not None:
+            order = Order()
+            order.user_id = get_object_or_404(User, pk=request.user.id)
+            total_quantity = sum(int(value) for key, value in qty_data.items())
+            order.save()
+        else:
+            order = Order()
+            total_quantity = sum(int(value) for key, value in qty_data.items())
+            order.save()
 
         order_items = []
         grand_total = 0
@@ -104,7 +109,6 @@ def order(request):
                         order_items.append(order_item)
 
         drones = get_drone(total_quantity)
-        print(drones)
         if drones is not None:
             for drone in drones:
                 drone.commissions += (grand_total/100 * .5) / len(drones)
@@ -181,7 +185,7 @@ def checkout(request, order_id):
 
 def set_billing(request):
     try:
-        user = request.user
+        user = request.user.id
         first_name = request.POST.get('billing-first-name')
         last_name = request.POST.get('billing-last-name')
         street_address = request.POST.get('billing-address')
@@ -201,7 +205,7 @@ def set_billing(request):
 
 def set_shipping(request, order):
     try:
-        user = request.user
+        user = request.user.id
         first_name = request.POST.get('shipping-first-name')
         last_name = request.POST.get('shipping-last-name')
         street_address = request.POST.get('shipping-address')
