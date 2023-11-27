@@ -6,9 +6,20 @@ DRONE_SIZES = [
     ('Medium', '4'),
     ('Large', '8')
 ]
+
+class Shipping_Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zipcode = models.IntegerField()
+
 class Order(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now=True)
+    address = models.ForeignKey(Shipping_Address, on_delete=models.SET_DEFAULT, default=1)
     # We don't need a total_price param, we should just add it up in the view
 
 class Order_Item(models.Model):
@@ -17,24 +28,36 @@ class Order_Item(models.Model):
     cone = models.CharField(max_length=50)
     topping = models.CharField(max_length=50)
     total = models.IntegerField()
+    def get_name(self):
+        return self.flavor + " " + self.cone + " with " + self.topping
 
 class Ice_Cream(models.Model):
     quantity = models.IntegerField()
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_name(self):
+        return f"{self.flavor} Ice Cream"
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Cone(models.Model):
     quantity = models.IntegerField()
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_name(self):
+        return f"{self.flavor} Cone"
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Topping(models.Model):
     quantity = models.IntegerField()
     flavor = models.CharField(max_length=50)
     # Price in cents to prevent rounding errors. Format in template
     price = models.IntegerField()
+    def get_price(self):
+        return "${:.2f}".format(self.price / 100)
 
 class Drone(models.Model):
     owner_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -48,6 +71,15 @@ class Drone(models.Model):
                 return choice[1]
         return ""
 
+class Billing_Address(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=100)
+    city = models.CharField(max_length=20)
+    state = models.CharField(max_length=20)
+    zipcode = models.IntegerField()
+
 class FAQ(models.Model):
     question = models.CharField(max_length=255)
     answer = models.TextField()
@@ -57,4 +89,5 @@ class Help_Request(models.Model):
     date = models.DateTimeField(auto_now=True)
     question = models.CharField(max_length=255)
     answer = models.TextField()
+
 
