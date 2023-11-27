@@ -8,6 +8,8 @@ def populate(apps, schema_editor):
     c.save()
     c = Cone(quantity='100', flavor='Waffle', price='100')
     c.save()
+    c = Cone(quantity='100', flavor='Cake', price='100')
+    c.save()
 
     Ice_Cream = apps.get_model('DroneConesApp', 'Ice_Cream')
     i = Ice_Cream(quantity='100', flavor='Vanilla', price='100')
@@ -17,6 +19,8 @@ def populate(apps, schema_editor):
     i = Ice_Cream(quantity='100', flavor='Strawberry', price='100')
     i.save()
     i = Ice_Cream(quantity='100', flavor='Mint', price='100')
+    i.save()
+    i = Ice_Cream(quantity='100', flavor='Rocky Road', price='100')
     i.save()
 
     Topping = apps.get_model('DroneConesApp', 'Topping')

@@ -25,19 +25,19 @@
 
         <div id="icecreamflavors" class="items-container">
             {% for flavor in ice_cream_flavors %}
-            <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div id="{{flavor.flavor}}" style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
         <div id="coneflavors" class="items-container" style="display: none">
             {% for flavor in cone_flavors %}
-            <div style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}"href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}"href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
         <div id="toppingflavors" class="items-container" style="display:none;">
             {% for flavor in topping_flavors %}
-            <div style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
@@ -253,6 +253,7 @@ flavorDivs.forEach((flavorDiv) => {
     addButton.textContent = 'Add to Order';
     addButton.classList.add('button');
     addButton.style.display = 'none';
+    addButton.style.marginTop = '5px';
 
     let quantity = Number(flavorDiv.getAttribute('data-quantity'));
     if (quantity === 0) {
@@ -265,7 +266,7 @@ flavorDivs.forEach((flavorDiv) => {
 
     flavorDiv.addEventListener('click', () => {
         if (!isButtonVisible && quantity > 0) {
-            addButton.style.display = 'block';
+            addButton.style.display = 'inline';
             isButtonVisible = true;
         } else if (quantity <= 0){
             addButton.style.display = 'none';
@@ -343,11 +344,11 @@ flavorDivs.forEach((flavorDiv) => {
                     orderItemsData[curKey].iceCream.splice(index, 1);
                     iceCreamLayer.removeChild(flavorImageClone);
                 } else if (selectedOption === 'cones') {
-                    const index = orderItemsData[curKey].cones.remove(flavorName);
+                    const index = orderItemsData[curKey].cones.indexOf(flavorName);
                     orderItemsData[curKey].cones.splice(index, 1);
                     coneLayer.removeChild(flavorImageClone);
                 } else if (selectedOption === 'toppings') {
-                    const index = orderItemsData[curKey].toppings.remove(flavorName);
+                    const index = orderItemsData[curKey].toppings.indexOf(flavorName);
                     orderItemsData[curKey].toppings.splice(index, 1);
                     toppingLayer.removeChild(flavorImageClone);
                 }
