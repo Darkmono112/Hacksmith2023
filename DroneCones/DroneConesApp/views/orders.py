@@ -87,26 +87,29 @@ def order(request):
         order_items = []
         grand_total = 0
 
-        for item in order_items_data:
-            if item:
-                for index in range(int(qty_data[f'qty{item.get("id")}'])):
-                    ice_cream = ', '.join(item.get('iceCream', []))
-                    cone = ', '.join(item.get('cones', []))
-                    topping = ', '.join(item.get('toppings', []))
-                    total = item.get('subtotal', 0)
-                    grand_total += total
+        try:
+            for item in order_items_data:
+                if item:
+                    for index in range(int(qty_data[f'qty{item.get("id")}'])):
+                        ice_cream = ', '.join(item.get('iceCream', []))
+                        cone = ', '.join(item.get('cones', []))
+                        topping = ', '.join(item.get('toppings', []))
+                        total = item.get('subtotal', 0)
+                        grand_total += total
 
-                    # ignore empty order items
-                    if not total == 0:
-                        order_item = Order_Item(
-                            order_id=order,
-                            flavor=ice_cream,
-                            cone=cone,
-                            topping=topping,
-                            total=total
-                        )
-                        order_item.save()  # Save each order item
-                        order_items.append(order_item)
+                        # ignore empty order items
+                        if not total == 0:
+                            order_item = Order_Item(
+                                order_id=order,
+                                flavor=ice_cream,
+                                cone=cone,
+                                topping=topping,
+                                total=total
+                            )
+                            order_item.save()  # Save each order item
+                            order_items.append(order_item)
+        except:
+            return redirect('DroneConesApp:order')
 
         drones = get_drone(total_quantity)
         if drones is not None:
