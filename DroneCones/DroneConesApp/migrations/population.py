@@ -60,3 +60,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(populate, reverse_code=undo_populate)
     ]
+
