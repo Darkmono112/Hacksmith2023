@@ -7,20 +7,6 @@ def account(request):
     return render(request, 'DroneConesApp/Account/account.html', {})
 
 #@login_required(login_url='DroneConesApp:login')
-def change_username(request):
-    user = get_object_or_404(User, pk=request.user.id)
-    context = {
-        'username': user.name
-    }
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        user.name = username
-        user.save()
-        return redirect("DroneConesApp:account")
-
-    return render(request, "DroneConesApp/Account/change_username.html", context)
-
-#@login_required(login_url='DroneConesApp:login')
 def change_password(request):
     if request.method == "POST":
         password = request.POST.get('password')
