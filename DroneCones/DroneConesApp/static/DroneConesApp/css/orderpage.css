@@ -371,6 +371,10 @@ body {
     z-index: 2;
 }
 
+#topping-layer img{
+    margin-bottom: -20px;
+}
+
 #ice-cream-layer img{
     margin-bottom: -10px;
     margin-top: -10px;

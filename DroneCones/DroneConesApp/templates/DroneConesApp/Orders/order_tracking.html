@@ -25,7 +25,7 @@ src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q={{ a
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const targetTime = new Date("{{ order_date }}").getTime() + 5 * 60 * 1000;
+    const targetTime = new Date("{{ order_date }}").getTime() + 1 * 60 * 1000;
 
     function updateCountdown() {
         const now = new Date().getTime();
@@ -163,6 +163,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Start the animation when "Delivered" appears
         startTime = Date.now();
         drawConfetti();
+        //reset on_order status
+        var droneIds = "{{ drone|safe }}";
+        droneIds = droneIds.replace(/^\[|\]$/g, '').trim()
+        droneIds = droneIds.split(",")
+        for (var i = 0; i < droneIds.length; i++) {
+            var droneId = droneIds[i].trim();
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/reset_on_order_status/" + droneId + "/", true);
+            xhr.send();
+        }
       }
     }
 

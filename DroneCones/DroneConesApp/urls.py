@@ -24,6 +24,7 @@ urlpatterns = [
     path("order_tracking/<int:order_id>", orders.order_tracking, name='order_tracking'),
     path('help/<int:redirect>/', views.faq, name='faq'),
     path('requesthelp/', views.request_help, name='request_help'),
+    path('reset_on_order_status/<int:drone_id>/', orders.reset_on_order_status, name="reset_on_order_status")
 ]
 
 app_name = "DroneConesApp"

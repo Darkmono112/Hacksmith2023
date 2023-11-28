@@ -100,16 +100,21 @@ const errorMessage = document.getElementById('error-message');
 function checkRequiredFields(requiredFields) {
     for (let i = 0; i < requiredFields.length; i++) {
         field = requiredFields[i];
+        if (field.name === "card-number") {
+            formatCreditCardNumber(field)
+        }
         if (field.hasAttribute("pattern")) {
             const pattern = new RegExp(field.getAttribute("pattern"));
             if (!pattern.test(field.value)) {
-                checkoutButton.title = `Please fill out ${field.name} correctly`;
+                checkoutButton.title = `${field.title}`;
+                errorMessage.innerHTML = `${field.title}`;
                 return false;
             }
         }
         else {
             if (field.value === "") {
-                checkoutButton.title = `Please fill out ${field.name}`;
+                checkoutButton.title = `${field.title}`;
+                errorMessage.innerHTML = `${field.title}`;
                 return false;
             }
         }
@@ -129,3 +134,9 @@ requiredCheckoutFields.forEach((field) => {
         }, 0)
     });
 });
+
+function formatCreditCardNumber(input) {
+    let value = input.value.replace(/\D/g, '');
+    value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+    input.value = value;
+}
