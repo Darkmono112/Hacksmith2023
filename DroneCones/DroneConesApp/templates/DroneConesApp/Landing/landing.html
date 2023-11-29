@@ -7,9 +7,11 @@
 <link rel="stylesheet" href="{% static 'DroneConesApp/css/landing.css' %}">
 <div class="vertical-center">
 <h2> Craving that frozen cream while out and about? Look no further! We'll fly it straight to you!</h2>
-<a href="{% url 'DroneConesApp:order' %}">
-<button type="button" class="button-primary" > Order Now !!</button> 
-</a>
+<button style="width:100%;">
+    <a href="{% url 'DroneConesApp:order' %}"> Order Now!!
+    </a>
+</button>
+
 </div> 
 
 {% endblock %} 

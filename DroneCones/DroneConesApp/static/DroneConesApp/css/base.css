@@ -161,3 +161,35 @@ a {
     text-decoration: none;
     color: var(--font-color);
 }
+
+#error-message, .error-message {
+    color: var(--button-color);
+    font-weight: bold;
+    font-size: .75rem;
+    display: inline-block;
+    width: 100%;
+}
+
+input {
+    border: 1px solid var(--button-color);
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+button {
+    border: 0;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 5px;
+    margin-top:10px;
+    cursor: pointer;
+    background-color: var(--button-color);
+    color: #fff;
+    font-size: 18px;
+    min-width: 100px;
+}
+button:hover {
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
