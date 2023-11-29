@@ -81,23 +81,23 @@
                     {% csrf_token %}
                     Credit Card Details
                     <div class="unified-input form-input">
-                        <input title="Please enter card number" required type="number" id="card-number" name="card-number" placeholder="Card Number">
-                        <input title="Please enter expiration date" required type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY">
-                        <input title="Please enter cvv" required type="number" id="cvv" name="cvv" placeholder="CVV">
+                        <input title="Please enter valid card number" required type="text" id="card-number" name="card-number" placeholder="Card Number" pattern="^\d{4}\s?\d{4}\s?\d{4}\s?\d{4}$" maxlength="19">
+                        <input title="Please enter valid expiration date" required type="text" id="expiration-date" name="expiration-date" placeholder="MM/YY" pattern="^(0[1-9]|1[0-2])\/\d{2}$">
+                        <input title="Please enter valid cvv" required type="number" id="cvv" name="cvv" placeholder="CVV" pattern="[0-9]{3}" maxlength="3">
                     </div>
                     <div class="location-details">
                         Billing Address
                         <div class="unified-input form-input">
-                            <input title="Please enter first name" type="text" id="first-name" name="billing-first-name" placeholder="First Name">
-                            <input title="Please enter last name" required type="text" id="last-name" name="billing-last-name" placeholder="Last Name">
+                            <input title="Please enter valid first name" type="text" id="first-name" name="billing-first-name" placeholder="First Name" pattern="^[^\d]+$">
+                            <input title="Please enter valid last name" required type="text" id="last-name" name="billing-last-name" placeholder="Last Name" pattern="^[^\d]+$">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter address" required type="text" id="address" name="billing-address" placeholder="Address">
-                            <input title="Please enter city" required type="text" id="city" name="billing-city" placeholder="City">
+                            <input title="Please enter valid address" required type="text" id="address" name="billing-address" placeholder="Address">
+                            <input title="Please enter valid city" required type="text" id="city" name="billing-city" placeholder="City" pattern="^[^\d]+$">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter state" required type="text" id="state" name="billing-state" placeholder="State">
-                            <input title="Please enter zip code" required type="number" id="zip" name="billing-zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
+                            <input title="Please enter valid state" required type="text" id="state" name="billing-state" placeholder="State" pattern="^[^\d]+$">
+                            <input title="Please enter valid zip code" required type="number" id="zip" name="billing-zip" placeholder="Zip" pattern="^\d{5}$" maxlength="5">
                         </div>
                     </div>
                 </div>
@@ -129,16 +129,16 @@
                     <div class="location-details">
                         Shipping Address
                         <div class="unified-input form-input">
-                            <input title="Please enter first name" required type="text" id="first-name" name="shipping-first-name" placeholder="First Name">
-                            <input title="Please enter last name" required type="text" id="last-name" name="shipping-last-name" placeholder="Last Name">
+                            <input title="Please enter valid first name" required type="text" id="first-name" name="shipping-first-name" placeholder="First Name" pattern="^[^\d]+$">
+                            <input title="Please enter valid last name" required type="text" id="last-name" name="shipping-last-name" placeholder="Last Name" pattern="^[^\d]+$">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter address" required type="text" id="address" name="shipping-address" placeholder="Address">
-                            <input title="Please enter city" required type="text" id="city" name="shipping-city" placeholder="City">
+                            <input title="Please enter valid address" required type="text" id="address" name="shipping-address" placeholder="Address">
+                            <input title="Please enter valid city" required type="text" id="city" name="shipping-city" placeholder="City" pattern="^[^\d]+$">
                         </div>
                         <div class="unified-input form-input">
-                            <input title="Please enter state" required type="text" id="state" name="shipping-state" placeholder="State">
-                            <input inputmode="numeric" title="Please enter zip code" required type="number" id="zip" name="shipping-zip" placeholder="Zip" pattern="[0-9]{5}" maxlength="5">
+                            <input title="Please enter valid state" required type="text" id="state" name="shipping-state" placeholder="State" pattern="^[^\d]+$">
+                            <input title="Please enter valid zip code" required type="number" id="zip" name="shipping-zip" placeholder="Zip" pattern="^\d{5}$" maxlength="5">
                         </div>
                     </div>
                 </div>
