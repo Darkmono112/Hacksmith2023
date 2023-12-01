@@ -108,7 +108,8 @@ def order(request):
                             )
                             order_item.save()  # Save each order item
                             order_items.append(order_item)
-        except:
+        except Exception as e:
+            print(e)
             return redirect('DroneConesApp:order')
 
         drones = get_drone(total_quantity)
@@ -188,7 +189,7 @@ def checkout(request, order_id):
 
 def set_billing(request):
     try:
-        user = request.user.id
+        user = request.user
         first_name = request.POST.get('billing-first-name')
         last_name = request.POST.get('billing-last-name')
         street_address = request.POST.get('billing-address')
@@ -198,7 +199,7 @@ def set_billing(request):
     except:
         return HttpResponse(status=400)
     if user is not None:
-        billing_address = Billing_Address(user_id=user,first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
+        billing_address = Billing_Address(user_id=user, first_name=first_name, last_name=last_name, street_address=street_address, city=city, state=state, zipcode=zipcode)
         billing_address.save()
         return HttpResponse(status=201)
     else:
@@ -208,7 +209,7 @@ def set_billing(request):
 
 def set_shipping(request, order):
     try:
-        user = request.user.id
+        user = request.user
         first_name = request.POST.get('shipping-first-name')
         last_name = request.POST.get('shipping-last-name')
         street_address = request.POST.get('shipping-address')
