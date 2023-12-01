@@ -276,6 +276,110 @@ body {
     border-radius: 4px;
 }
 
+.order-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.order-item-container{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    padding: .75em;
+    height: fit-content;
+}
+
+.ice-cream-cone-container{
+    width: 20%;
+}
+
+.item-name-container{
+    width: 55%;
+}
+
+.edit-options-container{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.order-item-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.order-item-actions span{
+    cursor: pointer;
+    color: darkblue;
+    font-size: 14px;
+}
+
+.order-item-quantity{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.order-item-quantity input{
+    width: 28px;
+}
+
+.item-name-container ul li{
+    text-align: left;
+    color: dimgray;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.ice-cream-cone-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#ice-cream-layer{
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
+
+#ice-cream-layer img{
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
+#cone-layer{
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+}
+
+#cone-layer img{
+    margin-top: 0px;
+}
+
+#topping-layer{
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+#topping-layer img{
+    margin-bottom: -20px;
+}
+
+#ice-cream-layer img{
+    margin-bottom: -10px;
+    margin-top: -10px;
+}
+
 .form-input {
     width: 100%;
     box-sizing: border-box;
@@ -311,4 +415,52 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.details-container input::-webkit-inner-spin-button,
+.details-container input::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+button:disabled {
+    background-color: var(--text-button-color);
+    color: var(--button-color);
+    cursor: not-allowed;
+    border: 1px solid var(--button-color);
+    border-radius: 4px;
+}
+
+#error-message {
+    color: var(--button-color);
+    font-weight: bold;
+    font-size: .75rem;
+    margin: 8px;
+}
+
+.popup {
+    position: fixed; /* Position the popup relative to the viewport */
+    top: 14%; /* Adjust the vertical position as needed */
+    left: 50%; /* Adjust the horizontal position as needed */
+    transform: translate(-50%, -50%); /* Center the popup */
+    background-color: #fdb400;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    width: 80%;
+    text-align: center;
+    height: fit-content;
+    display: block;
+    z-index: 1000; /* Adjust the z-index to ensure it's above other elements */
+    /* Additional styling as needed */
+}
+
+.items-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 50px;
 }
