@@ -13,6 +13,7 @@
             <th>Drone Size</th>
             <th>Status</th>
             <th>Out on Delivery</th>
+            <th>Commissions</th>
             <th>Actions</th>
         </tr>
         {% if drones %}
@@ -27,6 +28,7 @@
               {% endif %}
             </td>            
             <td>{{ drone.on_order }}</td>
+            <td>{{drone.get_commissions}}</td>
             <td>
               <form id="active-form" method="post" action="{% url 'DroneConesApp:toggle_drone_status' drone.id %}">
                 {% csrf_token %}

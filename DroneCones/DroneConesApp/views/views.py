@@ -5,7 +5,9 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import authenticate, login, logout
 from ..forms.forms import CreateUserForm, AddDroneForm
 from django.contrib.auth.models import Group
-from DroneConesApp.models import Drone, User, FAQ, Help_Request
+
+from DroneConesApp.models import Drone, User, Ice_Cream, Cone, Topping, FAQ, Help_Request
+
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
@@ -132,7 +134,9 @@ def login_page(request):
         if user is not None:
             login(request, user)
             return redirect('DroneConesApp:home')
-
+        else:
+            context={"error": "Invalid username or password."}
+            return render(request, "DroneConesApp/Signup/login.html", context)
     context={}
     return render(request, "DroneConesApp/Signup/login.html", context)
 
@@ -147,6 +151,3 @@ def assign_group(user, group):
         user.groups.add(Group.objects.get(name=group))
     except:
         pass
-
-def adminpanel(request):
-    return render(request, 'DroneConesApp/misc/adminpanel.html')

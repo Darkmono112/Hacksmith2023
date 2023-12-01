@@ -19,6 +19,11 @@
             <div>
                 <input type="password" id="password" name="password" placeholder="Password*" class="form-input">
             </div>
+            {% if error %}
+                <span class="error-message" id="error-message">
+                    {{ error }}
+                </span>
+            {% endif %}
             <button type="submit" class="button-primary" id="form-button">Log In</button>
         </form>
         <div>
