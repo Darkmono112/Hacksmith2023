@@ -16,7 +16,12 @@ In this app manual, you will learn how to use Drone Cones to:
 From the nav bar click on the Login button in the top right corner.
 ![](./img/noLogin.png)
 
-From the login 
+From the login screen, under the form there is a link labeled "sign up". Select it, and proceed to fill out the form on the following page. 
+![](./img/login.png)
+
+![](./img/signup.png)
+
+Once done click the Sign Up option to create your new drone cones account.
 
 ## Orders 
 When you are ready to place an order click on the large "Order Now" button located on the homepage. 
