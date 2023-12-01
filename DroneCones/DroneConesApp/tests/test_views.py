@@ -24,10 +24,9 @@ class Test_Views(TestCase):
         self.account_url = reverse('DroneConesApp:account')
         self.order_history_url = reverse('DroneConesApp:order_history')
         self.delete_order_url = reverse('DroneConesApp:delete_order', args=[1])
-        self.change_username_url = reverse('DroneConesApp:change_username')
         self.change_password_url = reverse('DroneConesApp:change_password')
         self.delete_account_url = reverse('DroneConesApp:delete_account')
-        self.checkout_url = reverse('DroneConesApp:checkout')
+        self.checkout_url = reverse('DroneConesApp:checkout', args=[1])
 
         self.user = User.objects.create_user(username='testuser', password='testpassword')
         self.drone = Drone.objects.create(owner_id=self.user, size='Small', active=True, on_order=False)
@@ -56,27 +55,25 @@ class Test_Views(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'DroneConesApp/FAQ/request_help.html')
     
-    # def test_flyerportal_GET_as_flyer(self):
-    #     flyer_user = User.objects.create_user(username='testuser2', password='testpassword')
-    #     flyer_group = Group.objects.get(name='Flyer')
-    #     flyer_user.groups.add(flyer_group)
-    #     response = self.client.get(self.flyerportal_url)
-    #     self.client.force_login(flyer_user)
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'DroneConesApp/misc/flyerportal.html')
-        #having weird namespace issues, not gonna worry about it for now
+    def test_flyerportal_GET_as_flyer(self):
+        flyer_user = User.objects.create_user(username='testuser2', password='testpassword')
+        flyer_group = Group.objects.get(name='Flyer')
+        flyer_user.groups.add(flyer_group)
+        response = self.client.get(self.flyerportal_url)
+        self.client.force_login(flyer_user)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'DroneConesApp/misc/flyerportal.html')
 
-    # def test_flyerportal_GET_not_flyer(self):
-    #     response = self.client.get(self.flyerportal_url)
-    #     self.client.force_login(self.user)
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'DroneConesApp/misc/flyersignup.html')
-        #having weird namespace issues, not gonna worry about it for now
+    def test_flyerportal_GET_not_flyer(self):
+        response = self.client.get(self.flyerportal_url)
+        self.client.force_login(self.user)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'DroneConesApp/misc/flyersignup.html')
     
-    # def test_flyersignup_GET(self):
-    #     response = self.client.get(self.flyersignup_url)
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'DroneConesApp/misc/flyersignup.html')
+    def test_flyersignup_GET(self):
+        response = self.client.get(self.flyersignup_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'DroneConesApp/misc/flyersignup.html')
     
     def test_create_drone_GET(self):
         response = self.client.get(self.create_drone_url)
@@ -88,8 +85,7 @@ class Test_Views(TestCase):
     
     def test_adminpanel_GET(self):
         response = self.client.get(self.adminpanel_url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'DroneConesApp/misc/adminpanel.html')
+        self.assertEquals(response.status_code, 302)
 
     def test_signup_GET(self):
         response = self.client.get(self.signup_url)

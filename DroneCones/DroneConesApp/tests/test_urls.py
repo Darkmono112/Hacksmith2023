@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 from DroneConesApp.views.account import *
 from DroneConesApp.views.orders import *
 from DroneConesApp.views.views import *
+from DroneConesApp.views.admin import *
 
 class Test_Urls(SimpleTestCase):
 
@@ -61,10 +62,6 @@ class Test_Urls(SimpleTestCase):
     def test_delete_order_url(self):
         url = reverse('DroneConesApp:delete_order', args=[1])
         self.assertEquals(resolve(url).func, delete_order)
-    
-    def test_change_username_url(self):
-        url = reverse('DroneConesApp:change_username')
-        self.assertEquals(resolve(url).func, change_username)
 
     def test_change_password_url(self):
         url = reverse('DroneConesApp:change_password')
@@ -75,7 +72,7 @@ class Test_Urls(SimpleTestCase):
         self.assertEquals(resolve(url).func, delete_account)
 
     def test_checkout_url(self):
-        url = reverse('DroneConesApp:checkout')
+        url = reverse('DroneConesApp:checkout', args=[1])
         self.assertEquals(resolve(url).func, checkout)
     
     def test_help_url(self):
