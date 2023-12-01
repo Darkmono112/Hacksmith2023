@@ -36,7 +36,7 @@ def request_help(request):
 def payment(request):
     return HttpResponse("This will be the Order page.")
 
-@login_required(login_url='DroneCones:login') 
+@login_required(login_url='DroneConesApp:login')
 def flyerportal(request):
 
     # see if user is registered as a drone flyer

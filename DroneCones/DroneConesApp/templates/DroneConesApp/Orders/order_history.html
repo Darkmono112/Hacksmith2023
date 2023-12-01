@@ -9,18 +9,18 @@
 <div class="content-container">
     <h1 style="text-align: center; font-size: 50px">Order History</h1>
     <hr style="margin-top: -20px; margin-bottom: 30px" width="80%">
-    <table width="98%" height="98%" align="center" cellpadding="10" border="0">
-        <tr class="order headers no-hover">
+    <table width="98%" height="98%" cellpadding="10">
+        <tr class="headers no-hover">
             <th>Order Date</th>
             <th>Order Number</th>
             <th>Order Item(s)</th>
             <th>Total Cost</th>
-            <th></th><!-- Delete button -->
+            <th>Actions</th><!-- Delete button -->
         </tr>
     {% for order in orders %}
-        <tr class="order zebra">
-            <td style="text-align: center">{{order.date}}</td>
-            <td style="text-align: center">{{order.id}}</td>
+    <tr class="hover">
+            <td >{{order.date}}</td>
+            <td >{{order.id}}</td>
             <td>
                 {% for order_item in order_items %}
                 <ul>
@@ -48,8 +48,8 @@
                     {% csrf_token %}
                     <input type="hidden" name="project_id" value="{{ project.id }}">
                     <input type="hidden" name="username" id="username">
-                    <button class="button" type="button" onclick="deleteConfirmation(this)">
-                      <img src="{% static 'DroneConesApp/images/trash.png' %}" height="14px" width="auto"> Delete
+                    <button  type="button" onclick="deleteConfirmation(this)">
+                         Delete
                     </button>
                   </form>
             </td>
