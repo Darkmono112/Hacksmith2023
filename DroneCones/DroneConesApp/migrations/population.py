@@ -47,7 +47,7 @@ def populate(apps, schema_editor):
 
     User = get_user_model()
 
-    for i in range(3):
+    for i in range(9):
         username = f'user{i}'  # Use a unique username for each user
         user = User(username=username, last_login=timezone.now())
         user.last_login = timezone.now()
@@ -58,11 +58,18 @@ def populate(apps, schema_editor):
     Drone = apps.get_model('DroneConesApp', 'Drone')
 
     # Get the first 3 users and create a drone for each user
-    users = User.objects.all()[:3]
-
+    smallusers = User.objects.all()[:3]
+    mediumusers = User.objects.all()[3:6]
+    largeusers = User.objects.all()[6:]
     # Create and save a drone for each user
-    for user in users:
+    for user in smallusers:
         drone = Drone(owner_id=user, size="Small", active=True, on_order=False)
+        drone.save()
+    for user in mediumusers:
+        drone = Drone(owner_id=user, size="Medium", active=True, on_order=False)
+        drone.save()
+    for user in largeusers:
+        drone = Drone(owner_id=user, size="Large", active=True, on_order=False)
         drone.save()
 
 
