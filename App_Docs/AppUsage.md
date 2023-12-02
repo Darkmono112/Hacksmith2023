@@ -38,6 +38,9 @@ You may add more cones to your order by selecting " + Add Another Item". When yo
 Fill out each section of the forum and select checkout to finish your order
 ![Checkout](./img/checkout.png)
 
+A timer will appear to indicate the approximate wair time for delivery.
+![Delivery](./img/orderTrack.png)
+
 
 ## Admin Page
 
