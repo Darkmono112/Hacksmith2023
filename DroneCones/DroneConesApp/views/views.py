@@ -38,7 +38,6 @@ def payment(request):
 
 @login_required(login_url='DroneConesApp:login')
 def flyerportal(request):
-
     # see if user is registered as a drone flyer
     # if they are send to front end as normal
     # if not, return different page with sign up form which will redirect to flyer portal 
@@ -50,7 +49,7 @@ def flyerportal(request):
     else:
         return render(request, "DroneConesApp/misc/flyersignup.html")
 
-@login_required(login_url='DroneCones:login') 
+@login_required(login_url='DroneConesApp:login')
 def flyersignup(request):
     user = request.user
     flyer_group = Group.objects.get(name='Flyer')
