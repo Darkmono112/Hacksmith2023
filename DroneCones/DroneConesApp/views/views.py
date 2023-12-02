@@ -117,6 +117,7 @@ def signup(request):
             login(request, user)
             return redirect('DroneConesApp:home')
 
+
     context={'form': form}
     return render(request, "DroneConesApp/Signup/signup.html", context)
 
