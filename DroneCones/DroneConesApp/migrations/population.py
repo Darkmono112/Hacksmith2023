@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import migrations
-
-from DroneConesApp.models import FAQ
+from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 
 def populate(apps, schema_editor):
@@ -44,6 +44,28 @@ def populate(apps, schema_editor):
                                                         'This will redirect you to a page where you can register your'
                                                         'drone for service.')
     f.save()
+
+    User = get_user_model()
+
+    for i in range(3):
+        username = f'user{i}'  # Use a unique username for each user
+        user = User(username=username, last_login=timezone.now())
+        user.last_login = timezone.now()
+        user.save()
+
+        # Retrieve the User and Drone models
+    User = apps.get_model('auth', 'User')
+    Drone = apps.get_model('DroneConesApp', 'Drone')
+
+    # Get the first 3 users and create a drone for each user
+    users = User.objects.all()[:3]
+
+    # Create and save a drone for each user
+    for user in users:
+        drone = Drone(owner_id=user, size="Small", active=True, on_order=False)
+        drone.save()
+
+
 
 class Migration(migrations.Migration):
     dependencies = [
