@@ -42,10 +42,12 @@ A timer will appear to indicate the approximate wair time for delivery.
 ![Delivery](./img/orderTrack.png)
 
 
-## Admin Page
 
 ## Flyer Page
 To sign up as a flyer, click the Flyer tab located on the nav bar of each page 
 ![](./img/homepage.png)
 
 Then select Sign Up
+
+
+## Admin Page
