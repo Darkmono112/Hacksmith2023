@@ -47,7 +47,28 @@ A timer will appear to indicate the approximate wair time for delivery.
 To sign up as a flyer, click the Flyer tab located on the nav bar of each page 
 ![](./img/homepage.png)
 
-Then select Sign Up
+Then select Sign Up. You'll then be redirected to a page to register your drones. 
+![Flyer Home](./img/flyer.png)
 
+To register a new drone, select the appropriate configuration under Drone Registry, then select 
+" Register Drone ". Your currently registered drones will then appear on the left.
+![Registered Drones](./img/drones.png)
+
+Each drone has an active or inactive status, whether it is currently in use, and the profit of a drone. To prevent a drone from being used in the sytem simply click DEACTIVATE on the drone. To Activate, select Activate. Deleting a drone currentlt is not permitted as tracking the drones income is essential. 
 
 ## Admin Page
+to access the admin panel, you must be registered as a site admin. This can be done by your it in the admin page that is provided with django. Once an admin, go to the /adminpanel page using the url bar as in the example
+![Admin Panel](./img/adminPanel.PNG)
+
+
+Once in the admin panel, you'll be able to manage drones, Manually change prices and quantity of products, and restock a product. To edit a product, hover over the item. and click the pencil icon.
+![](./img/editItem.PNG)
+
+You will see the following menu. The price is put as a Dollar.Cent value, and the quantity will be the total current quantity. You can increase or decrease the stock. 
+![](./img/changeItem.PNG)
+
+Additionally the restock option lets you quickly restock an item.
+![](./img/restock.PNG)
+
+Currently the drone tab is for viewing registered drones only
+![](./img/droneAdmin.PNG)
