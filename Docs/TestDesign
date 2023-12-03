@@ -1,0 +1,13 @@
+# Test Design
+
+## Built-in Django Unit tests
+The majority of our testing was done using Django's built in unit testing framework. 
+
+## Integration Tests
+Rather than building some selenium project to run through our app, we shared the responsibility to test all our features among each other. We naturally worked on our own features, so when we got to the testing sprint, we had other people go through and peer review our code, and test if it was working when it was run.
+
+We also created stories and notified the owner of the feature if a bug was found which accounted for most of the debugging. We did our best to follow the 9 Good Testing Habits mentioned in class and the team has done an excellent job pracicing 'egoless' programming as many things were overridden over the course of the project
+
+
+## Chaos testing
+Most of our team has a bit of experience creating an app like this, so it built quickly and properly. The issue arose that all proper inputs worked great, but if the user did something unexpected, there was little handling in the code for it. Much of this sprint was spent doing weird inputs and *trying* to get errors so we could find where our weaknesses were.
