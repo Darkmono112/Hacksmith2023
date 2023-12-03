@@ -1,44 +1,39 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
 
 #@login_required(login_url='DroneConesApp:login')
 def account(request):
     return render(request, 'DroneConesApp/Account/account.html', {})
 
 #@login_required(login_url='DroneConesApp:login')
-def change_username(request):
-    user = get_object_or_404(User, pk=request.user.id)
-    context = {
-        'username': user.name
-    }
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        user.name = username
-        user.save()
-        return redirect("DroneConesApp:account")
-
-    return render(request, "DroneConesApp/Account/change_username.html", context)
-
-#@login_required(login_url='DroneConesApp:login')
 def change_password(request):
-    if request.method == "POST":
-        password = request.POST.get('password')
-        confpassword = request.POST.get('confpassword')
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_new_password = request.POST.get('confirm_new_password')
 
-        if password == confpassword:
-            user = get_object_or_404(User, pk=request.user.id)
-            user.set_password(password)
-            user.save()
+        user = authenticate(username=request.user.username, password=current_password)
 
-            return redirect('DroneConesApp:account')  # Change this to your login URL
+        if user is not None:
+            if new_password == confirm_new_password:
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)
+                login(request, user)  # This re-authenticates the user to update the session
+                messages.success(request, 'Your password was successfully updated!') # Replace with the desired success URL
+            else:
+                messages.error(request, 'New passwords do not match.')
         else:
-            error_message = "Passwords do not match"
-            return render(request, 'DroneConesApp/Account/change_password.html',
-                          {'error_message': error_message})
+            messages.error(request, 'Current password is incorrect.')
 
-    else:
-        return render(request, 'DroneConesApp/Account/change_password.html', {})
+    return render(request, 'DroneConesApp/Account/change_password.html', {})
 
 
 @login_required(login_url='DroneConesApp:login')

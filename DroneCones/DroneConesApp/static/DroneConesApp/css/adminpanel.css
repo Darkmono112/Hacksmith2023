@@ -1,0 +1,107 @@
+#adminpanel {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#adminpanel section {
+    width: 60%;
+    
+}
+
+#adminpanel table {
+    width:100%;
+    background-color: #f2f2f2;
+    border:1px solid #dcdcdc;
+    border-radius: 5px;
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-spacing: 0;
+}
+
+#adminpanel th {
+    text-align: left;
+}
+
+#adminpanel .hover:hover {
+    background: #ebebeb;
+}
+
+
+#adminpanel button {
+    border: 0;
+    border-radius: 5px;
+    height: 35px;
+    padding: 0 5px;
+    margin-top:10px;
+    cursor: pointer;
+    background-color: var(--button-color);
+    color: #fff;
+    font-size: 18px;
+    min-width: 100px;
+}
+
+#adminpanel button:hover {
+    box-shadow:rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+#Drones-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
+#Inventory-button[data-display="true"] {
+    background-color: var(--nav-bar-color);
+}
+
+@media (max-width: 768px) {
+    #adminpanel {
+        flex-direction: column;
+        justify-content: center;
+    }
+    #adminpanel section {
+        width: 100%;
+        overflow-x: scroll;
+    }
+    #adminpanel aside {
+        width: 100%;
+    }
+}
+
+#inventory {
+    display: block;
+}
+
+#inventory[data-display="true"] {
+    display: block;
+}
+
+#inventory[data-display="false"] {
+    display: none;
+}
+
+#drones {
+    display: none;
+}
+
+#drones[data-display="false"] {
+    display: none;
+}
+#drones[data-display="true"] {
+    display: block;
+}
+
+#adminpanel .hover:hover .edit-button{
+    visibility: visible;
+}
+
+.edit-button {
+    visibility: hidden;
+    color: var(--button-color);
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    color: var(--nav-bar-color);
+}

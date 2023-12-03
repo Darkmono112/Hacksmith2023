@@ -21,21 +21,29 @@
             </div>
         </div>
         <div class="buttons-container">
-            <a class="button" href="{% url 'DroneConesApp:order_history' %}">
-                Order History
+
+            <a  href="{% url 'DroneConesApp:order_history' %}">
+                <button style="width:100%;">
+                    Order History
+                </button>
             </a>
-            <a class="button" href="{% url 'DroneConesApp:change_username' %}">
-                Change Username
+
+            
+            <a  href="{% url 'DroneConesApp:change_password' %}">
+                <button style="width:100%;">
+                    Change Password
+                </button>
             </a>
-            <a class="button" href="{% url 'DroneConesApp:change_password' %}">
-                Change Password
+            
+            <a href="{% url 'DroneConesApp:logout' %}">
+                <button style="width:100%;">
+                    Logout
+                </button>
             </a>
-            <a class="button" href="{% url 'DroneConesApp:logout' %}">
-                Logout
-            </a>
+            
             <form id="delete-form" method="post" data-delete-url="{% url 'DroneConesApp:delete_account' %}">
                 {% csrf_token %}
-                <button class="button" style="background-color:rgb(211, 74, 97)" type="button" onclick="deleteConfirmation(this)">
+                <button  style="background-color:rgb(211, 74, 97); width:100%;" type="button" onclick="deleteConfirmation(this)">
                     Delete Account
                 </button>
             </form>

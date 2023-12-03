@@ -3,80 +3,218 @@
 {% block title %}Order{% endblock %}
 
 {% load static %}
+
 {% block content %}
+<div id="popup" class="popup" style="display: none">
+
+</div>
 
 <link rel="stylesheet" href="{% static 'DroneConesApp/css/orderpage.css' %}">
+
 <div class="content-container">
     <h1 style="text-align: center; font-size: 30px">Ice Cream</h1>
     <hr style="margin-top: -20px; margin-bottom: 30px">
     <div class="sub-content-container">
         <div class="option-list">
             <ul style="list-style: none; padding: 0; margin: 10px;">
-                <li><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
+                <li class="selected"><a><img src="{% static 'DroneConesApp/images/Sprites/IceCream/all.png' %}" width="70px" height="70px"><span class="list-label">Ice Cream</span></a></li>
                 <li><a><img src="{% static 'DroneConesApp/images/Sprites/Cones/all.png' %}" width="70px" height="70px"><span class="list-label">Cones</span></a></li>
                 <li><a><img src="{% static 'DroneConesApp/images/Sprites/Toppings/all.png' %}" width="70px" height="70px"><span class="list-label">Toppings</span></a></li>
             </ul>
         </div>
 
-        <div id="icecreamflavors" style="display: block; margin-left: 50px">
+        <div id="icecreamflavors" class="items-container">
             {% for flavor in ice_cream_flavors %}
-            <div id="{{flavor.flavor}}" style="display: inline-block"><a class="pick-icon" data-price="{{flavor.price}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div id="{{flavor.flavor}}" style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/IceCream/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
-        <div id="coneflavors" style="display: none; margin-left: 50px">
+        <div id="coneflavors" class="items-container" style="display: none">
             {% for flavor in cone_flavors %}
-            <div style="display: inline-block"><a class="pick-icon" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}"href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Cones/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
-        <div id="toppingflavors" style="display: none; margin-left: 50px">
+        <div id="toppingflavors" class="items-container" style="display:none;">
             {% for flavor in topping_flavors %}
-            <div style="display: inline-block"><a class="pick-icon" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
+            <div style="display: flex"><a class="pick-icon" data-price="{{flavor.price}}" data-quantity="{{flavor.quantity}}" href="#"><img style="width: 100px; height: auto;" src="{% static 'DroneConesApp/images/Sprites/Toppings/'|add:flavor.flavor|add:'.png' %}"><li>{{flavor.flavor}}</li></a></div>
             {% endfor %}
         </div>
 
     </div>
 </div>
-<div class="content-container" style="margin-left: 50px; width: 40%">
-    <form method="post" action="{% url 'DroneConesApp:order' %}">
+<div class="content-container" style="margin-left: 50px; width: 40%; text-align: center">
+    <form method="post" id="checkout-form" action="{% url 'DroneConesApp:order' %}">
         {% csrf_token %}
         <h1 style="text-align: center; font-size: 30px">My Order</h1>
         <hr style="margin-top: -15px; margin-bottom: 30px">
-        <h4 style="text-align: center; margin-top: -25px; font-size: 10px">*Click an item to remove it from your order*</h4>
-        <br>
-        <div class="sub-content-container" id="myOrderContainer" style="display: flex; flex-direction: column; margin-top: -30px;">
-            <div id="order-container">
-                <!-- This is where order entries will go -->
+        <h4 style="text-align: center; margin-top: -25px; margin-bottom: 35px; font-size: 10px">*Click an item to remove it from your order*</h4>
+        <div class="sub-content-container" id="myOrderContainer" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: -30px; margin-left: 0; padding: 0">
+            <div class='order-container' id="order-container">
+                <div id="blank-order-item" style="text-align: center; width: 100%">
+                    <p>There are currently no items in your cart!</p>
+                </div>
             </div>
-            <div style="text-align: right;">
+            <div style="text-align: right; width: 80%">
                 <br>
-                <span>Order Amount: $</span>
-                <input type="hidden" id="total-price-input" name="total-price-input">
-                <span id="total-price" style="font-weight: bold; margin-right: 20px">0.00</span>
-                <button id="checkout-button" class="button" type="submit">
-                    <img src="{% static 'DroneConesApp/images/checkout.png' %}" height="14px" width="auto"> Checkout
-                </button>
+                <a id="add-order-item" class="button" style="display: block; text-align: center;">+ Add Another Item</a>
+                <div>
+                    <span>Order Amount: $</span>
+                    <input type="hidden" id="total-price-input" name="total-price-input">
+                    <span id="total-price" style="font-weight: bold; margin-right: 0px">0.00</span>
+                </div>
             </div>
         </div>
+        <button id="checkout-button" class="button" onclick="submitOrder()" type="button" style="width: 80%; margin-top: 10px">
+            <img src="{% static 'DroneConesApp/images/checkout.png' %}" height="14px" width="auto"> Checkout
+        </button>
     </form>
+    <script>
+        document.getElementById('checkout-form').addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+          }
+        });
+    </script>
 </div>
 
-
-
-
 <script>
-// JavaScript code to handle option selection and flavor selection
-
-// Option list
+//Get all elements from the DOM
+let blank = document.getElementById('blank-order-item');
+const addOrderItemButton = document.getElementById('add-order-item')
 const optionList = document.querySelector('.option-list ul');
 const optionItems = optionList.querySelectorAll('li');
 const iceCreamFlavors = document.getElementById('icecreamflavors');
 const coneFlavors = document.getElementById('coneflavors');
 const toppingFlavors = document.getElementById('toppingflavors');
+const flavorDivs = document.querySelectorAll('.pick-icon');
+const myOrderContainer = document.getElementById('order-container');
+const orderItemsData = [];
+let order_item_count = 0;
+// Event listener for Add Order Item button
+addOrderItemButton.addEventListener('click', () => {
+    // remove no items in cart message
+    blank.remove();
+    deactivateAllOtherDivs();
+
+    const orderItemContainer = document.createElement('div');
+    orderItemContainer.classList.add('order-item-container');
+    orderItemContainer.setAttribute('data-active', true);
+    orderItemContainer.setAttribute('data-id', order_item_count);
+
+    // base template for each order item
+    orderItemContainer.innerHTML = `
+        <div class="ice-cream-cone-container">
+            <div id="topping-layer">
+
+            </div>
+            <div id="ice-cream-layer">
+
+            </div>
+            <div id="cone-layer">
+
+            </div>
+        </div>
+
+        <div class="item-name-container">
+            <ul name="item-names" id="item-names">
+            </ul>
+        </div>
+
+        <div class="edit-options-container">
+            <div class="order-item-actions">
+                <span id='edit-button' style="display: none">Edit |</span>
+                <span id='remove-button' style="margin-left: 5px;"> Remove</span>
+            </div>
+            <div class="order-item-quantity">
+                <label for="qty" style="font-size: 14px">Qty: </label>
+                <input name='qty${order_item_count}' type="number" value="1" min="1" max="9" step="1">
+            </div>
+            <div style="display: flex; flex-direction: row; margin-top: 15px; margin-right: 40px">
+                <strong>Subtotal: </strong><span>$</span><span id="subtotal"></span>
+            </div>
+        </div>
+    `;
+
+    //event listeners need to be added every time a new order item is added
+    const editButtons = document.querySelectorAll('#edit-button')
+    editButtons.forEach((button) => {
+        button.style.display = 'block';
+    });
+
+    myOrderContainer.appendChild(orderItemContainer);
+
+    reconfigEditButtons();
+
+    const removeButtons = document.querySelectorAll('#remove-button');
+    removeButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const parentContainer = button.parentElement.parentElement.parentElement;
+            const id = parentContainer.getAttribute('data-id');
+            let keyToDelete = null;
+
+            for (const key in orderItemsData) {
+                if (orderItemsData[key].id == id) {
+                    keyToDelete = key;
+                    break; // Exit the loop once we've found the item to delete
+                }
+            }
+
+            delete orderItemsData[keyToDelete];
+
+            //If item being removed is selected, default selected to the last item in the list
+            if(parentContainer.getAttribute('data-active') === 'true'){
+                parentContainer.remove();
+                setLastDivActive();
+                updateTotalPrice();
+            }
+            else{
+                parentContainer.remove()
+            }
+
+        });
+    });
+    const orderItemData = {
+        iceCream: [],
+        cones: [],
+        toppings: [],
+        subtotal: 0, // Add more relevant data as needed
+        id: order_item_count,
+    };
+    orderItemsData.push(orderItemData);
+    order_item_count++;
+});
+
+function setLastDivActive() {
+    const orderItemContainers = document.querySelectorAll('.order-item-container');
+
+    if (orderItemContainers.length > 0) {
+        const last = orderItemContainers[orderItemContainers.length - 1];
+        last.setAttribute('data-active', 'true');
+        last.children[2].children[0].children[0].style.display = 'none';
+    }
+}
+
+
+function reconfigEditButtons(){
+    const editButtons = document.querySelectorAll('#edit-button');
+    editButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+            const parentContainer = button.parentElement.parentElement.parentElement;
+            deactivateAllOtherDivs();
+            editButtons.forEach((edit) => {
+                edit.style.display = 'block';
+            });
+            parentContainer.setAttribute('data-active', true);
+            button.style.display = 'none';
+        });
+    });
+}
+
 
 optionItems.forEach((item) => {
-    item.addEventListener('click', (event) => {
+    // Add even listener for Ice Cream, Cones, and Toppings options
+    item.addEventListener('click', () => {
         optionItems.forEach((el) => {
             el.classList.remove('selected');
         });
@@ -87,22 +225,24 @@ optionItems.forEach((item) => {
         toppingFlavors.style.display = 'none';
 
         if (selectedOption === 'ice cream') {
-            iceCreamFlavors.style.display = 'block';
+            iceCreamFlavors.style.display = 'flex';
+            iceCreamFlavors.style.flexDirection = 'row'
+            iceCreamFlavors.style.flexWrap = 'wrap'
         } else if (selectedOption === 'cones') {
-            coneFlavors.style.display = 'block';
+            coneFlavors.style.display = 'flex';
+            coneFlavors.style.flexDirection = 'row'
+            coneFlavors.style.flexWrap = 'wrap'
         } else if (selectedOption === 'toppings') {
-            toppingFlavors.style.display = 'block';
+            toppingFlavors.style.display = 'flex';
+            toppingFlavors.style.flexDirection = 'row'
+            toppingFlavors.style.flexWrap = 'wrap'
         }
     });
 });
-</script>
 
-<script>
-const flavorDivs = document.querySelectorAll('.pick-icon');
-const myOrderContainer = document.getElementById('order-container');
-let totalPrice = 0;
 
 flavorDivs.forEach((flavorDiv) => {
+    // For each flavor (whether ice cream, cone, or topping, get the image, the price, and the name and add it to the order item div
     const flavorImage = flavorDiv.querySelector('img');
     const flavorName = flavorDiv.querySelector('li').textContent;
     const flavorPrice = Number(flavorDiv.getAttribute('data-price'));
@@ -111,77 +251,224 @@ flavorDivs.forEach((flavorDiv) => {
     // Create the "Add to Order" button
     const addButton = document.createElement('button');
     addButton.textContent = 'Add to Order';
+    addButton.classList.add('button');
     addButton.style.display = 'none';
+    addButton.style.marginTop = '5px';
+
+    let quantity = Number(flavorDiv.getAttribute('data-quantity'));
+    if (quantity === 0) {
+        addButton.disabled = true;
+        flavorDiv.style.opacity = 0.5; // Add a gray mask
+        flavorDiv.innerHTML += '<div class="out-of-stock-label">Out of Stock</div>'; // Add 'out of stock' label
+    }
 
     flavorDiv.appendChild(addButton);
 
     flavorDiv.addEventListener('click', () => {
-        if (!isButtonVisible) {
-            addButton.style.display = 'block';
+        if (!isButtonVisible && quantity > 0) {
+            addButton.style.display = 'inline';
             isButtonVisible = true;
-        } else {
+        } else if (quantity <= 0){
             addButton.style.display = 'none';
             isButtonVisible = false;
+
+            const outOfStockLabel = flavorDiv.querySelector('.out-of-stock-label');
+            if (!outOfStockLabel) {
+                flavorDiv.style.opacity = 0.5;
+
+                const outOfStockLabelDiv = document.createElement('div');
+                outOfStockLabelDiv.className = 'out-of-stock-label';
+                outOfStockLabelDiv.textContent = 'Out of Stock';
+
+                flavorDiv.appendChild(outOfStockLabelDiv);
+            }
         }
     });
 
+
     addButton.addEventListener('click', () => {
-    // Create a new entry in the order
-    const orderEntry = document.createElement('div');
-    orderEntry.classList.add('order-entry');
-    const orderItemContainer = document.createElement('div');
-    orderItemContainer.style.display = 'inline-block';
-    const orderImage = flavorImage.cloneNode(true);
-    orderImage.style.width = '70px';
-    const orderName = document.createElement('span');
-    orderName.textContent = flavorName;
-    orderEntry.appendChild(orderImage);
-    orderEntry.appendChild(orderName);
-    orderItemContainer.append(orderEntry);
-    myOrderContainer.appendChild(orderItemContainer);
+        const selectedOption = document.querySelector('.selected').textContent.toLowerCase();
+        let activeOrderItem = document.querySelector('.order-item-container[data-active="true"]');
+        if(!activeOrderItem){
+            addOrderItemButton.click();
+            activeOrderItem = document.querySelector('.order-item-container[data-active="true"]');
+        }
+        const iceCreamLayer = activeOrderItem.children[0].children[1];
+        const coneLayer = activeOrderItem.children[0].children[2];
+        const toppingLayer = activeOrderItem.children[0].children[0];
 
-    const hiddenNameInput = document.createElement('input');
-    hiddenNameInput.type = 'hidden';
-    hiddenNameInput.name = 'order_item_name[]';
-    hiddenNameInput.value = flavorName;
+        let flavorNameElement = document.createElement('li');
+        const activeItemList = activeOrderItem.children[1].children[0];
+        flavorNameElement.setAttribute('data-price', flavorPrice)
 
-    // Append the hidden inputs to the form
-    const form = document.querySelector('form');
-    form.appendChild(hiddenNameInput);
+        // Add the flavor image to the correct layer
+        console.log(activeOrderItem.getAttribute('data-id'));
+        const flavorImageClone = flavorImage.cloneNode(true);
+        if (canAddToOrder(selectedOption, activeOrderItem) && quantity > 0) {
+            const id = activeOrderItem.getAttribute('data-id');
+            if (selectedOption === 'ice cream') {
+                flavorImageClone.style.width = '30px';
+                flavorNameElement.textContent = "1 Scoop " + flavorName;
+                iceCreamLayer.appendChild(flavorImageClone);
+                orderItemsData[id].iceCream.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
+            } else if (selectedOption === 'cones') {
+                flavorImageClone.style.width = '45px';
+                flavorNameElement.textContent = flavorName + " Cone";
+                coneLayer.appendChild(flavorImageClone);
+                orderItemsData[id].cones.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
+            } else if (selectedOption === 'toppings') {
+                flavorImageClone.style.width = '30px';
+                flavorNameElement.textContent = flavorName;
+                toppingLayer.appendChild(flavorImageClone);
+                orderItemsData[id].toppings.push(flavorName)
+                orderItemsData[id].subtotal += flavorPrice;
+            }
+            activeItemList.appendChild(flavorNameElement);
 
-    orderItemContainer.addEventListener('click', () => {
-        removeItemFromOrder(orderItemContainer);
+            flavorNameElement.addEventListener('click', () => {
+                flavorNameElement.remove();
+                const id = activeOrderItem.getAttribute('data-id');
+                let curKey = null;
+
+                for (const key in orderItemsData) {
+                    if (orderItemsData[key].id == id) {
+                        curKey = key;
+                        break; // Exit the loop once we've found the item to delete
+                    }
+                }
+
+                if (selectedOption === 'ice cream') {
+                    const index = orderItemsData[curKey].iceCream.indexOf(flavorName);
+                    orderItemsData[curKey].iceCream.splice(index, 1);
+                    iceCreamLayer.removeChild(flavorImageClone);
+                } else if (selectedOption === 'cones') {
+                    const index = orderItemsData[curKey].cones.indexOf(flavorName);
+                    orderItemsData[curKey].cones.splice(index, 1);
+                    coneLayer.removeChild(flavorImageClone);
+                } else if (selectedOption === 'toppings') {
+                    const index = orderItemsData[curKey].toppings.indexOf(flavorName);
+                    orderItemsData[curKey].toppings.splice(index, 1);
+                    toppingLayer.removeChild(flavorImageClone);
+                }
+                orderItemsData[curKey].subtotal -= flavorPrice;
+                updateTotalPrice()
+                const totalElement = document.getElementById('total-price');
+                console.log(totalElement.textContent)
+                if (totalElement.textContent === "0.00") {
+                    activeOrderItem.remove()
+                }
+
+                quantity += 1;
+                const outOfStockLabel = flavorDiv.getElementsByClassName('out-of-stock-label');
+                if (outOfStockLabel) {
+                    flavorDiv.style.opacity = 1;
+                    console.log(outOfStockLabel)
+                    flavorDiv.removeChild(outOfStockLabel[0]);
+                }
+
+            });
+
+            blank.remove();
+            updateTotalPrice();
+            quantity -= 1;
+
+        }
+        else{
+            showPopup("You cannot add another item of that type")
+        }
+    });
+});
+
+function updateTotalPrice() {
+    const orderContainers = document.querySelectorAll('.order-item-container');
+    let total = 0;
+    orderContainers.forEach((orderContainer) => {
+        const containerItems = orderContainer.querySelectorAll('#item-names > li');
+        let subtotal = 0;
+
+        containerItems.forEach((entry) => {
+            const price = Number(entry.getAttribute('data-price')) / 100;
+            const quantity = parseInt(orderContainer.children[2].querySelector('input[name*="qty"]').value, 10);
+            subtotal += price * quantity;
+        });
+
+        total += subtotal
+
+        const subtotalElement = orderContainer.querySelector('#subtotal');
+        subtotalElement.textContent = subtotal.toFixed(2);
     });
 
-    // Update the total price
-    totalPrice += (flavorPrice / 100);
-    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
-    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
-});
-
-
-});
-
-function removeItemFromOrder(itemElement) {
-    itemElement.remove();
-
-    // Recalculate the total price after removing the item
-    const orderItems = collectOrderItems();
-    updateTotalPrice(orderItems);
+    const totalElement = document.getElementById('total-price')
+    totalElement.textContent = total.toFixed(2);
 }
 
-function updateTotalPrice(orderItems) {
-    // Recalculate the total price
-    let totalPrice = 0;
-    orderItems.forEach((item) => {
-        // Calculate the total price based on your item's properties
-        // For example, if you have a property itemPrice for each item, you can use it here.
-        // totalPrice += item.itemPrice;
+function canAddToOrder(option, active){
+    if(option.toLowerCase() === 'ice cream'){
+        if(active.children[0].children[1].children.length < 3){
+            return true;
+        }
+    }
+    else if(option.toLowerCase() === 'cones'){
+        if(active.children[0].children[2].children.length < 1){
+            return true;
+        }
+    }
+    else if(option.toLowerCase() === 'toppings'){
+        if(active.children[0].children[0].children.length < 2){
+            return true;
+        }
+    }
+    return false
+}
+
+function deactivateAllOtherDivs(){
+    const allOrderItemContainers = document.querySelectorAll('.order-item-container');
+    allOrderItemContainers.forEach((entry) => {
+        entry.setAttribute('data-active', false)
     });
+}
 
-    document.getElementById('total-price').textContent = totalPrice.toFixed(2); // Display as currency
-    document.getElementById('total-price-input').value = totalPrice.toFixed(2);
+const popup = document.getElementById('popup');
 
+function showPopup(message) {
+    const popup = document.createElement('div');
+    popup.className = 'popup';
+    popup.textContent = message;
+    document.body.appendChild(popup);
+
+    // Use setTimeout to remove the element after 3 seconds
+    setTimeout(() => {
+        popup.style.opacity = 0; // Start fading out
+        setTimeout(() => {
+            popup.remove(); // Remove the popup element after it has faded out
+        }, 500); // Adjust the time here to match the CSS transition duration (0.5s in this example)
+    }, 1500);
+}
+
+function submitOrder() {
+    const blank = document.getElementById('blank-order-item');
+    if(blank){
+        showPopup("Add some items to your cart to checkout!");
+    }
+    else {
+        // Convert the array to a JSON string
+        const orderItemsDataString = JSON.stringify(orderItemsData);
+
+        // Add a hidden input to store the order item data
+        const orderItemsInput = document.createElement('input');
+        orderItemsInput.type = 'hidden';
+        orderItemsInput.name = 'order_items_data'; // Use an appropriate name
+        orderItemsInput.value = orderItemsDataString;
+
+        // Add the hidden input to the form
+        const form = document.querySelector('form');
+        form.appendChild(orderItemsInput);
+
+        // Submit the form
+        form.submit();
+    }
 }
 </script>
 

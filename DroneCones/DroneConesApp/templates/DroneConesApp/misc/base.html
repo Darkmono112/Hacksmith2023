@@ -19,8 +19,10 @@
             <button class="menu-button" id="drawer-button">
                 <span class="material-icons" id="menu-icon">menu</span>
             </button>
-            <img src="{% static 'DroneConesApp/images/icon.png' %}" alt="logo" class="logo">
-            <span>Drone Cones</span>
+            <a href="{% url 'DroneConesApp:home' %}" style="display: flex; align-items: center">
+                <img src="{% static 'DroneConesApp/images/icon.png' %}" alt="logo" class="logo">
+                <span>Drone Cones</span>
+            </a>
         </div>
         <div class="nav-links">
             <a href="{% url 'DroneConesApp:home' %}" class="nav-item">Dashboard</a>
@@ -34,6 +36,7 @@
             {% endif %}
             {% if user.is_authenticated %}
                 <a href="{% url 'DroneConesApp:account' %}" class="nav-item">Account</a>
+                <a href="{% url 'DroneConesApp:logout' %}" class="nav-item">Log Out</a>
             {% else %}
                 <a href="{% url 'DroneConesApp:login' %}" class="nav-item">Login</a>
             {% endif %}
